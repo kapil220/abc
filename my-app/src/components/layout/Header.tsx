@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { Route } from "next";
+
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -111,7 +113,8 @@ interface NavLinkProps {
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
-  <Link href={href}>
+  <Link href={href as Route}>
+
     <div className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium cursor-pointer">
       {children}
     </div>

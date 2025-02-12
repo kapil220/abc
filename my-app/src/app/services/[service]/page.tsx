@@ -1,50 +1,35 @@
-import { services } from '@/lib/constant';
-import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
-import Image from 'next/image';
+import { services } from "@/lib/constant";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import Image from "next/image";
 
-interface Service {
-  name: string;
-  slug: string;
-  description: string;
-  shortDescription: string;
-  benefits: string[];
-  targetAudience: string;
-  imageUrl: string;
-}
+export type PageProps = {
+  params: Promise<{ service: string }>; // ✅ Ensure params matches expected type
+};
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { service: string } 
-}): Promise<Metadata> {
-  const service = services.find((s): s is Service => s.slug === params.service);
-  
+
+// ✅ Fix `generateMetadata` typing
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const service = services.find(async (s) => s.slug === (await params).service);
+
   return {
-    title: service?.name || 'Service Not Found',
-    description: service?.shortDescription || 'Service description not available',
+    title: service?.name || "Service Not Found",
+    description: service?.shortDescription || "Service description not available",
   };
 }
 
-export async function generateStaticParams() {
-  return services.map((service: Service) => ({
-    service: service.slug,
+// ✅ Fix `generateStaticParams` return type
+export async function generateStaticParams(): Promise<{ params: { service: string } }[]> {
+  return services.map((service) => ({
+    params: { service: service.slug },
   }));
 }
 
-interface PageParams {
-  service: string;
-}
-
-export default function Page({ 
-  params 
-}: { 
-  params: PageParams 
-}) {
-  const service = services.find((s): s is Service => s.slug === params.service);
+export default function Page({ params }: PageProps) {
+  const service = services.find(async (s) => s.slug === (await params).service);
 
   if (!service) {
-    notFound();
+    return notFound();
   }
 
   return (
@@ -73,9 +58,7 @@ export default function Page({
               <h2 className="text-2xl font-semibold mb-4">Benefits</h2>
               <ul className="list-disc pl-6">
                 {service.benefits.map((benefit, index) => (
-                  <li key={index} className="text-gray-600">
-                    {benefit}
-                  </li>
+                  <li key={index} className="text-gray-600">{benefit}</li>
                 ))}
               </ul>
             </div>

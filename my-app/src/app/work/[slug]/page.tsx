@@ -2,12 +2,14 @@ import { notFound } from "next/navigation";
 import { workPortfolio } from "@/lib/constant";
 import Image from "next/image";
 
-interface WorkDetailProps {
-  params: { slug: string };
-}
+export type WorkDetailProps = {
+  params: Promise<{ slug: string }>; // ✅ Ensure params matches Next.js expectations
+};
+
+
 
 export default async function WorkDetail({ params }: WorkDetailProps) {
-  const workItem = workPortfolio.find((work) => work.slug === params.slug);
+  const workItem = workPortfolio.find(async (work) => work.slug === (await params).slug);
 
   if (!workItem) return notFound();
 
