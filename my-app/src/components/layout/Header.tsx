@@ -45,13 +45,13 @@ const Header: React.FC = () => {
     <header className="bg-isabelline bg-transparent  text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg ">
 
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 md:py-4">
+        <div className="flex items-center justify-between h-16 ">
           <div className="flex-shrink-0">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
                 <Image 
-                  className="h-25 w-auto" 
+                  className="h-16 md:h-28 w-auto " 
                   src="/images/logo.webp" 
                   alt="Logo" 
                   width={120}  

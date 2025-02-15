@@ -102,7 +102,7 @@ const Contact = () => {
 
       {/* Right Section - Contact Form */}
       <motion.div 
-        className="lg:w-1/2 bg-gray-100 py-12 lg:py-20 px-6 lg:pr-32"
+        className="lg:w-1/2 bg-gray-100 py-6 lg:py-20 px-6 lg:pr-32"
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}

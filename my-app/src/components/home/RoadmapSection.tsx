@@ -13,7 +13,7 @@ const RoadmapSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-b from-[#F8F4EF] via-[#E6DED7] to-[#C2B8AF] relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
 
       <div className="absolute inset-0 b opacity-20"></div>
 

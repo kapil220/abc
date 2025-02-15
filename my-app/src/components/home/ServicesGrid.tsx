@@ -4,7 +4,7 @@ import { services } from '@/lib/constant';
 
 export default function ServicesGrid() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#C2B8AF] via-[#E6DED7] to-[#F8F4EF] relative w-full">
+    <section className="min-h-screen bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] relative w-full">
 
       {/* Gradient Overlay for Color Effect */}
       <div className="absolute inset-0  opacity-20"></div>

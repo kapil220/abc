@@ -5,8 +5,8 @@ import { Users, Target, Award } from 'lucide-react';
 
 const AboutPage = () => {
   return (
-    <main className="pt-20">
-      <section className="py-20 bg-white">
+    <main className="pt-24 ">
+      <section className="py-20 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

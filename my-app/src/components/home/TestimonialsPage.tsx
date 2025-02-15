@@ -144,7 +144,7 @@ const TestimonialsPage: React.FC = () => {
   };
 
   return (
-    <div className="py-12 md:py-24 bg-gradient-to-b from-[#d4c9bf] via-[#E6DED7] to-[#F8F4EF]">
+    <div className="py-12 md:py-24 bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]">
 
 
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
