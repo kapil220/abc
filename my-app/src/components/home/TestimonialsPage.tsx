@@ -1,9 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
-const testimonials = [
+interface Testimonial {
+  name: string;
+  role: string;
+  feedback: string;
+  image: string;
+}
+
+const testimonials: Testimonial[] = [
   {
     name: 'John Doe',
     role: 'CEO, TechCorp',
@@ -12,123 +20,215 @@ const testimonials = [
   },
   {
     name: 'Jane Smith',
-    role: 'Marketing Director, HealthPlus',
-    feedback: 'A perfect blend of mindfulness and physical exercise. I feel more energized and focused throughout the day.',
+    role: 'Marketing Director',
+    feedback: 'A perfect blend of mindfulness and exercise. I feel more energized and focused throughout the day.',
     image: '/images/2.jpg'
   },
   {
     name: 'Emily Johnson',
-    role: 'Freelance Designer',
-    feedback: 'The therapeutic yoga sessions helped me recover from a chronic back issue. Highly recommended!',
+    role: 'Designer',
+    feedback: 'The therapeutic yoga sessions helped tremendously. Highly recommended for anyone with back issues!',
     image: '/images/2.jpg'
   },
   {
     name: 'Michael Brown',
     role: 'Entrepreneur',
-    feedback: 'The power yoga sessions are intense and rewarding. It’s my go-to workout routine now.',
+    feedback: 'The power yoga sessions are intense and rewarding. Its my go-to workout routine now.',
+    image: '/images/2.jpg'
+  },
+  {
+    name: 'Emily Johnson',
+    role: 'Designer',
+    feedback: 'The therapeutic yoga sessions helped tremendously. Highly recommended for anyone with back issues!',
+    image: '/images/2.jpg'
+  },
+  {
+    name: 'Michael Brown',
+    role: 'Entrepreneur',
+    feedback: 'The power yoga sessions are intense and rewarding. Its my go-to workout routine now.',
     image: '/images/2.jpg'
   }
 ];
 
-const clientLogos = [
-  '/images/client1.jpg',
-  '/images/client2.jpg',
-  '/images/client3.jpg',
-  '/images/client4.jpg'
-];
-
 const TestimonialsPage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const handlePrev = () => {
-    setActiveIndex((prevIndex) => (prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1));
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const moveCarousel = (direction: 'prev' | 'next') => {
+    if (isAnimating) return;
+    
+    setIsAnimating(true);
+    setActiveIndex(prev => {
+      if (direction === 'next') {
+        return prev === testimonials.length - 1 ? 0 : prev + 1;
+      } else {
+        return prev === 0 ? testimonials.length - 1 : prev - 1;
+      }
+    });
+    
+    setTimeout(() => setIsAnimating(false), 400);
   };
 
-  const handleNext = () => {
-    setActiveIndex((prevIndex) => (prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1));
+  const handleCardClick = (clickedIndex: number) => {
+    if (isAnimating || clickedIndex === activeIndex) return;
+    
+    setIsAnimating(true);
+    setActiveIndex(clickedIndex);
+    setTimeout(() => setIsAnimating(false), 400);
+  };
+
+  const getCardStyle = (index: number) => {
+    const diff = (index - activeIndex + testimonials.length) % testimonials.length;
+    const center = 0;
+    
+    let translateX = 0;
+    let translateZ = 0;
+    let opacity = 1;
+    let scale = 1;
+    let cursor = 'pointer';
+
+    if (isMobile) {
+      // Mobile styles
+      if (diff === center) {
+        translateX = 0;
+        opacity = 1;
+        scale = 1;
+      } else {
+        translateX = diff > 0 ? 100 : -100;
+        opacity = 0;
+        scale = 0.8;
+      }
+      translateZ = 0;
+    } else {
+      // Desktop styles
+      if (diff === center) {
+        translateZ = 0;
+        scale = 1;
+        cursor = 'default';
+      } else if (diff === 1 || diff === testimonials.length - 1) {
+        translateX = diff === 1 ? 150 : -150;
+        translateZ = -100;
+        scale = 0.8;
+        opacity = 0.8;
+      } else if (diff === 2 || diff === testimonials.length - 2) {
+        translateX = diff === 2 ? 300 : -300;
+        translateZ = -200;
+        scale = 0.6;
+        opacity = 0.6;
+      } else {
+        translateX = diff > center ? 450 : -450;
+        translateZ = -300;
+        scale = 0.4;
+        opacity = 0;
+      }
+    }
+
+    return {
+      transform: `translateX(${translateX}px) translateZ(${translateZ}px) scale(${scale})`,
+      opacity,
+      zIndex: 1000 - Math.abs(diff),
+      transition: 'all 0.4s ease-out',
+      cursor
+    };
   };
 
   return (
-    <>
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-16">What Our Clients Say</h2>
+    <div className="py-12 md:py-24 bg-gradient-to-b from-[#d4c9bf] via-[#E6DED7] to-[#F8F4EF]">
 
-          {/* User Images as Selectors with Zig-Zag Layout */}
-          <div className="flex justify-center space-x-4 mb-8">
-            {testimonials.map((testimonial, index) => (
-              <img
-                key={index}
-                src={testimonial.image}
-                alt={testimonial.name}
-                onClick={() => setActiveIndex(index)}
-                className={`w-16 h-16 rounded-full object-cover cursor-pointer border-4 transition-transform transform ${
-                  activeIndex === index ? 'border-gray-500 scale-110 ' : 'border-transparent'
-                } ${index % 2 === 0 ? 'translate-y-0' : 'translate-y-4'}`}
-              />
-            ))}
-          </div>
 
-          {/* Active Testimonial with Navigation */}
-          <div className="relative p-8 rounded-2xl mx-auto max-w-xl   transition-transform duration-300">
-            <button
-              onClick={handlePrev}
-              className="absolute -left-8 top-1/2 transform -translate-y-1/2 p-2 rounded-full hover:bg-gray-300 transition-all"
-            >
-              <ChevronLeft size={30} />
-            </button>
+      <div className="max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
 
-            <div>
-              <h3 className="text-xl font-semibold mb-2">{testimonials[activeIndex].name}</h3>
-              <p className="text-gray-500 mb-4">{testimonials[activeIndex].role}</p>
-              <p className="text-gray-700 italic">&quot;{testimonials[activeIndex].feedback}&quot;</p>
 
-            </div>
+       
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-7xl font-heading text-taupe text-center mb-8 md:mb-12">What Our Clients Say</h2>
+          <h3 className="text-xl font-subheading text-gray-600 max-w-3xl mx-auto">
+            Hear what our clients have to say about working with us
+          </h3>
+        </div>
 
-            <button
-              onClick={handleNext}
-              className="absolute -right-8 top-1/2 transform -translate-y-1/2 p-2 rounded-full hover:bg-gray-300 transition-all"
-            >
-              <ChevronRight size={30} />
-            </button>
-          </div>
+        <div className="relative h-[500px] md:h-[500px] flex justify-center items-center">
 
-          {/* Pagination Dots */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  activeIndex === index ? 'bg-black scale-125' : 'bg-gray-300'
-                }`}
-              ></button>
-            ))}
+
+        <div className="absolute inset-0 flex justify-center items-center transform-style-3d">
+
+        {testimonials.map((testimonial, index) => (
+  <div
+    key={index}
+    className="absolute flex justify-center items-center w-[300px] md:w-[450px] h-[300px] md:h-[340px]"
+    style={getCardStyle(index)}
+    onClick={() => handleCardClick(index)}
+    role="button"
+    tabIndex={0}
+    onKeyDown={(e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        handleCardClick(index);
+      }
+    }}
+    aria-label={`View testimonial from ${testimonial.name}`}
+  >
+    <div className="bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow h-full">
+      <div className="p-4 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-4 border-b border-gray-100">
+        <Image
+         
+          src={testimonial.image}
+          alt={testimonial.name}
+          width={150}
+          height={50}
+          className="w-16 h-16 rounded-full object-cover"
+        />
+        <div className="text-center md:text-left">
+          <h3 className="text-lg md:text-xl text-bold font-heading text-pineGreen">
+            {testimonial.name}
+          </h3>
+          <h3 className="text-sm font-subheading text-taupe">
+            {testimonial.role}
+          </h3>
+        </div>
+      </div>
+
+      <div className="p-4 md:p-6">
+        <p className="text-sm md:text-base text-gray-900 font-body">
+        <p>{testimonial.feedback.replace(/"/g, '&quot;')}</p>
+
+        </p>
+      </div>
+    </div>
+  </div>
+))}
+
           </div>
         </div>
-      </section>
 
-      {/* Client Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Clients</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-            {clientLogos.map((logo, index) => (
-              <div
-                key={index}
-                className="aspect-video flex items-center justify-center"
-              >
-                <img
-                  src={logo}
-                  alt={`Client ${index + 1}`}
-                  className="object-contain h-full"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="flex justify-center gap-4 mt-8 md:mt-12">
+          <button
+            onClick={() => moveCarousel('prev')}
+            className="p-2 rounded-full bg-pineGreen/10 hover:bg-pineGreen/20 transition-colors"
+            disabled={isAnimating}
+          >
+            <ChevronLeft className="w-6 h-6 text-pineGreen" />
+          </button>
+          <button
+            onClick={() => moveCarousel('next')}
+            className="p-2 rounded-full bg-pineGreen/10 hover:bg-pineGreen/20 transition-colors"
+            disabled={isAnimating}
+          >
+            <ChevronRight className="w-6 h-6 text-pineGreen" />
+          </button>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 };
 

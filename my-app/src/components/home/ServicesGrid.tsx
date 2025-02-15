@@ -4,12 +4,19 @@ import { services } from '@/lib/constant';
 
 export default function ServicesGrid() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative">
+    <section className="min-h-screen bg-gradient-to-b from-[#C2B8AF] via-[#E6DED7] to-[#F8F4EF] relative w-full">
+
       {/* Gradient Overlay for Color Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-800 via-transparent to-blue-800 opacity-20"></div>
+      <div className="absolute inset-0  opacity-20"></div>
 
       <div className="max-w-5xl mx-auto px-4 py-16 relative z-10">
-        <h2 className="text-4xl font-bold text-center text-white mb-16">Our Services</h2>
+       
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-7xl font-bold text-center text-taupe mb-12">Our Services</h2>
+          <p className="text-xl md:text-2xl  max-w-3xl mx-auto">
+            Comprehensive digital solutions tailored to elevate your brand
+          </p>
+        </div>
 
         {/* Stacking and scroll effect for all cards */}
         <div className="relative">
@@ -30,24 +37,7 @@ export default function ServicesGrid() {
         </div>
       </div>
 
-      {/* Custom Pulse Animation */}
-      <style jsx>{`
-        .animate-pulse {
-          animation: pulse 3s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-          0% {
-            opacity: 0.2;
-          }
-          50% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 0.2;
-          }
-        }
-      `}</style>
+    
     </section>
   );
 }

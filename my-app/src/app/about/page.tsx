@@ -1,44 +1,89 @@
+"use client";
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Users, Target, Award } from 'lucide-react';
 
-const AboutPage: React.FC = () => {
+const AboutPage = () => {
   return (
-    <div className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-12">About ACB Limited</h1>
+    <main className="pt-20">
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <h1 className="font-heading text-3xl  md:text-5xl lg:text-7xl font-bold mb-12">About The Inkpot Group</h1>
+            <h3 className="font-subheading max-w-3xl mx-auto text-xl md:text-2xl lg:text-4xl">
+              Crafting digital excellence since 2020
+            </h3>
+          </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Our Vision</h2>
-            <p className="text-gray-600">
-              To become the leading yoga service provider...
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
+              <p className="text-gray-600 mb-4">
+                The Inkpot Group was founded with a vision to transform how brands connect with their audience in the digital space. We believe in the power of authentic storytelling and data-driven strategies to create meaningful connections.
+              </p>
+              <p className="text-gray-600">
+                Our team of creative professionals and digital strategists work together to deliver exceptional results that help our clients stand out in todays competitive landscape.
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="relative"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
+                alt="Team collaboration"
+                className="rounded-lg shadow-xl"
+              />
+            </motion.div>
           </div>
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
-            <p className="text-gray-600">
-              To provide accessible, high-quality yoga services...
-            </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            {[
+              {
+                icon: Users,
+                title: 'Expert Team',
+                description: 'Talented professionals with diverse expertise',
+              },
+              {
+                icon: Target,
+                title: 'Results Driven',
+                description: 'Focused on delivering measurable outcomes',
+              },
+              {
+                icon: Award,
+                title: 'Quality First',
+                description: 'Committed to excellence in every project',
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                className="text-center p-6"
+              >
+                <div className="inline-block p-4 bg-isabelline rounded-full mb-4">
+                  <item.icon className="w-8 h-8 text-pine" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Our Goals</h2>
-            <ul className="space-y-4 text-gray-600">
-              <li>• Expand our reach to serve more communities</li>
-              <li>• Maintain the highest standards of yoga instruction</li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Our Values</h2>
-            <ul className="space-y-4 text-gray-600">
-              <li>• Authenticity in teaching and practice</li>
-              <li>• Commitment to personal growth</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

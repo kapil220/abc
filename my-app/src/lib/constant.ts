@@ -1,125 +1,213 @@
 
 export const services = [
   {
-    name: "Yoga 1",
-    slug: "yoga1",
-    shortDescription: "Traditional yoga practices focusing on alignment and breath work",
-    description: "Our foundational yoga program that combines traditional asanas with modern techniques. Perfect for building a strong foundation in yoga practice.",
+    name: "Social Media Management",
+    slug: "social-media-management",
+    shortDescription: "Strategic social media growth and engagement.",
+    description: "Comprehensive social media management services, including content planning, posting, audience engagement, and analytics tracking to boost online presence and brand loyalty.",
     benefits: [
-      "Improved flexibility and strength",
-      "Better posture and alignment",
-      "Reduced stress and anxiety",
-      "Enhanced mind-body connection"
+      "Increased brand awareness",
+      "Higher engagement rates",
+      "Consistent content strategy",
+      "Optimized social media presence"
     ],
-    targetAudience: "Suitable for beginners and those looking to refine their basic practice.",
-    imageUrl: "/images/test.jpg"  // Added image path
+    targetAudience: "Businesses, influencers, and brands looking to grow their social media presence.",
+    imageUrl: "/images/socialmedia.jpg"
   },
   {
-    name: "Yoga 2",
-    slug: "yoga2",
-    shortDescription: "Advanced yoga techniques with meditation",
-    description: "An advanced program combining complex asanas with deep meditation practices. Focuses on spiritual growth and advanced physical techniques.",
+    name: "Digital Strategy",
+    slug: "digital-strategy",
+    shortDescription: "Data-driven strategies for online success.",
+    description: "Expertly crafted digital strategies that drive traffic, enhance brand positioning, and improve conversions through SEO, social media, and online campaigns.",
     benefits: [
-      "Deep spiritual connection",
-      "Advanced posture mastery",
-      "Enhanced meditation practice",
-      "Improved energy flow"
+      "Optimized online presence",
+      "Increased customer engagement",
+      "Data-backed marketing decisions",
+      "Higher ROI on digital efforts"
     ],
-    targetAudience: "Experienced practitioners looking to deepen their practice.",
-    imageUrl: "/images/yoga2.jpg"  // Added image path
+    targetAudience: "Businesses seeking a strong and effective online presence.",
+    imageUrl: "/images/digital.jpg"
   },
   {
-    name: "Yoga 3",
-    slug: "yoga3",
-    shortDescription: "Therapeutic yoga for healing",
-    description: "Specialized therapeutic yoga sessions designed to aid in healing and recovery. Combines gentle movements with healing techniques.",
+    name: "Content Creation",
+    slug: "content-creation",
+    shortDescription: "Compelling content that captivates audiences.",
+    description: "High-quality written, visual, and video content tailored to your brand's voice and objectives to engage and inspire your audience.",
     benefits: [
-      "Pain management",
-      "Injury recovery",
-      "Improved mobility",
-      "Stress reduction"
+      "Enhanced brand storytelling",
+      "Higher audience engagement",
+      "SEO-friendly content",
+      "Consistent brand voice"
     ],
-    targetAudience: "Those seeking healing from injuries or chronic conditions.",
-    imageUrl: "/images/yoga3.webp"  // Added image path
+    targetAudience: "Brands and businesses looking for impactful content to connect with their audience.",
+    imageUrl: "/images/contentcreation.png"
   },
   {
-    name: "Yoga 4",
-    slug: "yoga4",
-    shortDescription: "Power yoga for fitness",
-    description: "High-intensity yoga sessions focusing on strength and endurance. Combines traditional yoga with modern fitness principles.",
+    name: "Photography & Videography",
+    slug: "photography-videography",
+    shortDescription: "Professional visuals for brand storytelling.",
+    description: "High-quality photography and videography services to create visually compelling content that enhances brand identity and marketing campaigns.",
     benefits: [
-      "Increased strength",
-      "Better endurance",
-      "Weight management",
-      "Enhanced flexibility"
+      "Stronger visual branding",
+      "Higher engagement and shares",
+      "Professional-grade media content",
+      "Tailored creative direction"
     ],
-    targetAudience: "Fitness enthusiasts and those seeking a more intense practice.",
-    imageUrl: "/images/yoga3.jpg"  // Added image path
+    targetAudience: "Businesses, influencers, and brands in need of professional visual content.",
+    imageUrl: "/images/photography.webp"
   },
   {
-    name: "Yoga 5",
-    slug: "yoga5",
-    shortDescription: "Mindfulness and meditation",
-    description: "Focus on mental wellness through mindfulness practices and meditation techniques. Perfect for stress relief and mental clarity.",
+    name: "Branding & Logo Design",
+    slug: "branding-logo-design",
+    shortDescription: "Crafting unique brand identities.",
+    description: "Strategic branding solutions, including logo design, color schemes, typography, and brand guidelines to establish a strong and memorable identity.",
     benefits: [
-      "Mental clarity",
-      "Stress reduction",
-      "Better focus",
-      "Emotional balance"
+      "Stronger brand recognition",
+      "Consistent brand identity",
+      "Professional and modern aesthetics",
+      "Tailored branding strategy"
     ],
-    targetAudience: "Anyone seeking mental wellness and stress relief.",
-    imageUrl: "/images/yoga5.jpg"  // Added image path
+    targetAudience: "Startups, businesses, and individuals looking to establish or refresh their brand identity.",
+    imageUrl: "/images/branding.jpg"
   }
 ];
 
+
   
-  export const workPortfolio = [
-    {
-      title: "Corporate Wellness Program",
-      description: "Yoga sessions for tech companies",
-      image: "/images/work1.jpeg",
-      slug: "corporate-wellness-program"
-    },
-    {
-      title: "Retreat Series",
-      description: "Weekend wellness retreats",
-      image: "/images/work2.webp",
-       slug: "Retreat-Series"
-    },
-    {
-      title: "Community Classes",
-      description: "Free yoga in public parks",
-      image: "/images/work3.avif",
-       slug: "Community-Classes"
-    },
-    {
-      title: "Online Programs",
-      description: "Virtual yoga sessions",
-      image: "/images/work4.jpg",
-       slug: "Online-Programs"
-    },
-    {
-      title: "Youth Programs",
-      description: "Yoga for schools",
-      image: "/images/work5.jpg",
-       slug: "Youth-Programs"
-    },
-    {
-      title: "Senior Wellness",
-      description: "Gentle yoga for seniors",
-      image: "/images/work6.jpg",
-       slug: "Senior-Wellness"
-    },
-    {
-      title: "clildren Programs",
-      description: "Yoga for schools",
-      image: "/images/work5.jpg",
-       slug: "children-Programs"
-    },
-    {
-      title: "garden Wellness",
-      description: "Gentle yoga for seniors",
-      image: "/images/work6.jpg",
-       slug: "gardden-Wellness"
-    }
-  ];
+export const socialMediaWork = [
+  {
+    title: "Instagram Growth Campaign",
+    description: "Boosted engagement for a fashion brand.",
+    image: "/images/work1.jpeg",
+    slug: "instagram-growth-campaign"
+  },
+  {
+    title: "Facebook Ads Management",
+    description: "Optimized ad spend for an e-commerce store.",
+    image: "/images/work2.webp",
+    slug: "facebook-ads-management"
+  },
+  {
+    title: "LinkedIn B2B Strategy",
+    description: "Generated leads through professional networking.",
+    image: "/images/work3.avif",
+    slug: "linkedin-b2b-strategy"
+  },
+  {
+    title: "TikTok Viral Challenge",
+    description: "Created a trend with influencer collaborations.",
+    image: "/images/work4.jpg",
+    slug: "tiktok-viral-challenge"
+  }
+];
+
+export const digitalStrategyWork = [
+  {
+    title: "SEO Optimization",
+    description: "Improved search ranking for a startup.",
+    image: "/images/work5.jpg",
+    slug: "seo-optimization"
+  },
+  {
+    title: "Email Marketing Automation",
+    description: "Enhanced customer retention for an SaaS business.",
+    image: "/images/work6.jpg",
+    slug: "email-marketing-automation"
+  },
+  {
+    title: "Market Research & Analytics",
+    description: "Data-driven decisions for a fintech company.",
+    image: "/images/yoga2.jpg",
+    slug: "market-research-analytics"
+  },
+  {
+    title: "Conversion Rate Optimization",
+    description: "A/B testing to increase sales.",
+    image: "/images/yoga3.jpg",
+    slug: "conversion-rate-optimization"
+  }
+];
+
+export const contentCreationWork = [
+  {
+    title: "Blog & Article Writing",
+    description: "High-quality content for thought leadership.",
+    image: "/images/yoga3.webp",
+    slug: "blog-article-writing"
+  },
+  {
+    title: "Video Script Development",
+    description: "Engaging scripts for YouTube & TikTok.",
+    image: "/images/yoga5.jpg",
+    slug: "video-script-development"
+  },
+  {
+    title: "Infographics & Visual Content",
+    description: "Eye-catching designs for marketing.",
+    image: "/images/work3.avif",
+    slug: "infographics-visual-content"
+  },
+  {
+    title: "Podcast Production",
+    description: "Branded audio content for storytelling.",
+    image: "/images/test.jpg",
+    slug: "podcast-production"
+  }
+];
+
+export const photographyWork = [
+  {
+    title: "Product Photography",
+    description: "Professional images for e-commerce stores.",
+    image: "/images/test.jpg",
+    slug: "product-photography"
+  },
+  {
+    title: "Event Coverage",
+    description: "Captured live moments with high-quality shots.",
+    image: "/images/test.jpg",
+    slug: "event-coverage"
+  },
+  {
+    title: "Drone Videography",
+    description: "Aerial shots for real estate & tourism.",
+    image: "/images/test.jpg",
+    slug: "drone-videography"
+  },
+  {
+    title: "Brand Lifestyle Shoot",
+    description: "Created authentic brand imagery.",
+    image: "/images/test.jpg",
+    slug: "brand-lifestyle-shoot"
+  }
+];
+
+export const brandingWork = [
+  {
+    title: "Logo Design",
+    description: "Created unique brand identities.",
+    image: "/images/digital.jpg",
+    slug: "logo-design"
+  },
+  {
+    title: "Brand Guidelines Development",
+    description: "Established cohesive brand elements.",
+    image: "/images/digital.jpg",
+    slug: "brand-guidelines-development"
+  },
+  {
+    title: "Packaging Design",
+    description: "Designed standout product packaging.",
+    image: "/images/digital.jpg",
+    slug: "packaging-design"
+  },
+  {
+    title: "Rebranding Strategy",
+    description: "Revamped outdated brand visuals.",
+    image: "/images/digital.jpg",
+    slug: "rebranding-strategy"
+  }
+];
+
+
+  

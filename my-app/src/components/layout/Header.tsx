@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from "next/image";
 import { Route } from "next";
+import { services } from '@/lib/constant';
+import { ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
+
 
 
 const Header: React.FC = () => {
@@ -19,7 +24,6 @@ const Header: React.FC = () => {
     setIsServicesOpen(!isServicesOpen);
   };
 
-  // Close the menu and dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -38,24 +42,31 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className="bg-gray-800 text-white sticky top-0 z-50 shadow-md w-full" ref={menuRef}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="bg-isabelline bg-transparent  text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg ">
+
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/">
               <div className="flex items-center cursor-pointer">
-                <img className="h-10 w-auto" src="/images/logo.webp" alt="Logo" />
-                <span className="ml-2 font-bold">ACB Limited</span>
+                <Image 
+                  className="h-25 w-auto" 
+                  src="/images/logo.webp" 
+                  alt="Logo" 
+                  width={120}  
+                  height={50}  
+                  priority  
+                />
+                <span className="ml-2 text-xl font-heading font-bold text-taupe">The Ink Pot Group</span>
               </div>
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <div className="lg:hidden">
+          <div className="lg:hidden px-4">
             <button
               onClick={toggleMenu}
-              className="text-white focus:outline-none"
+              className="text-taupe focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,21 +85,19 @@ const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="hidden lg:flex space-x-4 items-center">
+          <nav className="hidden lg:flex space-x-4 items-center ">
             <NavLink href="/about">About Us</NavLink>
             <ServicesDropdown
               ref={servicesDropdownRef}
               isOpen={isServicesOpen}
               toggleDropdown={toggleServicesDropdown}
             />
-            <NavLink href="#work">Our Work</NavLink>
+            <NavLink href="/#work">Our Work</NavLink>
             <NavLink href="/#contact">Contact Us</NavLink>
           </nav>
         </div>
       </div>
 
-      {/* Mobile Menu (Dropdown for smaller screens) */}
       {isMenuOpen && (
         <div className="lg:hidden absolute top-16 left-0 right-0 bg-gray-800 text-white space-y-4 py-4 px-6 z-50">
           <NavLink href="/about">About Us</NavLink>
@@ -98,7 +107,7 @@ const Header: React.FC = () => {
             isOpen={isServicesOpen}
             toggleDropdown={toggleServicesDropdown}
           />
-          <NavLink href="#work">Our Work</NavLink>
+          <NavLink href="/#work">Our Work</NavLink>
           <NavLink href="/#contact">Contact Us</NavLink>
         </div>
       )}
@@ -106,7 +115,6 @@ const Header: React.FC = () => {
   );
 };
 
-// Component for individual navigation links
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
@@ -115,49 +123,81 @@ interface NavLinkProps {
 const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
   <Link href={href as Route}>
 
-    <div className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium cursor-pointer">
+    <div className="hover:border-b-2 hover:border-pineGreen px-3 py-2 text-taupe font-heading text-lg font-medium cursor-pointer">
       {children}
     </div>
   </Link>
 );
 
-// Component for the Services Dropdown
 interface ServicesDropdownProps {
   isMobile?: boolean; // To differentiate behavior for mobile
   isOpen: boolean; // Pass the open/close state from parent
   toggleDropdown: () => void; // Toggle the dropdown
 }
 
-const ServicesDropdown = React.forwardRef<HTMLDivElement, ServicesDropdownProps>((props, ref) => {
-  const services = ['Yoga1', 'Yoga2', 'Yoga3', 'Yoga4', 'Yoga5']; // Replace with your actual services
+const dropIn = {
+  hidden: { opacity: 0, y: -20, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 150, damping: 12 },
+  },
+  exit: { opacity: 0, y: -20, scale: 0.8, transition: { duration: 0.2 } },
+};
 
+const itemVariants = {
+  hidden: { opacity: 0, y: -10, scale: 0.95 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { delay: i * 0.07, type: "spring", stiffness: 120 },
+  }),
+};
+
+const ServicesDropdown = React.forwardRef<HTMLDivElement, ServicesDropdownProps>((props, ref) => {
   return (
     <div ref={ref} className="relative">
-      {/* Main Services Tab */}
       <div
-        onClick={props.toggleDropdown} // Toggle dropdown on click
-        className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+        onClick={props.toggleDropdown}
+        className="flex items-center  gap-1 hover:border-b-2 font-heading text-taupe hover:border-pineGreen px-4 py-2 text-lg font-medium cursor-pointer transition duration-300"
       >
-        Services
+        Services{" "}
+        <motion.div
+          animate={{ rotate: props.isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-4 h-4" />
+        </motion.div>
       </div>
 
-      {/* Dropdown Menu */}
-      {props.isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-50">
-          {services.map((service) => (
-            <Link key={service} href={`/services/${service.toLowerCase()}`} passHref>
-              <div className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                {service}
+      <motion.div
+        initial="hidden"
+        animate={props.isOpen ? "visible" : "hidden"}
+        exit="exit"
+        variants={dropIn}
+        className={`absolute left-0 top-10 mt-3 w-64 bg-white text-black rounded-lg shadow-xl z-50 p-3 border border-gray-200 overflow-hidden ${
+          props.isOpen ? "block" : "hidden"
+        }`}
+      >
+        {services.map(({ slug, name, imageUrl }, index) => (
+          <motion.div key={slug} variants={itemVariants} initial="hidden" animate="visible" custom={index}>
+            <Link href={`/services/${slug}`} passHref>
+              <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-pineGreen cursor-pointer transition duration-300">
+                <Image src={imageUrl} alt={name} width={40} height={40} className="rounded-full" />
+                <div>
+                  <p className="text-sm font-heading font-semibold">{name}</p>
+                </div>
               </div>
             </Link>
-          ))}
-        </div>
-      )}
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
   );
 });
 
-// Set the displayName for the component to avoid ESLint warning
 ServicesDropdown.displayName = 'ServicesDropdown';
 
 export default Header;

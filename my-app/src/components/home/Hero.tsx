@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative h-screen flex items-center justify-center">
+    <div className="h-screen relative flex items-center justify-center top-0">
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
@@ -21,16 +21,16 @@ const Hero: React.FC = () => {
         playsInline
       >
         <source src="/video/hero.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        Writing your Success Stories
       </video>
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <div className="relative z-10 text-center text-white px-4 md:px-8">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-          We are the best
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  font-heading font-bold mb-4">
+        Writing your Success Stories
         </h1>
-        <p className="text-lg sm:text-xl md:text-2xl">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-subheading">
           Delivering top-notch solutions for your business needs.
-        </p>
+        </h3>
       </div>
     </div>
   );

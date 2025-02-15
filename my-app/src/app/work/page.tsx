@@ -1,6 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { workPortfolio } from "@/lib/constant";
+import { socialMediaWork, digitalStrategyWork, contentCreationWork, photographyWork, brandingWork } from "@/lib/constant";
+
+const allWork = [
+  ...socialMediaWork,
+  ...digitalStrategyWork,
+  ...contentCreationWork,
+  ...photographyWork,
+  ...brandingWork
+];
 
 export default function WorkPage() {
   return (
@@ -9,9 +17,9 @@ export default function WorkPage() {
         <h1 className="text-4xl font-bold text-center mb-12">Our Work</h1>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {workPortfolio.map((work) => (
+          {allWork.map((work) => (
             <Link key={work.slug} href={`/work/${work.slug}`} className="group relative overflow-hidden rounded-lg block">
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <div className="relative w-full h-64">
                 <Image
                   src={work.image}
                   alt={work.title}

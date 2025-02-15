@@ -1,75 +1,44 @@
 import { services } from "@/lib/constant";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Image from "next/image";
+import ServiceContent from "./ServiceContent";
 
-export type PageProps = {
-  params: Promise<{ service: string }>; // ✅ Ensure params matches expected type
+type Props = {
+  params: Promise<{ service: string }> | { service: string };
 };
 
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { service } = await props.params;
+  
+  const serviceData = services.find((s) => s.slug === service);
 
-// ✅ Fix `generateMetadata` typing
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const service = services.find(async (s) => s.slug === (await params).service);
+  if (!serviceData) {
+    return {
+      title: "Service Not Found",
+      description: "The requested service could not be found",
+    };
+  }
 
   return {
-    title: service?.name || "Service Not Found",
-    description: service?.shortDescription || "Service description not available",
+    title: serviceData.name,
+    description: serviceData.shortDescription || "Service description not available",
   };
 }
 
-// ✅ Fix `generateStaticParams` return type
-export async function generateStaticParams(): Promise<{ params: { service: string } }[]> {
+export async function generateStaticParams() {
   return services.map((service) => ({
-    params: { service: service.slug },
+    service: service.slug,
   }));
 }
 
-export default function Page({ params }: PageProps) {
-  const service = services.find(async (s) => s.slug === (await params).service);
+export default async function Page(props: Props) {
+  const { service } = await props.params;
+  
+  const serviceData = services.find((s) => s.slug === service);
 
-  if (!service) {
-    return notFound();
+  if (!serviceData) {
+    notFound();
   }
 
-  return (
-    <div className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-8 relative w-full h-[400px]">
-          <Image
-            src={service.imageUrl}
-            alt={service.name}
-            fill
-            className="object-cover rounded-lg"
-            priority
-          />
-        </div>
-
-        <h1 className="text-4xl font-bold text-center mb-12">{service.name}</h1>
-
-        <div className="max-w-3xl mx-auto">
-          <div className="prose max-w-none">
-            <div className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">Description</h2>
-              <p className="text-gray-600">{service.description}</p>
-            </div>
-
-            <div className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">Benefits</h2>
-              <ul className="list-disc pl-6">
-                {service.benefits.map((benefit, index) => (
-                  <li key={index} className="text-gray-600">{benefit}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mb-8">
-              <h2 className="text-2xl font-semibold mb-4">Who is this for?</h2>
-              <p className="text-gray-600">{service.targetAudience}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <ServiceContent service={serviceData} />;
 }
