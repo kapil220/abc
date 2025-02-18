@@ -70,41 +70,87 @@ const Contact = () => {
   };
   
   return (
-    <div className="h-screen flex flex-col lg:flex-row bg-isabelline md:h-[80vh] font-body">
+    <div className="h-full flex flex-col lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]  font-body">
       {/* Left Section - Schedule Meeting */}
       <motion.div 
-        className="lg:w-1/2 p-6 lg:p-16 lg:pl-32 flex flex-col justify-center"
-        initial={{ x: -100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <motion.div
-          className="max-w-md mx-auto"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          className="lg:w-1/2 p-6 lg:p-6 lg:pl-44 md:pl-24 flex flex-col justify-center items-center"
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-heading text-taupe mb-6">Schedule a Free Session</h2>
-          <p className="text-gray-900 mb-8 text-lg font-subheading">
-            Book a complimentary 30-minute consultation with our experts. We will help you understand 
-            how our services can benefit you and answer any questions you might have.
-          </p>
-          <motion.a
-            href="YOUR_SCHEDULING_LINK_HERE"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-pineGreen text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <motion.div
+            className="max-w-md w-full  rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
           >
-            Schedule Meeting
-          </motion.a>
+            {/* Card Image Section */}
+            <div className="h-48 bg-taupe relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-taupe/90 to-taupe/70">
+                <div className="p-6 h-full flex flex-col justify-end">
+                  <span className="bg-white text-pineGreen px-3 py-1 rounded-full text-sm font-semibold inline-block w-fit mb-2">
+                    Limited Time
+                  </span>
+                  <h3 className="text-white text-subheading font-bold text-xl">
+                    Free 30-Minute Consultation
+                  </h3>
+                </div>
+              </div>
+            </div>
+            
+            {/* Card Content */}
+            <div className="p-6">
+              <h2 className="text-2xl md:text-3xl text-heading text-taupe mb-4">
+                Schedule a Free Session
+              </h2>
+              <p className="text-gray-700 mb-6 text-base font-body">
+                Book a complimentary 30-minute consultation with our experts. We will help you understand 
+                how our services can benefit you and answer any questions you might have.
+              </p>
+              
+              {/* Benefits List */}
+              <ul className="mb-6 space-y-2">
+                <li className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-pineGreen" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  <span className="text-gray-700">Personalized analysis</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-pineGreen" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  <span className="text-gray-700">No obligation required</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-pineGreen" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  <span className="text-gray-700">Expert advice tailored to you</span>
+                </li>
+              </ul>
+              
+              <motion.a
+                href="YOUR_SCHEDULING_LINK_HERE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block w-full text-center bg-taupe text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition-colors shadow-md hover:shadow-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Schedule Meeting
+              </motion.a>
+              
+              <p className="text-gray-500 text-sm mt-4 italic text-center">
+                Join over 200+ satisfied clients who booked our consultation
+              </p>
+            </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
 
       {/* Right Section - Contact Form */}
       <motion.div 
-        className="lg:w-1/2 bg-gray-100 py-12 lg:py-20 px-6 lg:pr-32"
+        className="lg:w-1/2  py-12 lg:py-20 px-6 lg:pr-32 "
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
