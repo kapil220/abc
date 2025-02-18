@@ -1,88 +1,113 @@
 "use client";
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Users, Target, Award } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Target, Users, MessageSquare } from "lucide-react";
 
 const AboutPage = () => {
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
+
+  const features = [
+    {
+      icon: Target,
+      title: "Data-Driven",
+      description: "Strategic insights that drive results"
+    },
+    {
+      icon: Users,
+      title: "Expert Team",
+      description: "Diverse experience across digital marketing"
+    },
+    {
+      icon: MessageSquare,
+      title: "Storytelling",
+      description: "Crafting compelling brand narratives"
+    }
+  ];
+
   return (
-    <main className="pt-24 ">
-      <section className="py-20 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
+    <main className="bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
+      <div className="max-w-5xl mx-auto px-4 py-36 space-y-24">
+        {/* Hero Section */}
+        <motion.header 
+          {...fadeIn} 
+          className="text-center space-y-6"
+        >
+          <h1 className="text-5xl font-bold text-gray-900">The Ink Pot Group</h1>
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            We are dedicated to writing your success stories through innovative digital marketing strategies.
+          </p>
+        </motion.header>
+
+        {/* Main Content Grid */}
+        <div className="grid md:grid-cols-2 gap-16">
+          {/* About Section */}
+          <motion.section 
+            {...fadeIn}
+            className="space-y-8"
           >
-            <h1 className="font-heading text-3xl  md:text-5xl lg:text-7xl font-bold mb-12">About The Inkpot Group</h1>
-            <h3 className="font-subheading max-w-3xl mx-auto text-xl md:text-2xl lg:text-4xl">
-              Crafting digital excellence since 2020
-            </h3>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-              <p className="text-gray-600 mb-4">
-                The Inkpot Group was founded with a vision to transform how brands connect with their audience in the digital space. We believe in the power of authentic storytelling and data-driven strategies to create meaningful connections.
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-gray-900">Our Philosophy</h2>
+              <p className="text-gray-700 leading-relaxed">
+                We believe in the power of storytelling to connect brands with their audiences. By blending creativity with data-driven insights, we develop strategies that not only capture attention but also foster lasting relationships.
               </p>
-              <p className="text-gray-600">
-                Our team of creative professionals and digital strategists work together to deliver exceptional results that help our clients stand out in todays competitive landscape.
-              </p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
-                alt="Team collaboration"
-                className="rounded-lg shadow-xl"
-              />
-            </motion.div>
-          </div>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-            {[
-              {
-                icon: Users,
-                title: 'Expert Team',
-                description: 'Talented professionals with diverse expertise',
-              },
-              {
-                icon: Target,
-                title: 'Results Driven',
-                description: 'Focused on delivering measurable outcomes',
-              },
-              {
-                icon: Award,
-                title: 'Quality First',
-                description: 'Committed to excellence in every project',
-              },
-            ].map((item, index) => (
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-gray-900">Our Team</h2>
+              <p className="text-gray-700 leading-relaxed">
+                Our diverse team of experts brings together a wealth of experience in social media management, branding, content creation, and community engagement. We are dedicated to understanding your unique challenges and delivering tailored solutions.
+              </p>
+            </div>
+          </motion.section>
+
+          {/* Features Grid */}
+          <motion.section 
+            {...fadeIn}
+            className="grid gap-6"
+          >
+            {features.map((feature, index) => (
               <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className="text-center p-6"
+                key={feature.title}
+                {...fadeIn}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="inline-block p-4 bg-isabelline rounded-full mb-4">
-                  <item.icon className="w-8 h-8 text-pine" />
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 bg-[#F8F4EF] rounded-lg">
+                    <feature.icon className="w-6 h-6 text-[#2C3E50]" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.section>
         </div>
-      </section>
+
+        {/* Commitment Section */}
+        <motion.section 
+          {...fadeIn}
+          className="text-center max-w-3xl mx-auto space-y-6"
+        >
+          <h2 className="text-2xl font-bold text-gray-900">Our Commitment</h2>
+          <p className="text-gray-700 leading-relaxed">
+            Transparency, collaboration, and excellence are at the core of everything we do. We are committed to helping your brand navigate the digital landscape, ensuring your story is told authentically and effectively.
+          </p>
+          <p className="text-lg font-medium text-gray-800">
+            Let The Ink Pot Group be your partner in writing your success stories.
+          </p>
+        </motion.section>
+      </div>
     </main>
   );
 };

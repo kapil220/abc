@@ -42,7 +42,7 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className="bg-isabelline bg-transparent  text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg ">
+    <header className="bg-isabelline   text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg ">
 
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 md:py-4">
@@ -92,7 +92,7 @@ const Header: React.FC = () => {
               isOpen={isServicesOpen}
               toggleDropdown={toggleServicesDropdown}
             />
-            <NavLink href="/#work">Our Work</NavLink>
+            <NavLink href="/work">Our Work</NavLink>
             <NavLink href="/#contact">Contact Us</NavLink>
           </nav>
         </div>

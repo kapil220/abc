@@ -8,14 +8,15 @@ if (!MONGODB_URI) {
 
 export const dbConnect = async () => {
   if (mongoose.connection.readyState >= 1) {
+    console.log("✅ Using existing database connection");
     return;
   }
 
   try {
-    await mongoose.connect(MONGODB_URI, { dbName: "kapilrajput8361" });
-    console.log("✅ MongoDB Connected");
+    await mongoose.connect(MONGODB_URI);
+    console.log("🚀 Database connected successfully");
   } catch (error) {
-    console.error("❌ MongoDB connection failed:", error);
-    throw new Error("Failed to connect to database");
+    console.error("❌ Database connection error:", error);
+    throw new Error("Database connection failed");
   }
 };

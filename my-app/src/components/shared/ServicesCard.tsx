@@ -23,23 +23,27 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
       <div className="w-1/2 pr-4">
         <h3 className="text-2xl font-bold uppercase text-white  mb-2">{service.name}</h3>
         <h2 className=" font-medium text-wisteria text-lg mb-4">{service.shortDescription}</h2>
-        <button className="mt-4 px-4 py-2 bg-white text-gray-900 rounded-md shadow hover:bg-gray-300 transition duration-300">
-          View Details
-        </button>
+        <div className="flex justify-center mt-4">
+  <button className="px-4 py-1.5 bg-gradient-to-r from-ashGray to-wisteria text-white font-semibold text-lg rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition duration-300">
+    View Details
+  </button>
+</div>
+
       </div>
 
       {/* Image Section */}
       <div className="w-1/2">
-        <div className="relative  h-40 md:h-56 lg:h-72">
-          <Image
-            src={service.imageUrl}
-            alt={service.name}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-lg shadow-md object-contain"
-          />
-        </div>
-      </div>
+  <div className="relative h-40 md:h-56 lg:h-72">
+    <Image
+      src={service.imageUrl}
+      alt={service.name}
+      layout="fill"
+      objectFit="contain" // Change from "cover" to "contain"
+      className="rounded-lg shadow-md"
+    />
+  </div>
+</div>
+
     </Link>
   );
 };

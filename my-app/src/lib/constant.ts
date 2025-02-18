@@ -12,7 +12,7 @@ export const services = [
       "Optimized social media presence"
     ],
     targetAudience: "Businesses, influencers, and brands looking to grow their social media presence.",
-    imageUrl: "/images/socialmedia.jpg"
+    imageUrl: "/images/service1.webp"
   },
   {
     name: "Digital Strategy",
@@ -26,7 +26,7 @@ export const services = [
       "Higher ROI on digital efforts"
     ],
     targetAudience: "Businesses seeking a strong and effective online presence.",
-    imageUrl: "/images/digital.jpg"
+    imageUrl: "/images/service2.webp"
   },
   {
     name: "Content Creation",
@@ -40,7 +40,7 @@ export const services = [
       "Consistent brand voice"
     ],
     targetAudience: "Brands and businesses looking for impactful content to connect with their audience.",
-    imageUrl: "/images/contentcreation.png"
+    imageUrl: "/images/service3.webp"
   },
   {
     name: "Photography & Videography",
@@ -54,7 +54,7 @@ export const services = [
       "Tailored creative direction"
     ],
     targetAudience: "Businesses, influencers, and brands in need of professional visual content.",
-    imageUrl: "/images/photography.webp"
+    imageUrl: "/images/service4.webp"
   },
   {
     name: "Branding & Logo Design",
@@ -68,7 +68,7 @@ export const services = [
       "Tailored branding strategy"
     ],
     targetAudience: "Startups, businesses, and individuals looking to establish or refresh their brand identity.",
-    imageUrl: "/images/branding.jpg"
+    imageUrl: "/images/service5.webp"
   }
 ];
 
