@@ -13,16 +13,16 @@ const Footer = () => {
     <div className=" flex flex-col items-center ">
       <div className="flex-shrink-0">
         <Link href="/">
-          <div className="flex items-center cursor-pointer">
+          <div className="flex items-center filter brightness-51 cursor-pointer">
             <Image 
-              className="h-25 w-auto" 
-              src="/images/logo.webp" 
+              className="h-40 w-auto" 
+              src="/images/logowhite.png" 
               alt="Logo" 
               width={120}  
               height={50}  
               priority  
             />
-            <span className="ml-2 text-xl font-heading font-bold text-taupe">The Ink Pot Group</span>
+            <span className="ml-2 text-4xl font-heading font-medium ">The Ink Pot Group</span>
           </div>
         </Link>
       </div>

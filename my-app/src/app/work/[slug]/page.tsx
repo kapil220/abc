@@ -1,13 +1,14 @@
+"use client";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { socialMediaWork, digitalStrategyWork, contentCreationWork, photographyWork, brandingWork } from "@/lib/constant";
+import { logoDesignWork, realEstateWork, foodRestaurantWork, commercialsWork, postWork } from "@/lib/constant";
 
 const allWork = [
-  ...socialMediaWork,
-  ...digitalStrategyWork,
-  ...contentCreationWork,
-  ...photographyWork,
-  ...brandingWork
+  ...logoDesignWork,
+  ...realEstateWork,
+  ...foodRestaurantWork,
+  ...commercialsWork,
+  ...postWork
 ];
 
 export type WorkDetailProps = {

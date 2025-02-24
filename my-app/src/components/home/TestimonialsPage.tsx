@@ -13,40 +13,52 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    name: 'John Doe',
+    name: 'Josephine Ben',
     role: 'CEO, TechCorp',
-    feedback: 'This yoga program has transformed my life. The instructors are top-notch and the sessions are incredibly effective.',
-    image: '/images/2.jpg'
+    feedback: 'Partnering with The Ink Pot Group for our social media management was a game-changer. Their strategic approach and engaging content significantly boosted our online presence, leading to a 40% increase in follower engagement within just three months',
+    image: '/images/test1.jpg'
   },
   {
-    name: 'Jane Smith',
+    name: 'Kamran Ahemad',
     role: 'Marketing Director',
-    feedback: 'A perfect blend of mindfulness and exercise. I feel more energized and focused throughout the day.',
-    image: '/images/2.jpg'
+    feedback: 'As a startup, we needed a robust marketing strategy to make our mark. The Ink Pot Group delivered beyond our expectations, crafting a comprehensive plan that elevated our brand and attracted our target audience effectively.',
+    image: '/images/test2.jpg'
   },
   {
-    name: 'Emily Johnson',
+    name: 'Julian Gennifer',
     role: 'Designer',
-    feedback: 'The therapeutic yoga sessions helped tremendously. Highly recommended for anyone with back issues!',
-    image: '/images/2.jpg'
+    feedback: 'Collaborating with The Ink Pot Group for content creation has been a delight. Their creative team understands the influencer landscape, producing authentic and engaging content that resonates with my followers and enhances my brand.',
+    image: '/images/test3.jpg'
   },
   {
-    name: 'Michael Brown',
+    name: 'Delton Mark',
     role: 'Entrepreneur',
-    feedback: 'The power yoga sessions are intense and rewarding. Its my go-to workout routine now.',
-    image: '/images/2.jpg'
+    feedback: 'The Ink Pot Group videography team captured the essence of our event flawlessly. Their attention to detail and cinematic approach resulted in a stunning video that we will cherish and use for future promotions.',
+    image: '/images/test4.jpg'
   },
   {
-    name: 'Emily Johnson',
+    name: 'Pushp Sharma',
     role: 'Designer',
-    feedback: 'The therapeutic yoga sessions helped tremendously. Highly recommended for anyone with back issues!',
-    image: '/images/2.jpg'
+    feedback: 'The Ink Pot Group real estate photography services are top-notch. Their keen eye for detail and ability to highlight property features have significantly enhanced our listings, attracting more potential buyers',
+    image: '/images/test5.jpg'
   },
   {
-    name: 'Michael Brown',
+    name: 'Vennesa Tylor',
     role: 'Entrepreneur',
-    feedback: 'The power yoga sessions are intense and rewarding. Its my go-to workout routine now.',
-    image: '/images/2.jpg'
+    feedback: 'We approached The Ink Pot Group for a logo redesign, and they exceeded our expectations. The new logo perfectly encapsulates our brand identity and has received numerous compliments from our clients.',
+    image: '/images/test6.jpg'
+  },
+  {
+    name: 'Yemi',
+    role: 'Designer',
+    feedback: 'The Ink Pot Group holistic approach to digital marketing transformed our online presence. From social media management to content creation, their expertise has driven measurable growth and increased our customer base',
+    image: '/images/test7.jpg'
+  },
+  {
+    name: 'Luca Ross',
+    role: 'Entrepreneur',
+    feedback: 'Thanks to The Ink Pot Group strategic guidance, our influencer collaborations have been more impactful. Their insights into the influencer market ensured authentic partnerships that aligned with our brand values.',
+    image: '/images/test8.jpg'
   }
 ];
 
@@ -152,8 +164,8 @@ const TestimonialsPage: React.FC = () => {
 
        
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-7xl font-heading text-taupe text-center mb-8 md:mb-12">What Our Clients Say</h2>
-          <h3 className="text-xl font-subheading text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-7xl font-heading text-taupe font-medium text-center mb-8 md:mb-12">What Our Clients Say</h2>
+          <h3 className="text-xl font-subheading text-taupe/80 max-w-3xl mx-auto">
             Hear what our clients have to say about working with us
           </h3>
         </div>
@@ -189,18 +201,18 @@ const TestimonialsPage: React.FC = () => {
           className="w-16 h-16 rounded-full object-cover"
         />
         <div className="text-center md:text-left">
-          <h3 className="text-lg md:text-xl text-bold font-heading text-pineGreen">
+          <h3 className="text-lg md:text-xl text-semibold font-heading text-pineGreen">
             {testimonial.name}
           </h3>
-          <h3 className="text-sm font-subheading text-taupe">
+          <h3 className="text-md font-subheading text-taupe">
             {testimonial.role}
           </h3>
         </div>
       </div>
 
       <div className="p-4 md:p-6">
-        <p className="text-sm md:text-base text-gray-900 font-body">
-        <p>{testimonial.feedback.replace(/"/g, '&quot;')}</p>
+        <p className="text-sm md:text-base text-taupe/80 font-body">
+        {testimonial.feedback.replace(/"/g, '&quot;')}
 
         </p>
       </div>

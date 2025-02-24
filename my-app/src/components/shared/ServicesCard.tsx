@@ -20,26 +20,30 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
       className="flex items-center p-8 bg-taupe bg-blur border-t border-gray-600 text-white rounded-2xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-[1.02] duration-300 w-full space-x-6"
     >
       {/* Text Section */}
-      <div className="w-1/2 pr-4">
-        <h3 className="text-2xl font-bold uppercase text-white  mb-2">{service.name}</h3>
-        <h2 className=" font-medium text-wisteria text-lg mb-4">{service.shortDescription}</h2>
-        <div className="flex justify-center mt-4">
-  <button className="px-4 py-1.5 bg-gradient-to-r from-ashGray to-wisteria text-white font-semibold text-lg rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition duration-300">
-    View Details
-  </button>
+      <div className="w-1/2 pr-4 flex flex-col items-center text-center">
+  <h3 className="text-2xl font-base uppercase text-white font-subheading mb-2">
+    {service.name}
+  </h3>
+  <h2 className="font-medium text-wisteria font-body text-md mb-4">
+    {service.shortDescription}
+  </h2>
+  <div className="flex justify-center mt-4">
+    <button className="px-4 py-1.5 bg-gradient-to-r font-subheading from-ashGray to-wisteria text-white font-semibold text-lg rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition duration-300">
+      View Details
+    </button>
+  </div>
 </div>
 
-      </div>
 
       {/* Image Section */}
       <div className="w-1/2">
-  <div className="relative h-40 md:h-56 lg:h-72">
+  <div className="relative h-40  md:h-56 lg:h-72">
     <Image
       src={service.imageUrl}
       alt={service.name}
       layout="fill"
       objectFit="contain" // Change from "cover" to "contain"
-      className="rounded-lg shadow-md"
+      className=""
     />
   </div>
 </div>

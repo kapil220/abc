@@ -9,10 +9,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ["Roboto", "sans-serif"], // For body text
-        heading: ["TAN Harmoni", "serif"], // For h1, h2
-        subheading: ["BookMania", "serif"], // For h3, h4
         body: ["Roboto", "sans-serif"], // General body text
+        heading: ["TAN Harmoni", "serif"], // For h1, h2
+        subheading: ["Forum", "serif"], // For h3, h4
       },
       colors: {
         background: "var(--background)",
@@ -22,6 +21,15 @@ export default {
         pineGreen: "#136F63",
         ashGray: "#C8D0C9",
         wisteria: "#A6A4D0",
+      },
+      animation: {
+        scroll: 'scroll 40s linear infinite',
+      },
+      keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
       },
     },
   },

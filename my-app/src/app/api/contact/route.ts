@@ -52,7 +52,7 @@ async function sendEmailNotification(name: string, phone: string, email: string,
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: "recipient@example.com", // Change to your email
+    to: "rajputkapil436@gmail.com", // Change to your email
     subject: `New Contact Form Submission from ${name}`,
     text: `
     📌 Name: ${name}

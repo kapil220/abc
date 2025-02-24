@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { socialMediaWork, digitalStrategyWork, contentCreationWork } from "@/lib/constant";
+import { logoDesignWork, realEstateWork, foodRestaurantWork, commercialsWork } from "@/lib/constant";
 
 const WorkSection: React.FC = () => {
   // Select just a few featured works for the homepage preview
-  const featuredWorks = [...socialMediaWork.slice(0, 2), ...digitalStrategyWork.slice(0, 2), ...contentCreationWork.slice(0, 1)];
+  const featuredWorks = [...logoDesignWork.slice(0, 3), ...realEstateWork.slice(0, 3), ...foodRestaurantWork.slice(0, 3), ...commercialsWork.slice(0, 3),];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(3);
   
@@ -46,8 +46,8 @@ const WorkSection: React.FC = () => {
     <section className="py-40 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Work</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-4">
+          <h2 className="text-4xl  md:text-6xl lg:text-7xl font-heading font-medium text-taupe mb-4">Featured Work</h2>
+          <p className="text-xl font-subheading text-taupe/80 max-w-3xl mx-auto">
             A glimpse of our projects and creative solutions
           </p>
         </div>
@@ -63,7 +63,7 @@ const WorkSection: React.FC = () => {
                     alt={work.title} 
                     width={300} 
                     height={200} 
-                    className="w-full h-60 object-cover rounded-lg shadow-md" 
+                    className="w-full h-60 object-contain rounded-lg shadow-md" 
                   />
                   <h3 className="text-center mt-4 font-semibold">{work.title}</h3>
                 </div>
@@ -88,7 +88,7 @@ const WorkSection: React.FC = () => {
         
         {/* View All Work Button */}
         <div className="text-center mt-12">
-          <Link href="/work" className="inline-block px-8 py-3 bg-pineGreen text-white font-medium rounded-lg hover:bg-pineGreen/90 transition-colors shadow-md">
+          <Link href="/work" className="inline-block px-8 py-3 bg-pineGreen font-subheading text-white font-medium rounded-lg hover:bg-pineGreen/90 transition-colors shadow-md">
             View All Work
           </Link>
         </div>

@@ -42,24 +42,27 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className="bg-isabelline   text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg ">
+    <header className="bg-isabelline bg-transparent text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg ">
 
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 md:py-4">
         <div className="flex items-center justify-between h-16 ">
           <div className="flex-shrink-0">
             <Link href="/">
-              <div className="flex items-center cursor-pointer">
-                <Image 
-                  className="h-16 md:h-28 w-auto " 
-                  src="/images/logo.webp" 
-                  alt="Logo" 
-                  width={120}  
-                  height={50}  
-                  priority  
-                />
-                <span className="ml-2 text-xl font-heading font-bold text-taupe">The Ink Pot Group</span>
-              </div>
+            <div className="flex items-center cursor-pointer">
+  <Image 
+    className="h-16 md:h-28 w-auto filter brightness-50"  
+    src="/images/logo.webp" 
+    alt="Logo" 
+    width={120}  
+    height={50}  
+    priority  
+  />
+  <span className="ml-2 text-4xl font-heading font-medium text-taupe">
+    The Ink Pot Group
+  </span>
+</div>
+
             </Link>
           </div>
 
@@ -99,7 +102,7 @@ const Header: React.FC = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 right-0 bg-gray-800 text-white space-y-4 py-4 px-6 z-50">
+        <div className="lg:hidden absolute top-16 left-0 right-0 bg-ashGray  text-white space-y-4 py-4 px-6 z-50">
           <NavLink href="/about">About Us</NavLink>
           <ServicesDropdown
             isMobile
@@ -123,7 +126,7 @@ interface NavLinkProps {
 const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
   <Link href={href as Route}>
 
-    <div className="hover:border-b-2 hover:border-pineGreen px-3 py-2 text-taupe font-heading text-lg font-medium cursor-pointer">
+    <div className="hover:border-b-2 hover:border-pineGreen px-3 py-2 text-taupe font-heading text-xl cursor-pointer">
       {children}
     </div>
   </Link>
@@ -161,7 +164,7 @@ const ServicesDropdown = React.forwardRef<HTMLDivElement, ServicesDropdownProps>
     <div ref={ref} className="relative">
       <div
         onClick={props.toggleDropdown}
-        className="flex items-center  gap-1 hover:border-b-2 font-heading text-taupe hover:border-pineGreen px-4 py-2 text-lg font-medium cursor-pointer transition duration-300"
+        className="flex items-center  gap-1 hover:border-b-2 font-heading text-taupe hover:border-pineGreen px-4 py-2 text-xl cursor-pointer transition duration-300"
       >
         Services{" "}
         <motion.div

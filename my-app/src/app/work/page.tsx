@@ -5,24 +5,25 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { socialMediaWork, digitalStrategyWork, contentCreationWork, photographyWork, brandingWork } from "@/lib/constant";
+import { logoDesignWork, realEstateWork, foodRestaurantWork, commercialsWork, postWork } from "@/lib/constant";
 
 const categories = [
   "All",
-  "Social Media Management",
-  "Digital Strategy",
-  "Content Creation",
-  "Photography & Videography",
-  "Branding & Logo Design"
+  "Logo Design",
+  "Real Estate",
+  "Food & Restaurant",
+  "Commercials",
+  "Post",
 ];
 
 const workCategories = {
-  "All": [...socialMediaWork, ...digitalStrategyWork, ...contentCreationWork, ...photographyWork, ...brandingWork],
-  "Social Media Management": socialMediaWork,
-  "Digital Strategy": digitalStrategyWork,
-  "Content Creation": contentCreationWork,
-  "Photography & Videography": photographyWork,
-  "Branding & Logo Design": brandingWork,
+  "All": [...logoDesignWork, ...realEstateWork, ...foodRestaurantWork, ...commercialsWork,],
+  "Logo Design": logoDesignWork,
+  "Real Estate": realEstateWork,
+  "Food & Restaurant": foodRestaurantWork,
+  "Commercials": commercialsWork,
+  "Post": postWork,
+  
 };
 
 export default function WorkPage() {
@@ -110,7 +111,7 @@ export default function WorkPage() {
                     alt={work.title} 
                     width={300} 
                     height={200} 
-                    className="w-full h-48 object-cover" 
+                    className="w-full h-48 object-contain" 
                   />
                   <div className="p-4">
                     <h3 className="font-semibold">{work.title}</h3>

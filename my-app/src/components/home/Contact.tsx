@@ -103,7 +103,7 @@ const Contact = () => {
               <h2 className="text-2xl md:text-3xl text-heading text-taupe mb-4">
                 Schedule a Free Session
               </h2>
-              <p className="text-gray-700 mb-6 text-base font-body">
+              <p className="text-taupe/80 mb-6 text-base font-body">
                 Book a complimentary 30-minute consultation with our experts. We will help you understand 
                 how our services can benefit you and answer any questions you might have.
               </p>
@@ -114,27 +114,27 @@ const Contact = () => {
                   <svg className="w-5 h-5 text-pineGreen" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                   </svg>
-                  <span className="text-gray-700">Personalized analysis</span>
+                  <span className="text-taupe/80 text-base font-body">Personalized analysis</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-pineGreen" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                   </svg>
-                  <span className="text-gray-700">No obligation required</span>
+                  <span className="text-taupe/80 text-base font-body">No obligation required</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-pineGreen" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                   </svg>
-                  <span className="text-gray-700">Expert advice tailored to you</span>
+                  <span className="text-taupe/80 text-base font-body">Expert advice tailored to you</span>
                 </li>
               </ul>
               
               <motion.a
-                href="YOUR_SCHEDULING_LINK_HERE"
+                href="https://calendly.com/inkpotmediagroup/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block w-full text-center bg-taupe text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition-colors shadow-md hover:shadow-lg"
+                className="inline-block w-full font-subheading text-center bg-taupe text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition-colors shadow-md hover:shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -142,7 +142,7 @@ const Contact = () => {
               </motion.a>
               
               <p className="text-gray-500 text-sm mt-4 italic text-center">
-                Join over 200+ satisfied clients who booked our consultation
+                Join our list of satisfied clients who booked our consultation
               </p>
             </div>
           </motion.div>
@@ -161,7 +161,7 @@ const Contact = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-7xl font-heading text-taupe mb-6">Contact Us</h2>
+          <h2 className="text-4xl  md:text-6xl lg:text-7xl font-heading font-medium text-taupe mb-6">Contact Us</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <motion.div
               initial={{ y: 20, opacity: 0 }}
@@ -237,7 +237,7 @@ const Contact = () => {
 
             <motion.button
               type="submit"
-              className={`w-full py-4 rounded-lg text-white text-lg font-semibold ${
+              className={`w-full py-4 rounded-lg font-subheading text-white text-lg font-semibold ${
                 isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-taupe hover:bg-opacity-90 transition-colors'
               }`}
               whileHover={isLoading ? {} : { scale: 1.02 }}
@@ -320,7 +320,7 @@ const Contact = () => {
                     transition={{ delay: 0.4 }}
                   >
                     {submitStatus === 'success'
-                      ? 'Your message has been submitted successfully. We will get back to you soon!'
+                      ? 'Your message has been submitted successfully. We will get back to you in 24 hours!'
                       : 'There was an error submitting your form. Please try again or contact us directly.'}
                   </motion.p>
                   

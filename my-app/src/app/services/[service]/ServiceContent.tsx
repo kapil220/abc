@@ -1,8 +1,9 @@
 "use client";
-
+import React from 'react';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Service } from "@/lib/constant";
+import Link from "next/link";
 
 type ServiceContentProps = {
   service: Service;
@@ -10,194 +11,217 @@ type ServiceContentProps = {
 
 export default function ServiceContent({ service }: ServiceContentProps) {
   return (
-    <main className="min-h-screen bg-gray-50 py-24">
-      {/* Enhanced Hero Section */}
-      <div className="relative h-[80vh] w-full ">
-        {/* Main Image */}
-        <Image
-          src={service.imageUrl || '/placeholder.jpg'}
-          alt={service.name}
-          fill
-          className="object-cover"
-          priority
-        />
-        
-        {/* Gradient Overlay with improved aesthetics */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/75" />
-
-        {/* Hero Content */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0 flex flex-col justify-center px-8 max-w-7xl mx-auto"
-        >
-          {/* Service Category Tag */}
-          <span className="inline-block px-4 py-1 bg-teal-600 text-white text-sm rounded-full mb-4 w-fit">
-            Premium Service
-          </span>
-
-          {/* Title Section */}
-          <div className="relative">
-            <h1 className="text-6xl font-serif font-bold text-white mb-4">
-              {service.name}
-            </h1>
-            
-            {/* Animated Decorative Line */}
-            <div className="relative h-1 w-24 mb-6 overflow-hidden">
-              <motion.div 
-                initial={{ x: '-100%' }}
-                animate={{ x: '0%' }}
-                transition={{ duration: 0.8 }}
-                className="absolute inset-0 bg-teal-500"
-              />
-            </div>
-
-            {/* Description with enhanced styling */}
-            <p className="text-xl text-gray-100 max-w-2xl leading-relaxed">
-              {service.shortDescription}
-            </p>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-8 py-16">
-        {/* Introduction */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-16 max-w-3xl mx-auto text-center"
-        >
-          <p className="text-xl leading-relaxed text-gray-700">
-            {service.fullContent.introduction}
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Left Column */}
+    <main className="min-h-screen py-24 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
+      {/* Hero Section with Staggered Elements */}
+      <div className="relative min-h-[90vh] w-full overflow-hidden">
+        <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
+          {/* Left Content */}
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="relative z-10 flex flex-col justify-center p-8 md:p-16"
           >
-            <section>
-              <h2 className="text-3xl font-serif font-semibold mb-6 text-gray-800">
-                Understanding {service.name}
-              </h2>
-              <div className="p-8 rounded-xl bg-white shadow-lg border border-gray-100">
-                <p className="text-lg leading-relaxed text-gray-700">
-                  {service.fullContent.understanding}
-                </p>
-              </div>
-            </section>
+            <motion.span
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="inline-block px-6 py-2 bg-pineGreen text-isabelline font-body text-sm rounded-full mb-6 w-fit"
+            >
+              Premium Service
+            </motion.span>
 
-            <section>
-              <h2 className="text-3xl font-serif font-semibold mb-6 text-gray-800">
-                {service.fullContent.services.title}
-              </h2>
-              <div className="p-8 rounded-xl bg-white shadow-lg border border-gray-100">
-                <ul className="space-y-4">
-                  {service.fullContent.services.items.map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <span className="text-teal-500 mt-1">•</span>
-                      <p className="text-lg leading-relaxed text-gray-700">{item}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
+            <motion.h1
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-6xl md:text-7xl font-heading  text-taupe mb-6"
+            >
+              {service.name}
+            </motion.h1>
 
-            <section>
-              <h2 className="text-3xl font-serif font-semibold mb-6 text-gray-800">
-                Target Audience
-              </h2>
-              <div className="p-8 rounded-xl bg-teal-50 shadow-lg border border-teal-100">
-                <p className="text-lg leading-relaxed text-gray-700">
-                  {service.targetAudience}
-                </p>
-              </div>
-            </section>
+            <motion.p
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="text-xl md:text-2xl font-subheading text-taupe/80 max-w-xl"
+            >
+              {service.shortDescription}
+            </motion.p>
           </motion.div>
 
-          {/* Right Column */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-12"
+          {/* Right Image with Overlay */}
+          <motion.div 
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={{ clipPath: 'inset(0 0 0 0)' }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="relative h-full min-h-[50vh]"
           >
-            <section>
-              <h2 className="text-3xl font-serif font-semibold mb-6 text-gray-800">
-                {service.fullContent.process.title}
-              </h2>
-              <div className="space-y-4">
-                {service.fullContent.process.steps.map((step, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 * index }}
-                    className="p-6 rounded-xl bg-white shadow-lg transform transition-all hover:-translate-y-1 hover:shadow-xl border-l-4 border-teal-500"
-                  >
-                    <div className="flex items-start gap-4">
-                      <span className="w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center text-white font-semibold shrink-0">
-                        {step.step}
-                      </span>
-                      <p className="text-lg text-gray-700">
-                        {step.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h2 className="text-3xl font-serif font-semibold mb-6 text-gray-800">
-                Key Benefits
-              </h2>
-              <div className="space-y-4">
-                {service.benefits.map((benefit, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 * index }}
-                    className="p-6 rounded-xl bg-white shadow-lg transform transition-all hover:-translate-y-1 hover:shadow-xl border-l-4 border-teal-500"
-                  >
-                    <div className="flex items-start gap-4">
-                      <span className="w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center text-white font-semibold shrink-0">
-                        {index + 1}
-                      </span>
-                      <p className="text-lg text-gray-700">
-                        {benefit}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
+            <Image
+              src={service.imageUrl || '/placeholder.jpg'}
+              alt={service.name}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E6DED7] via-transparent to-transparent md:from-transparent" />
           </motion.div>
         </div>
-        
-        {/* Conclusion */}
-        <motion.div
+      </div>
+
+      {/* Main Content with Creative Layouts */}
+      <div className="max-w-7xl mx-auto px-8 py-24">
+        {/* Services Cards */}
+        <motion.section
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="mt-16 p-10 rounded-xl bg-gradient-to-r from-teal-600 to-teal-500 shadow-xl text-center"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-24"
         >
-          <p className="text-xl text-white leading-relaxed max-w-3xl mx-auto">
-            {service.fullContent.conclusion}
-          </p>
-          
-          <button className="mt-8 px-8 py-3 bg-white text-teal-700 rounded-full font-medium hover:bg-gray-100 transition-colors">
-            Get in Touch
-          </button>
+          <div className="p-10 rounded-3xl  bg-white shadow-xl">
+            <p className="text-xl leading-relaxed text-taupe/80 font-body ">
+              {service.fullContent.introduction}
+            </p>
+          </div>
+        </motion.section>
+        <motion.section 
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.8 }}
+  className="mb-32"
+>
+  <h2 className="text-4xl font-subheading font-bold  mb-16 text-center text-taupe">
+    {service.fullContent.services.title}
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {service.fullContent.services.items.map((item, index) => (
+      <motion.div
+        key={index}
+        className="group relative h-full"
+        initial={{ y: 0, scale: 1 }}
+        whileHover={{ y: -5, scale: 1.02 }}
+      >
+        {/* Background Layer */}
+        <div className="absolute inset-0 bg-pineGreen rounded-2xl transition-transform" />
+
+        {/* Card Content */}
+        <motion.div
+          className="relative p-8 bg-white rounded-2xl h-full flex flex-col items-center justify-center text-center"
+          initial={{ x: 0, y: 0 }}
+          whileHover={{ x: -8, y: -8 }}
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span className="w-12 h-12 rounded-full bg-wisteria/20 text-wisteria text-xl font-bold flex items-center justify-center">
+              {index + 1}
+            </span>
+            <strong className="text-xl font-bold font-subheading text-taupe">{item.title}:</strong>
+            <p className="text-md  font-body text-taupe/80">{item.description}</p>
+          </div>
         </motion.div>
+      </motion.div>
+    ))}
+  </div>
+</motion.section>
+
+
+        {/* Process Steps with Curved Flow */}
+        <motion.section 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="mb-32"
+        >
+          <h2 className="text-4xl font-subheading font-bold mb-16 text-center text-taupe">
+            {service.fullContent.process.title}
+          </h2>
+          <div className="relative">
+            <div className="absolute top-0 left-1/2 w-px h-full bg-pineGreen/20" />
+            {service.fullContent.process.steps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+                className={`relative mb-16 last:mb-0 ${
+                  index % 2 === 0 ? 'md:pr-[50%]' : 'md:pl-[50%] md:flex md:justify-end'
+                }`}
+              >
+                <div className="relative p-8 bg-white rounded-2xl shadow-lg max-w-lg">
+                  <div className="absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-pineGreen transform -translate-x-11 flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full bg-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold font-subheading text-taupe mb-4">Step {step.step}</h3>
+                  <p className="text-md font-body text-taupe/80">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Benefits with Floating Cards */}
+        <motion.section 
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.8 }}
+  className="mb-32"
+>
+  <h2 className="text-4xl font-subheading font-bold mb-16 text-center text-taupe">
+    Key Benefits
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {service.benefits.map((benefit, index) => (
+      <motion.div
+        key={index}
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ delay: index * 0.1 }}
+        whileHover={{ y: -5 }}
+        className="relative p-1 h-full"
+      >
+        {/* Background Layer */}
+        <div className="absolute inset-0 bg-gradient-to-r from-pineGreen to-wisteria rounded-2xl opacity-80" />
+
+        {/* Card Content */}
+        <div className="relative p-8 bg-white rounded-2xl h-full flex flex-col items-center justify-center text-center">
+          <span className="w-12 h-12 rounded-xl bg-[#E6DED7] text-taupe text-xl font-bold flex items-center justify-center mb-4">
+            {index + 1}
+          </span>
+          <p className="text-md font-body  text-taupe/80">{benefit}</p>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+</motion.section>
+
+
+        {/* Call to Action */}
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="relative p-1 rounded-2xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-pineGreen via-wisteria to-pineGreen animate-gradient-x" />
+            <div className="relative p-12 bg-white rounded-2xl">
+              <p className="text-xl font-body  text-center text-taupe/80 mb-10 max-w-3xl mx-auto">
+                {service.fullContent.conclusion}
+              </p>
+              <div className="flex justify-center">
+      <Link href="/#contact">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="px-10 py-4 bg-pineGreen font-subheading font-bold text-white rounded-full shadow-xl hover:bg-pineGreen/90 transition-colors"
+        >
+          Get Started Today
+        </motion.button>
+      </Link>
+    </div>
+            </div>
+          </div>
+        </motion.section>
       </div>
     </main>
   );

@@ -10,7 +10,7 @@ export interface Service {
     understanding: string;
     services: {
       title: string;
-      items: string[];
+      items: { title: string; description: string }[]
     };
     process: {
       title: string;
@@ -29,7 +29,7 @@ export const services: Service[] = [
   {
     name: "Social Media Management",
     slug: "socialmediamanagement",
-    shortDescription: "Strategic social media growth and engagement.",
+    shortDescription: "Strategic social media growth and engagement for your socials.",
     description: "Comprehensive social media management services, including content planning, posting, audience engagement, and analytics tracking to boost online presence and brand loyalty.",
     fullContent: {
       introduction: "At The Ink Pot Group, we specialize in Social Media Management, a strategic approach to enhancing your brand's presence across various social platforms. Our goal is to foster meaningful engagement, build a loyal community, and drive measurable growth for your business.",
@@ -37,10 +37,22 @@ export const services: Service[] = [
       services: {
         title: "Our Comprehensive Services",
         items: [
-          "Platform Optimization: We ensure your profiles on platforms such as Facebook, Instagram, Twitter, LinkedIn, and others are fully optimized. This includes updating profile information, aligning visuals with your brand identity, and implementing best practices to enhance visibility.",
-          "Content Creation and Scheduling: Our team develops engaging and relevant content tailored to your audience's interests. We maintain a content calendar to schedule posts at optimal times, ensuring a consistent and timely presence that resonates with your followers.",
-          "Community Engagement: Building a loyal community requires active interaction. We monitor comments and messages, respond promptly, and foster discussions to create a vibrant and engaged audience.",
-          "Performance Analytics: Utilizing advanced analytics tools, we track key metrics to assess the effectiveness of our strategies. This data-driven approach allows us to refine our tactics, ensuring continuous improvement and alignment with your business goals."
+          {
+            title: "Platform Optimization",
+            description: "We ensure your profiles on platforms such as Facebook, Instagram, Twitter, LinkedIn, and others are fully optimized. This includes updating profile information, aligning visuals with your brand identity, and implementing best practices to enhance visibility."
+          },
+          {
+            title: "Content Creation and Scheduling",
+            description: "Our team develops engaging and relevant content tailored to your audience's interests. We maintain a content calendar to schedule posts at optimal times, ensuring a consistent and timely presence that resonates with your followers."
+          },
+          {
+            title: "Community Engagement",
+            description: "Building a loyal community requires active interaction. We monitor comments and messages, respond promptly, and foster discussions to create a vibrant and engaged audience."
+          },
+          {
+            title: "Performance Analytics",
+            description: "Utilizing advanced analytics tools, we track key metrics to assess the effectiveness of our strategies. This data-driven approach allows us to refine our tactics, ensuring continuous improvement and alignment with your business goals."
+          }
         ]
       },
       process: {
@@ -67,7 +79,7 @@ export const services: Service[] = [
   {
     name: "Digital Strategy",
     slug: "digitalstrategy",
-    shortDescription: "Data-driven strategies for online success.",
+    shortDescription: "Data-driven strategies for your online success.",
     description: "Expertly crafted digital strategies that drive traffic, enhance brand positioning, and improve conversions through SEO, social media, and online campaigns.",
     fullContent: {
       introduction: "At The Ink Pot Group, we specialize in Digital Strategy, a comprehensive approach designed to align your business objectives with the ever-evolving digital landscape. Our mission is to craft tailored strategies that enhance your online presence, engage your target audience, and drive sustainable growth.",
@@ -75,10 +87,22 @@ export const services: Service[] = [
       services: {
         title: "Our Comprehensive Services",
         items: [
-          "Market Research and Analysis: We delve deep into industry trends, competitor activities, and consumer behaviors to identify opportunities and challenges specific to your business.",
-          "Audience Profiling: By defining and understanding your target demographics, we tailor strategies that effectively reach and engage the right audience.",
-          "Channel Selection and Integration: We determine the most impactful digital platforms—such as SEO, social media, email marketing, and paid advertising—and integrate them to work harmoniously towards your objectives.",
-          "Campaign Planning and Execution: Our team designs cohesive campaigns that align with your brand's voice and goals, ensuring consistent messaging and optimal reach across all chosen channels."
+          {
+            title: "Market Research and Analysis",
+            description: "We delve deep into industry trends, competitor activities, and consumer behaviors to identify opportunities and challenges specific to your business."
+          },
+          {
+            title: "Audience Profiling",
+            description: "By defining and understanding your target demographics, we tailor strategies that effectively reach and engage the right audience."
+          },
+          {
+            title: "Channel Selection and Integration",
+            description: "We determine the most impactful digital platforms—such as SEO, social media, email marketing, and paid advertising—and integrate them to work harmoniously towards your objectives."
+          },
+          {
+            title: "Campaign Planning and Execution",
+            description: "Our team designs cohesive campaigns that align with your brand's voice and goals, ensuring consistent messaging and optimal reach across all chosen channels."
+          }
         ]
       },
       process: {
@@ -105,7 +129,7 @@ export const services: Service[] = [
   {
     name: "Content Creation",
     slug: "contentcreation",
-    shortDescription: "Compelling content that captivates audiences.",
+    shortDescription: "Compelling content to captivate your audience.",
     description: "High-quality written, visual, and video content tailored to your brand's voice and objectives to engage and inspire your audience.",
     fullContent: {
       introduction: "At The Ink Pot Group, we excel in Content Creation, a vital service designed to produce engaging and valuable media that captivates your target audience and reinforces your brand's presence. Our mission is to craft content that not only informs but also inspires and drives meaningful interactions.",
@@ -113,10 +137,22 @@ export const services: Service[] = [
       services: {
         title: "Our Comprehensive Services",
         items: [
-          "Copywriting: Crafting compelling and informative written content for blogs, articles, website copy, and social media posts that reflect your brand's tone and message.",
-          "Graphic Design: Designing visually appealing graphics, infographics, and illustrations that enhance your brand's visual identity and effectively communicate complex information.",
-          "Video Production: Producing high-quality videos, from concept development to final editing, including promotional videos, tutorials, and storytelling pieces that engage and inform your audience.",
-          "Social Media Content: Creating platform-specific content that encourages interaction and builds community across channels like Facebook, Instagram, Twitter, and LinkedIn."
+          {
+            title: "Copywriting",
+            description: "Crafting compelling and informative written content for blogs, articles, website copy, and social media posts that reflect your brand's tone and message."
+          },
+          {
+            title: "Graphic Design",
+            description: "Designing visually appealing graphics, infographics, and illustrations that enhance your brand's visual identity and effectively communicate complex information."
+          },
+          {
+            title: "Video Production",
+            description: "Producing high-quality videos, from concept development to final editing, including promotional videos, tutorials, and storytelling pieces that engage and inform your audience."
+          },
+          {
+            title: "Social Media Content",
+            description: "Creating platform-specific content that encourages interaction and builds community across channels like Facebook, Instagram, Twitter, and LinkedIn."
+          }
         ]
       },
       process: {
@@ -143,7 +179,7 @@ export const services: Service[] = [
   {
     name: "Photography & Videography",
     slug: "photography-videography",
-    shortDescription: "Professional visuals for brand storytelling.",
+    shortDescription: "Professional visuals for your brand's story.",
     description: "High-quality photography and videography services to create visually compelling content that enhances brand identity and marketing campaigns.",
     fullContent: {
       introduction: "At The Ink Pot Group, we specialize in Photography and Videography, offering professional visual content that captures the essence of your brand and engages your audience. Our mission is to create stunning visuals that tell your story authentically and compellingly.",
@@ -151,13 +187,29 @@ export const services: Service[] = [
       services: {
         title: "Our Comprehensive Services",
         items: [
-          "Product Photography: Showcasing your products with high-quality images that highlight their features and appeal.",
-          "Corporate Portraits: Capturing professional images of your team to humanize your brand and foster connection.",
-          "Event Coverage: Documenting significant events and milestones with a keen eye for detail and storytelling.",
-          "Promotional Videos: Creating engaging videos that highlight your services or products, designed to captivate and convert your audience.",
-          "Aerial/Drone Photography: Providing unique aerial perspectives to add a dynamic dimension to your visual content."
+          {
+            title: "Product Photography",
+            description: "Showcasing your products with high-quality images that highlight their features and appeal."
+          },
+          {
+            title: "Corporate Portraits",
+            description: "Capturing professional images of your team to humanize your brand and foster connection."
+          },
+          {
+            title: "Event Coverage",
+            description: "Documenting significant events and milestones with a keen eye for detail and storytelling."
+          },
+          {
+            title: "Promotional Videos",
+            description: "Creating engaging videos that highlight your services or products, designed to captivate and convert your audience."
+          },
+          {
+            title: "Aerial/Drone Photography",
+            description: "Providing unique aerial perspectives to add a dynamic dimension to your visual content."
+          }
         ]
       },
+      
       process: {
         title: "Our Collaborative Process",
         steps: [
@@ -182,7 +234,7 @@ export const services: Service[] = [
   {
     name: "Branding & Logo Design",
     slug: "brandinglogodesign",
-    shortDescription: "Crafting unique brand identities.",
+    shortDescription: "Crafting your unique brand identity.",
     description: "Strategic branding solutions, including logo design, color schemes, typography, and brand guidelines to establish a strong and memorable identity.",
     fullContent: {
       introduction: "At The Ink Pot Group, we specialize in Branding and Logo Design, crafting unique visual identities that encapsulate your brand's essence and resonate with your target audience. Our mission is to develop cohesive and memorable brand elements that distinguish your business in a competitive marketplace.",
@@ -190,10 +242,22 @@ export const services: Service[] = [
       services: {
         title: "Our Comprehensive Services",
         items: [
-          "Brand Identity Development: Collaborating with you to define your brand's mission, vision, values, and unique selling propositions, ensuring a strong foundation for all branding efforts.",
-          "Logo Design: Creating versatile and scalable logos that effectively communicate your brand's personality and appeal to your target market.",
-          "Brand Guidelines: Developing comprehensive guidelines that outline the proper usage of your brand elements, including color palettes, typography, imagery, and tone of voice, to maintain consistency across all communications.",
-          "Collateral Design: Designing cohesive marketing materials such as business cards, letterheads, brochures, and digital assets that reflect your brand identity and reinforce your market presence."
+          {
+            title: "Brand Identity Development",
+            description: "Collaborating with you to define your brand's mission, vision, values, and unique selling propositions, ensuring a strong foundation for all branding efforts."
+          },
+          {
+            title: "Logo Design",
+            description: "Creating versatile and scalable logos that effectively communicate your brand's personality and appeal to your target market."
+          },
+          {
+            title: "Brand Guidelines",
+            description: "Developing comprehensive guidelines that outline the proper usage of your brand elements, including color palettes, typography, imagery, and tone of voice, to maintain consistency across all communications."
+          },
+          {
+            title: "Collateral Design",
+            description: "Designing cohesive marketing materials such as business cards, letterheads, brochures, and digital assets that reflect your brand identity and reinforce your market presence."
+          }
         ]
       },
       process: {
@@ -230,140 +294,144 @@ export function getServiceBySlug(slug: string): Service | undefined {
 
 
   
-export const socialMediaWork = [
+export const logoDesignWork = [   
+  {     
+    title: "Minimalist Logo Design",     
+    description: "Crafted a sleek and modern logo for a tech startup.",     
+    image: "/images/client1.jpg",     
+    slug: "minimalist-logo-design"   
+  },   
+  {     
+    title: "Brand Identity Creation",     
+    description: "Developed a unique logo and branding for an e-commerce store.",     
+    image: "/images/client2.jpg",     
+    slug: "brand-identity-creation"   
+  },   
+  {     
+    title: "Luxury Logo Design",     
+    description: "Designed a premium and elegant logo for a high-end fashion brand.",     
+    image: "/images/client3.jpg",     
+    slug: "luxury-logo-design"   
+  },   
+  {     
+    title: "Creative Typography Logo",     
+    description: "Blended custom typography with creative elements for a modern brand.",     
+    image: "/images/client4.png",     
+    slug: "creative-typography-logo"   
+  } 
+];
+
+
+export const realEstateWork = [
   {
-    title: "Instagram Growth Campaign",
-    description: "Boosted engagement for a fashion brand.",
-    image: "/images/work1.jpeg",
-    slug: "instagram-growth-campaign"
+    title: "Luxury Property Branding",
+    description: "Designed a premium brand identity for high-end real estate.",
+    image: "/images/real1.jpg",
+    slug: "luxury-property-branding"
   },
   {
-    title: "Facebook Ads Management",
-    description: "Optimized ad spend for an e-commerce store.",
-    image: "/images/work2.webp",
-    slug: "facebook-ads-management"
+    title: "Real Estate Website Design",
+    description: "Developed a user-friendly property listing platform.",
+    image: "/images/digital2.jpg",
+    slug: "real-estate-website-design"
   },
   {
-    title: "LinkedIn B2B Strategy",
-    description: "Generated leads through professional networking.",
-    image: "/images/work3.avif",
-    slug: "linkedin-b2b-strategy"
+    title: "Virtual Tour & 3D Rendering",
+    description: "Created immersive property showcases with 3D visuals.",
+    image: "/images/digital3.jpg",
+    slug: "virtual-tour-3d-rendering"
   },
   {
-    title: "TikTok Viral Challenge",
-    description: "Created a trend with influencer collaborations.",
-    image: "/images/work4.jpg",
-    slug: "tiktok-viral-challenge"
+    title: "Social Media Marketing for Realtors",
+    description: "Increased property leads with targeted social campaigns.",
+    image: "/images/digital4.jpg",
+    slug: "social-media-marketing-realtors"
   }
 ];
 
-export const digitalStrategyWork = [
+export const foodRestaurantWork = [
   {
-    title: "SEO Optimization",
-    description: "Improved search ranking for a startup.",
-    image: "/images/work5.jpg",
-    slug: "seo-optimization"
+    title: "Restaurant Logo & Branding",
+    description: "Crafted a unique identity for a gourmet restaurant.",
+    image: "/images/content1.jpg",
+    slug: "restaurant-logo-branding"
   },
   {
-    title: "Email Marketing Automation",
-    description: "Enhanced customer retention for an SaaS business.",
-    image: "/images/work6.jpg",
-    slug: "email-marketing-automation"
+    title: "Food Photography & Menu Design",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/content2.jpg",
+    slug: "food-photography-menu-design"
   },
   {
-    title: "Market Research & Analytics",
-    description: "Data-driven decisions for a fintech company.",
-    image: "/images/yoga2.jpg",
-    slug: "market-research-analytics"
+    title: "Social Media Marketing for Restaurants",
+    description: "Engaged food lovers with creative social content.",
+    image: "/images/content3.jpg",
+    slug: "social-media-marketing-restaurants"
   },
   {
-    title: "Conversion Rate Optimization",
-    description: "A/B testing to increase sales.",
-    image: "/images/yoga3.jpg",
-    slug: "conversion-rate-optimization"
+    title: "Website & Online Ordering System",
+    description: "Developed an intuitive platform for online reservations & delivery.",
+    image: "/images/content4.jpg",
+    slug: "website-online-ordering-system"
   }
 ];
 
-export const contentCreationWork = [
+export const commercialsWork = [
   {
-    title: "Blog & Article Writing",
-    description: "High-quality content for thought leadership.",
-    image: "/images/yoga3.webp",
-    slug: "blog-article-writing"
+    title: "TV Commercial Production",
+    description: "Produced high-quality commercials for brand awareness.",
+    image: "/images/digital1.jpg",
+    slug: "tv-commercial-production"
   },
   {
-    title: "Video Script Development",
-    description: "Engaging scripts for YouTube & TikTok.",
-    image: "/images/yoga5.jpg",
-    slug: "video-script-development"
+    title: "Corporate Video Production",
+    description: "Created professional videos for business marketing.",
+    image: "/images/photo2.jpg",
+    slug: "corporate-video-production"
   },
   {
-    title: "Infographics & Visual Content",
-    description: "Eye-catching designs for marketing.",
-    image: "/images/work3.avif",
-    slug: "infographics-visual-content"
+    title: "Product Video Advertising",
+    description: "Showcased product features with compelling visuals.",
+    image: "/images/branding2.jpg",
+    slug: "product-video-advertising"
   },
   {
-    title: "Podcast Production",
-    description: "Branded audio content for storytelling.",
-    image: "/images/test.jpg",
-    slug: "podcast-production"
+    title: "Influencer & Lifestyle Shoots",
+    description: "Captured authentic content for brand storytelling.",
+    image: "/images/photo4.jpg",
+    slug: "influencer-lifestyle-shoots"
   }
 ];
 
-export const photographyWork = [
+export const postWork = [
   {
-    title: "Product Photography",
-    description: "Professional images for e-commerce stores.",
-    image: "/images/test.jpg",
-    slug: "product-photography"
+    title: "TV Commercial Production",
+    description: "Produced high-quality commercials for brand awareness.",
+    image: "/images/digital1.jpg",
+    slug: "tv-commercial-production"
   },
   {
-    title: "Event Coverage",
-    description: "Captured live moments with high-quality shots.",
-    image: "/images/test.jpg",
-    slug: "event-coverage"
+    title: "Corporate Video Production",
+    description: "Created professional videos for business marketing.",
+    image: "/images/photo2.jpg",
+    slug: "corporate-video-production"
   },
   {
-    title: "Drone Videography",
-    description: "Aerial shots for real estate & tourism.",
-    image: "/images/test.jpg",
-    slug: "drone-videography"
+    title: "Product Video Advertising",
+    description: "Showcased product features with compelling visuals.",
+    image: "/images/branding2.jpg",
+    slug: "product-video-advertising"
   },
   {
-    title: "Brand Lifestyle Shoot",
-    description: "Created authentic brand imagery.",
-    image: "/images/test.jpg",
-    slug: "brand-lifestyle-shoot"
+    title: "Influencer & Lifestyle Shoots",
+    description: "Captured authentic content for brand storytelling.",
+    image: "/images/photo4.jpg",
+    slug: "influencer-lifestyle-shoots"
   }
 ];
 
-export const brandingWork = [
-  {
-    title: "Logo Design",
-    description: "Created unique brand identities.",
-    image: "/images/digital.jpg",
-    slug: "logo-design"
-  },
-  {
-    title: "Brand Guidelines Development",
-    description: "Established cohesive brand elements.",
-    image: "/images/digital.jpg",
-    slug: "brand-guidelines-development"
-  },
-  {
-    title: "Packaging Design",
-    description: "Designed standout product packaging.",
-    image: "/images/digital.jpg",
-    slug: "packaging-design"
-  },
-  {
-    title: "Rebranding Strategy",
-    description: "Revamped outdated brand visuals.",
-    image: "/images/digital.jpg",
-    slug: "rebranding-strategy"
-  }
-];
+
+
 
 
   

@@ -20,15 +20,15 @@ const Hero: React.FC = () => {
         loop
         playsInline
       >
-        <source src="/video/hero.mp4" type="video/mp4" />
+        <source src="/video/home.mp4" type="video/mp4" />
         Writing your Success Stories
       </video>
-      <div className="absolute inset-0 bg-black bg-opacity-50" />
-      <div className="relative z-10 text-center text-white px-4 md:px-8">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl  font-heading font-bold mb-4">
+      <div className="absolute inset-0 " />
+      <div className="relative z-10 text-center top-0 md:px-8">
+        <h1 className="text-4xl  md:text-6xl lg:text-8xl font-heading font-bold  text-taupe mb-8">
         Writing your Success Stories
         </h1>
-        <h3 className="text-lg sm:text-xl md:text-2xl font-subheading">
+        <h3 className="text-xl lg:text-3xl font-subheading text-taupe/80 max-w-3xl mx-auto">
           Delivering top-notch solutions for your business needs.
         </h3>
       </div>

@@ -28,9 +28,9 @@ const RoadmapSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-7xl font-bold font-heading text-center mb-8 text-taupe">Our Process</h2>
-          <p className="font-subheading text-xl md:text-2xl max-w-3xl mx-auto">
-            A proven roadmap to digital success
+          <h2 className="text-4xl  md:text-6xl lg:text-7xl font-heading font-medium mb-8 text-taupe">Our Process</h2>
+          <p className="text-xl font-subheading text-taupe/80 max-w-3xl mx-auto">
+            A proven roadmap to ensure your digital success
           </p>
         </div>
 
@@ -51,7 +51,7 @@ const RoadmapSection: React.FC = () => {
                     <step.icon className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold mt-24">{step.title}</h3>
-                  <p className="text-taupe">{step.description}</p>
+                  <p className="text-taupe/80 font-body ">{step.description}</p>
                 </div>
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1/2">

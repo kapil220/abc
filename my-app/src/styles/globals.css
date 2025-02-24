@@ -6,41 +6,52 @@
 
 @font-face {
   font-family: 'TAN Harmoni';
-  src: url('https://use.typekit.net/af/2c415f/00000000000000007735e5d5/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3') format('woff2');
-  font-weight: 400;
+  src: url('/fonts/TANHarmoni.woff2') format('woff2'),
+       url('/fonts/TANHarmoni.woff') format('woff'),
+       url('/fonts/TANHarmoni.ttf') format('truetype');
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
+
+
 @font-face {
-  font-family: 'BookMania';
-  src: url('https://use.typekit.net/af/da0c19/00000000000000007735a07c/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3') format('woff2');
+  font-family: 'Forum';
+  src: url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+  font-weight: 400;
+  font-style: normal;
 }
 
 @layer base {
   body {
     @apply text-gray-900 bg-isabelline;
-    font-family: theme("fontFamily.roboto"); /* Correct way to use custom fonts */
+    font-family: theme("fontFamily.body"); /* Roboto for body text */
   }
 
   h1, h2 {
-    font-family: theme("fontFamily.heading");
+    font-family: theme("fontFamily.heading"); /* TAN Harmoni for h1, h2 */
     @apply text-taupe;
   }
 
   h3, h4 {
-    font-family: theme("fontFamily.subheading");
+    font-family: theme("fontFamily.subheading"); /* Forum for h3, h4 */
     @apply text-pineGreen;
   }
 
   p {
-    font-family: theme("fontFamily.body");
+    font-family: theme("fontFamily.body"); /* Roboto for paragraphs */
     @apply text-gray-900;
   }
 }
+
 
 
 
