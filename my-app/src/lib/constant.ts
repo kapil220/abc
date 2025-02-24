@@ -298,54 +298,45 @@ export const logoDesignWork = [
   {     
     title: "Minimalist Logo Design",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/client1.jpg",     
-    slug: "minimalist-logo-design"   
+    image: "/images/client1.jpg"   
   },   
   {     
     title: "Brand Identity Creation",     
     description: "Developed a unique logo and branding for an e-commerce store.",     
-    image: "/images/client2.jpg",     
-    slug: "brand-identity-creation"   
+    image: "/images/client2.jpg"   
   },   
   {     
     title: "Luxury Logo Design",     
     description: "Designed a premium and elegant logo for a high-end fashion brand.",     
-    image: "/images/client3.jpg",     
-    slug: "luxury-logo-design"   
+    image: "/images/client3.jpg"   
   },   
   {     
     title: "Creative Typography Logo",     
     description: "Blended custom typography with creative elements for a modern brand.",     
-    image: "/images/client4.png",     
-    slug: "creative-typography-logo"   
+    image: "/images/client4.png"   
   } 
 ];
-
 
 export const realEstateWork = [
   {
     title: "Luxury Property Branding",
     description: "Designed a premium brand identity for high-end real estate.",
-    image: "/images/real1.jpg",
-    slug: "luxury-property-branding"
+    image: "/images/real1.jpg"
   },
   {
     title: "Real Estate Website Design",
     description: "Developed a user-friendly property listing platform.",
-    image: "/images/digital2.jpg",
-    slug: "real-estate-website-design"
+    image: "/images/digital2.jpg"
   },
   {
     title: "Virtual Tour & 3D Rendering",
     description: "Created immersive property showcases with 3D visuals.",
-    image: "/images/digital3.jpg",
-    slug: "virtual-tour-3d-rendering"
+    image: "/images/digital3.jpg"
   },
   {
     title: "Social Media Marketing for Realtors",
     description: "Increased property leads with targeted social campaigns.",
-    image: "/images/digital4.jpg",
-    slug: "social-media-marketing-realtors"
+    image: "/images/digital4.jpg"
   }
 ];
 
@@ -353,26 +344,22 @@ export const foodRestaurantWork = [
   {
     title: "Restaurant Logo & Branding",
     description: "Crafted a unique identity for a gourmet restaurant.",
-    image: "/images/content1.jpg",
-    slug: "restaurant-logo-branding"
+    image: "/images/content1.jpg"
   },
   {
     title: "Food Photography & Menu Design",
     description: "Captured appetizing visuals for menus and promotions.",
-    image: "/images/content2.jpg",
-    slug: "food-photography-menu-design"
+    image: "/images/content2.jpg"
   },
   {
     title: "Social Media Marketing for Restaurants",
     description: "Engaged food lovers with creative social content.",
-    image: "/images/content3.jpg",
-    slug: "social-media-marketing-restaurants"
+    image: "/images/content3.jpg"
   },
   {
     title: "Website & Online Ordering System",
     description: "Developed an intuitive platform for online reservations & delivery.",
-    image: "/images/content4.jpg",
-    slug: "website-online-ordering-system"
+    image: "/images/content4.jpg"
   }
 ];
 
@@ -380,26 +367,22 @@ export const commercialsWork = [
   {
     title: "TV Commercial Production",
     description: "Produced high-quality commercials for brand awareness.",
-    image: "/images/digital1.jpg",
-    slug: "tv-commercial-production"
+    image: "/images/digital1.jpg"
   },
   {
     title: "Corporate Video Production",
     description: "Created professional videos for business marketing.",
-    image: "/images/photo2.jpg",
-    slug: "corporate-video-production"
+    image: "/images/photo2.jpg"
   },
   {
     title: "Product Video Advertising",
     description: "Showcased product features with compelling visuals.",
-    image: "/images/branding2.jpg",
-    slug: "product-video-advertising"
+    image: "/images/branding2.jpg"
   },
   {
     title: "Influencer & Lifestyle Shoots",
     description: "Captured authentic content for brand storytelling.",
-    image: "/images/photo4.jpg",
-    slug: "influencer-lifestyle-shoots"
+    image: "/images/photo4.jpg"
   }
 ];
 
@@ -407,28 +390,25 @@ export const postWork = [
   {
     title: "TV Commercial Production",
     description: "Produced high-quality commercials for brand awareness.",
-    image: "/images/digital1.jpg",
-    slug: "tv-commercial-production"
+    image: "/images/digital1.jpg"
   },
   {
     title: "Corporate Video Production",
     description: "Created professional videos for business marketing.",
-    image: "/images/photo2.jpg",
-    slug: "corporate-video-production"
+    image: "/images/photo2.jpg"
   },
   {
     title: "Product Video Advertising",
     description: "Showcased product features with compelling visuals.",
-    image: "/images/branding2.jpg",
-    slug: "product-video-advertising"
+    image: "/images/branding2.jpg"
   },
   {
     title: "Influencer & Lifestyle Shoots",
     description: "Captured authentic content for brand storytelling.",
-    image: "/images/photo4.jpg",
-    slug: "influencer-lifestyle-shoots"
+    image: "/images/photo4.jpg"
   }
 ];
+
 
 
 

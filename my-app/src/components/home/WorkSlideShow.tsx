@@ -1,4 +1,3 @@
-// components/WorkSection.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -9,7 +8,12 @@ import { logoDesignWork, realEstateWork, foodRestaurantWork, commercialsWork } f
 
 const WorkSection: React.FC = () => {
   // Select just a few featured works for the homepage preview
-  const featuredWorks = [...logoDesignWork.slice(0, 3), ...realEstateWork.slice(0, 3), ...foodRestaurantWork.slice(0, 3), ...commercialsWork.slice(0, 3),];
+  const featuredWorks = [
+    ...logoDesignWork.slice(0, 3), 
+    ...realEstateWork.slice(0, 3), 
+    ...foodRestaurantWork.slice(0, 3), 
+    ...commercialsWork.slice(0, 3),
+  ];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(3);
   
@@ -46,28 +50,26 @@ const WorkSection: React.FC = () => {
     <section className="py-40 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl  md:text-6xl lg:text-7xl font-heading font-medium text-taupe mb-4">Featured Work</h2>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-medium text-taupe mb-4">Featured Work</h2>
           <p className="text-xl font-subheading text-taupe/80 max-w-3xl mx-auto">
             A glimpse of our projects and creative solutions
           </p>
         </div>
         
-        {/* Slideshow */}
+        {/* Slideshow - No slugs used */}
         <div className="relative flex gap-4 overflow-hidden py-8">
-          {visibleWorks.map(work => (
-            <div key={work.slug} className="w-full sm:w-1/2 lg:w-1/3">
-              <Link href={`/work/${work.slug}`}>
-                <div className="cursor-pointer transition-transform hover:scale-105 duration-300">
-                  <Image 
-                    src={work.image} 
-                    alt={work.title} 
-                    width={300} 
-                    height={200} 
-                    className="w-full h-60 object-contain rounded-lg shadow-md" 
-                  />
-                  <h3 className="text-center mt-4 font-semibold">{work.title}</h3>
-                </div>
-              </Link>
+          {visibleWorks.map((work, index) => (
+            <div key={index} className="w-full sm:w-1/2 lg:w-1/3">
+              <div className="cursor-pointer transition-transform hover:scale-105 duration-300">
+                <Image 
+                  src={work.image} 
+                  alt={work.title} 
+                  width={300} 
+                  height={200} 
+                  className="w-full h-60 object-contain rounded-lg shadow-md" 
+                />
+                <h3 className="text-center mt-4 font-semibold">{work.title}</h3>
+              </div>
             </div>
           ))}
           <button
