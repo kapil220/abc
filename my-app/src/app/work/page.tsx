@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   logoDesignWork, 
   realEstateWork, 
@@ -10,8 +11,6 @@ import {
   postWork 
 } from "@/lib/constant";
 
-// Assuming you'll need to modify your data structure in lib/constant.js
-// to remove slug dependencies and use id or index instead
 const categories = [
   "All",
   "Logo Design",
@@ -21,8 +20,11 @@ const categories = [
   "Post",
 ];
 
+// Pre-compute the full work list to avoid recalculating on every render
+const allWorks = [...logoDesignWork, ...realEstateWork, ...foodRestaurantWork, ...commercialsWork, ...postWork];
+
 const workCategories = {
-  "All": [...logoDesignWork, ...realEstateWork, ...foodRestaurantWork, ...commercialsWork, ...postWork],
+  "All": allWorks,
   "Logo Design": logoDesignWork,
   "Real Estate": realEstateWork,
   "Food & Restaurant": foodRestaurantWork,
@@ -33,6 +35,19 @@ const workCategories = {
 export default function WorkPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const filteredWorks = workCategories[selectedCategory] || [];
+  
+  // Memoize the category selection handler
+  const handleCategoryChange = useCallback((category) => {
+    setSelectedCategory(category);
+  }, []);
+  
+  // Define height classes outside the render loop for better performance
+  const getHeightClass = (index) => {
+    const mod = index % 3;
+    if (mod === 0) return "h-80";
+    if (mod === 1) return "h-96";
+    return "h-72";
+  };
   
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
@@ -50,7 +65,7 @@ export default function WorkPage() {
             {categories.map((category) => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => handleCategoryChange(category)}
                 className={`
                   py-2 px-4 rounded-lg border transition-colors duration-300
                   ${selectedCategory === category
@@ -70,36 +85,95 @@ export default function WorkPage() {
           </p>
         </div>
         
-        {/* Project Grid - No slugs used */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredWorks.map((work, index) => (
-            <div 
-              key={index} // Using index as key instead of slug
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-            >
-              <div className="h-full flex flex-col">
-                <div className="relative h-48 w-full">
-                  <Image 
-                    src={work.image} 
-                    alt={work.title} 
-                    fill
-                    className="object-contain p-2" 
-                  />
-                </div>
-                <div className="p-4 flex-grow">
-                  <h3 className="font-semibold text-lg">{work.title}</h3>
-                  {work.description && (
-                    <p className="text-sm text-gray-600 mt-2">{work.description}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Creative Project Masonry-style Layout with Animations */}
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={selectedCategory}
+            className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {filteredWorks.map((work, index) => {
+              const heightClass = getHeightClass(index);
+              
+              return (
+                <motion.div 
+                  key={`${selectedCategory}-${index}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: index * 0.05,
+                    ease: "easeOut"
+                  }}
+                  className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
+                >
+                  <div 
+                    className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} transition-all duration-500 ease-in-out group-hover:h-96 group-hover:shadow-lg transform group-hover:scale-[1.02]`}
+                  >
+                    {/* Image container */}
+                    <div className="h-full w-full relative">
+                      <Image 
+                        src={work.image} 
+                        alt={work.title || "Project image"}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform" 
+                        priority={index < 6} // Prioritize loading for visible images
+                      />
+                      
+                      {/* Overlay that appears on hover */}
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                        aria-hidden="true"
+                      ></div>
+                    </div>
+                    
+                    {/* Content that appears on hover */}
+                    <div 
+                      className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out delay-75 pointer-events-none"
+                      aria-hidden="true"
+                    >
+                      <div>
+                        <span className="inline-block px-2 py-1 text-xs font-medium bg-pineGreen text-white rounded-md">
+                          {work.category || selectedCategory}
+                        </span>
+                        <h3 className="text-xl font-bold mt-2 text-white">{work.title}</h3>
+                        
+                        {work.description && (
+                          <p className="text-gray-200 mt-3 text-sm line-clamp-3">{work.description}</p>
+                        )}
+                        
+                        <div className="mt-4">
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {work.tags?.length > 0 ? work.tags.map((tag, i) => (
+                              <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm">
+                                {tag}
+                              </span>
+                            )) : (
+                              ['Design', 'Creative', 'Portfolio'].map((tag, i) => (
+                                <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm">
+                                  {tag}
+                                </span>
+                              ))
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
         
         {/* Show message if no works found */}
         {filteredWorks.length === 0 && (
-          <div className="text-center p-8 bg-white rounded-lg shadow">
+          <div className="text-center p-8 bg-white rounded-xl shadow-md">
             <p className="text-lg text-gray-600">No projects found in this category.</p>
           </div>
         )}

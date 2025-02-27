@@ -13,7 +13,7 @@ const Footer = () => {
     <div className=" flex flex-col items-center ">
       <div className="flex-shrink-0">
         <Link href="/">
-          <div className="flex items-center filter brightness-51 cursor-pointer">
+          <div className="flex flex-col items-center filter brightness-51 cursor-pointer">
             <Image 
               className="h-40 w-auto" 
               src="/images/logowhite.png" 
@@ -22,7 +22,7 @@ const Footer = () => {
               height={50}  
               priority  
             />
-            <span className="ml-2 text-4xl font-heading font-medium ">The Ink Pot Group</span>
+            <span className=" text-4xl font-heading font-medium ">The Ink Pot Group</span>
           </div>
         </Link>
       </div>
@@ -30,10 +30,10 @@ const Footer = () => {
         Creating compelling digital experiences that transform brands and drive results. Your success story starts here.
       </p>
       <div className="flex space-x-4">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
+        <a href="https://www.instagram.com/the.inkpotgroup/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
           <Instagram className="h-6 w-6" />
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
+        <a href="https://www.linkedin.com/company/theinkpotgroup/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
           <Linkedin className="h-6 w-6" />
         </a>
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
@@ -46,7 +46,7 @@ const Footer = () => {
 
 
         <div className="border-t border-gray-600 mt-12 pt-8 text-center">
-          <p className='font-subheading text-gray-400'>&copy; {new Date().getFullYear()} The Inkpot Group. All rights reserved.</p>
+          <p className='font-subheading text-gray-400'>&copy; {new Date().getFullYear()} The Ink Pot Group. All rights reserved.</p>
         </div>
       </div>
     </footer>

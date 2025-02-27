@@ -5,12 +5,15 @@ import Image from 'next/image';
 const clientLogos = [
   '/images/client1.jpg',
   '/images/client2.jpg',
+ '/images/client9.png',
   '/images/client3.jpg',
   '/images/client4.png',
   '/images/client5.png',
   '/images/client6.png',
   '/images/client7.png',
-  '/images/client8.png'
+  '/images/client8.png',
+  
+  
 ];
 
 const Clients = () => {
@@ -19,7 +22,7 @@ const Clients = () => {
   const extendedLogos = [...clientLogos, ...clientLogos];
   
   return (
-    <section className="h-screen md:h-[60vh] lg:h-[50vh] py-24 bg-gray-100 flex items-center overflow-hidden">
+    <section className="h-screen md:h-[60vh] lg:h-[50vh] py-12 bg-gray-100 flex items-center overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 w-full">
         <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-medium text-taupe text-center mb-16">
           Our Clients
@@ -27,15 +30,15 @@ const Clients = () => {
         
         {/* Mobile View - Grid Layout */}
         <div className="block sm:hidden">
-          <div className="grid grid-cols-2 gap-4 items-center">
+          <div className="grid grid-cols-2 gap-3 items-center">
             {clientLogos.map((logo, index) => (
-              <div key={index} className="flex items-center justify-center h-full py-12">
+              <div key={index} className="flex items-center justify-center h-full py-4">
                 <Image
                   src={logo}
                   alt={`Client ${index + 1}`}
                   width={150}
                   height={50}
-                  className="object-contain h-12"
+                  className="object-contain h-20"
                   priority
                 />
               </div>
@@ -62,7 +65,7 @@ const Clients = () => {
               alt={`Client ${index + 1}`}
               width={150}
               height={50}
-              className="object-contain h-16 md:h-24"
+              className="object-contain  h-60 md:h-24"
               priority
             />
           </div>
@@ -70,22 +73,7 @@ const Clients = () => {
       ))}
     </div>
     {/* Duplicate set of logos for seamless loop */}
-    <div className="flex min-w-full">
-      {clientLogos.map((logo, index) => (
-        <div key={`second-${index}`} className="flex-shrink-0 w-1/4 lg:w-1/8 px-4">
-          <div className="flex items-center justify-center py-12">
-            <Image
-              src={logo}
-              alt={`Client ${index + 1}`}
-              width={150}
-              height={50}
-              className="object-contain h-16 md:h-24"
-              priority
-            />
-          </div>
-        </div>
-      ))}
-    </div>
+   
   </div>
 </div>
 

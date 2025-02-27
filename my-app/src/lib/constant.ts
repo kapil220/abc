@@ -298,22 +298,22 @@ export const logoDesignWork = [
   {     
     title: "Minimalist Logo Design",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/client1.jpg"   
+    image: "/images/log1.png"   
   },   
   {     
     title: "Brand Identity Creation",     
     description: "Developed a unique logo and branding for an e-commerce store.",     
-    image: "/images/client2.jpg"   
+    image: "/images/log2.png"   
   },   
   {     
     title: "Luxury Logo Design",     
     description: "Designed a premium and elegant logo for a high-end fashion brand.",     
-    image: "/images/client3.jpg"   
+    image: "/images/log3.png"   
   },   
   {     
     title: "Creative Typography Logo",     
     description: "Blended custom typography with creative elements for a modern brand.",     
-    image: "/images/client4.png"   
+    image: "/images/log4.png"   
   } 
 ];
 
@@ -326,17 +326,17 @@ export const realEstateWork = [
   {
     title: "Real Estate Website Design",
     description: "Developed a user-friendly property listing platform.",
-    image: "/images/digital2.jpg"
+    image: "/images/real2.jpg"
   },
   {
     title: "Virtual Tour & 3D Rendering",
     description: "Created immersive property showcases with 3D visuals.",
-    image: "/images/digital3.jpg"
+    image: "/images/real3.jpg"
   },
   {
     title: "Social Media Marketing for Realtors",
     description: "Increased property leads with targeted social campaigns.",
-    image: "/images/digital4.jpg"
+    image: "/images/real4.jpg"
   }
 ];
 
@@ -367,12 +367,12 @@ export const commercialsWork = [
   {
     title: "TV Commercial Production",
     description: "Produced high-quality commercials for brand awareness.",
-    image: "/images/digital1.jpg"
+    image: "/images/branding3.jpg"
   },
   {
     title: "Corporate Video Production",
     description: "Created professional videos for business marketing.",
-    image: "/images/photo2.jpg"
+    image: "/images/branding1.jpg"
   },
   {
     title: "Product Video Advertising",
@@ -382,32 +382,33 @@ export const commercialsWork = [
   {
     title: "Influencer & Lifestyle Shoots",
     description: "Captured authentic content for brand storytelling.",
-    image: "/images/photo4.jpg"
+    image: "/images/branding4.jpg"
   }
 ];
 
 export const postWork = [
   {
-    title: "TV Commercial Production",
-    description: "Produced high-quality commercials for brand awareness.",
-    image: "/images/digital1.jpg"
+    title: "Social Media Post Design",
+    description: "Designed engaging visuals for social media marketing campaigns.",
+    image: "/images/photo1.jpg"
   },
   {
-    title: "Corporate Video Production",
-    description: "Created professional videos for business marketing.",
+    title: "Instagram & Facebook Ads",
+    description: "Created high-converting ad creatives for targeted social media promotions.",
     image: "/images/photo2.jpg"
   },
   {
-    title: "Product Video Advertising",
-    description: "Showcased product features with compelling visuals.",
-    image: "/images/branding2.jpg"
+    title: "Content Marketing Graphics",
+    description: "Developed infographics and visuals to boost content engagement.",
+    image: "/images/photo3.jpg"
   },
   {
-    title: "Influencer & Lifestyle Shoots",
-    description: "Captured authentic content for brand storytelling.",
+    title: "Brand Awareness Campaign",
+    description: "Designed a cohesive post series for brand storytelling.",
     image: "/images/photo4.jpg"
   }
 ];
+
 
 
 
