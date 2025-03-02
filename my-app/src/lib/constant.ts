@@ -590,14 +590,7 @@ export const postWork = [
     type: "image",
     tags: ["Instagram", "Facebook", "Ads"]
   },
-  {
-    title: "Viral Social Campaign",
-    description: "Short-form video content that drove significant engagement and brand awareness.",
-    video: "/videos/viral-campaign.mp4",
-    thumbnail: "/images/viral-campaign-thumb.jpg",
-    type: "video",
-    tags: ["Viral", "Campaign", "Short-form"]
-  },
+ 
   {
     title: "Brand Awareness Campaign",
     description: "Designed a cohesive post series for brand storytelling.",
@@ -606,8 +599,15 @@ export const postWork = [
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },
   {
-    title: "Brand Awareness Campaign",
-    description: "Designed a cohesive post series for brand storytelling.",
+    title: "Brand Awareness Campaign2",
+    description: "Designed a cohesivec post series for brand storytelling.",
+    image: "/images/post5.jpg",
+    type: "image",
+    tags: ["Brand Awareness", "Storytelling", "Series"]
+  },
+  {
+    title: "Brand Awareness Campaign2",
+    description: "Designed a cohesivec post series for brand storytelling.",
     image: "/images/post5.jpg",
     type: "image",
     tags: ["Brand Awareness", "Storytelling", "Series"]
@@ -627,13 +627,13 @@ export const postWork = [
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },
   {
-    title: "Behind-the-Scenes Content",
-    description: "Engaging video showing the creative process behind popular campaigns.",
-    video: "/videos/behind-the-scenes.mp4",
-    thumbnail: "/images/behind-scenes-thumb.jpg",
-    type: "video",
-    tags: ["BTS", "Creative Process", "Documentary"]
-  }
+    title: "Brand Awareness Campaign",
+    description: "Designed a cohesive post series for brand storytelling.",
+    image: "/images/post11.jpg",
+    type: "image",
+    tags: ["Brand Awareness", "Storytelling", "Series"]
+  },
+ 
 ];
 
 
