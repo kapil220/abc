@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { Play, Pause, X } from "lucide-react";
 import { 
   logoDesignWork, 
   realEstateWork, 
@@ -10,6 +11,12 @@ import {
   commercialsWork, 
   postWork 
 } from "@/lib/constant";
+import VideoAutoplay from "@/components/media/VideoAutoplay";
+import { WorkItem } from "@/types"; // Import the shared interface
+
+interface CategoryMap {
+  [key: string]: WorkItem[];
+}
 
 const categories = [
   "All",
@@ -23,7 +30,7 @@ const categories = [
 // Pre-compute the full work list to avoid recalculating on every render
 const allWorks = [...logoDesignWork, ...realEstateWork, ...foodRestaurantWork, ...commercialsWork, ...postWork];
 
-const workCategories = {
+const workCategories: CategoryMap = {
   "All": allWorks,
   "Logo Design": logoDesignWork,
   "Real Estate": realEstateWork,
@@ -34,19 +41,45 @@ const workCategories = {
 
 export default function WorkPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<WorkItem | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
   const filteredWorks = workCategories[selectedCategory] || [];
   
-  // Memoize the category selection handler
-  const handleCategoryChange = useCallback((category) => {
+  const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
   }, []);
   
-  // Define height classes outside the render loop for better performance
-  const getHeightClass = (index) => {
+  const getHeightClass = (index: number) => {
     const mod = index % 3;
     if (mod === 0) return "h-80";
     if (mod === 1) return "h-96";
     return "h-72";
+  };
+  
+  const openVideoModal = (work: WorkItem) => {
+    setSelectedVideo(work);
+    setVideoModalOpen(true);
+    setIsPlaying(true);
+  };
+  
+  const closeVideoModal = () => {
+    setVideoModalOpen(false);
+    setSelectedVideo(null);
+    setIsPlaying(false);
+  };
+  
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
   };
   
   return (
@@ -77,12 +110,6 @@ export default function WorkPage() {
               </button>
             ))}
           </div>
-          
-          <p className="text-center text-gray-600">
-            {selectedCategory === "All" 
-              ? `Showing all projects (${filteredWorks.length})` 
-              : `Showing ${selectedCategory} projects (${filteredWorks.length})`}
-          </p>
         </div>
         
         {/* Creative Project Masonry-style Layout with Animations */}
@@ -96,9 +123,17 @@ export default function WorkPage() {
             transition={{ duration: 0.3 }}
           >
             {filteredWorks.map((work, index) => {
-              const heightClass = getHeightClass(index);
+              const isVideo = work.type === "video" && work.video;
               
-              return (
+              return isVideo ? (
+                // Only render VideoAutoplay for items with video property
+                <VideoAutoplay 
+                  key={`${selectedCategory}-${index}`}
+                  work={work}
+                  index={index}
+                  openModal={openVideoModal}
+                />
+              ) : (
                 <motion.div 
                   key={`${selectedCategory}-${index}`}
                   initial={{ opacity: 0, y: 20 }}
@@ -112,17 +147,17 @@ export default function WorkPage() {
                   className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
                 >
                   <div 
-                    className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} transition-all duration-500 ease-in-out group-hover:h-96 group-hover:shadow-lg transform group-hover:scale-[1.02]`}
+                    className={`relative overflow-hidden rounded-xl shadow-md ${getHeightClass(index)} transition-all duration-500 ease-in-out group-hover:h-96 group-hover:shadow-lg transform group-hover:scale-[1.02]`}
                   >
                     {/* Image container */}
                     <div className="h-full w-full relative">
                       <Image 
-                        src={work.image} 
+                        src={work.image || work.thumbnail || "/placeholder.jpg"}
                         alt={work.title || "Project image"}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform" 
-                        priority={index < 6} // Prioritize loading for visible images
+                        priority={index < 6}
                       />
                       
                       {/* Overlay that appears on hover */}
@@ -141,27 +176,15 @@ export default function WorkPage() {
                         <span className="inline-block px-2 py-1 text-xs font-medium bg-pineGreen text-white rounded-md">
                           {work.category || selectedCategory}
                         </span>
-                        <h3 className="text-xl font-bold mt-2 text-white">{work.title}</h3>
-                        
-                        {work.description && (
-                          <p className="text-gray-200 mt-3 text-sm line-clamp-3">{work.description}</p>
-                        )}
-                        
+                      
                         <div className="mt-4">
-                          <div className="flex flex-wrap gap-2 mb-4">
-                            {work.tags?.length > 0 ? work.tags.map((tag, i) => (
-                              <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm">
-                                {tag}
-                              </span>
-                            )) : (
-                              ['Design', 'Creative', 'Portfolio'].map((tag, i) => (
-                                <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm">
-                                  {tag}
-                                </span>
-                              ))
-                            )}
-                          </div>
-                        </div>
+  {(work.tags?.length ? work.tags : ["Creative", "Design"]).map((tag, i) => (
+    <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm mr-2 mb-2">
+      {tag}
+    </span>
+  ))}
+</div>
+
                       </div>
                     </div>
                   </div>
@@ -178,6 +201,47 @@ export default function WorkPage() {
           </div>
         )}
       </div>
+      
+      {/* Video Modal */}
+      {videoModalOpen && selectedVideo && selectedVideo.video && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+          <div className="relative bg-gray-900 rounded-xl overflow-hidden max-w-4xl w-full max-h-[80vh]">
+            <div className="relative">
+              <video 
+                ref={videoRef}
+                src={selectedVideo.video}
+                className="w-full"
+                controls={false}
+                autoPlay
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              />
+              
+              {/* Video controls */}
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+                <button 
+                  onClick={togglePlayPause}
+                  className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
+                >
+                  {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+                </button>
+                
+                <h3 className="text-white text-sm md:text-base font-medium backdrop-blur-sm bg-black/30 px-3 py-1 rounded-full">
+                  {selectedVideo.title}
+                </h3>
+              </div>
+            </div>
+            
+            {/* Close button */}
+            <button 
+              onClick={closeVideoModal}
+              className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-1 hover:bg-black/70 transition-colors"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -4,36 +4,128 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface FormData {
   name: string;
+  countryCode: string;
   phone: string;
   email: string;
   query: string;
 }
 
+interface FormErrors {
+  name?: string;
+  countryCode?: string;
+  phone?: string;
+  email?: string;
+  query?: string;
+}
+
 const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
+    countryCode: '',
     phone: '',
     email: '',
     query: ''
   });
+  
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    
+    // Clear error when user starts typing
+    if (formErrors[name as keyof FormErrors]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }));
+    }
+    
+    // Input validation as user types
+    if (name === 'name') {
+      // Only allow alphabets and spaces
+      const nameValue = value.replace(/[^A-Za-z\s]/g, '');
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: nameValue
+      }));
+    } else if (name === 'countryCode') {
+      // Only allow + and numbers
+      const codeValue = value.replace(/[^0-9+]/g, '');
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: codeValue
+      }));
+    } else if (name === 'phone') {
+      // Only allow numbers
+      const phoneValue = value.replace(/[^0-9]/g, '');
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: phoneValue
+      }));
+    } else {
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: value
+      }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const errors: FormErrors = {};
+    
+    // Name validation - must contain only alphabets and spaces
+    if (!formData.name.trim()) {
+      errors.name = "Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
+      errors.name = "Name should contain only alphabets";
+    }
+    
+    // Country code validation
+    if (!formData.countryCode.trim()) {
+      errors.countryCode = "Country code is required";
+    } else if (!/^\+[0-9]{1,4}$/.test(formData.countryCode)) {
+      errors.countryCode = "Invalid country code format (e.g. +1, +91)";
+    }
+    
+    // Phone validation - must be 10 digits
+    if (!formData.phone.trim()) {
+      errors.phone = "Phone number is required";
+    } else if (formData.phone.length !== 10) {
+      errors.phone = "Phone number must be 10 digits";
+    }
+    
+    // Email validation
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      errors.email = "Invalid email format";
+    }
+    
+    // Query validation
+    if (!formData.query.trim()) {
+      errors.query = "Please enter your message";
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsLoading(true);
     
     const submissionData = {
       ...formData,
+      fullPhone: `${formData.countryCode}${formData.phone}`, // Combine country code and phone
       submissionDate: new Date().toLocaleDateString(),
       timestamp: new Date().toISOString(),
     };
@@ -54,7 +146,7 @@ const Contact = () => {
       
       setSubmitStatus('success');
       setShowModal(true);
-      setFormData({ name: "", phone: "", email: "", query: "" });
+      setFormData({ name: "", countryCode: "", phone: "", email: "", query: "" });
     } catch (error) {
       console.error("❌ Error submitting form:", error);
       setSubmitStatus('error');
@@ -70,7 +162,7 @@ const Contact = () => {
   };
   
   return (
-    <div className="h-full flex flex-col lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]  font-body">
+    <div className="h-full flex flex-col lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] font-body">
       {/* Left Section - Schedule Meeting */}
       <motion.div 
           className="lg:w-1/2 p-6 lg:p-6 lg:pl-44 md:pl-24 flex flex-col justify-center items-center"
@@ -79,7 +171,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
         >
           <motion.div
-            className="max-w-md w-full  rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
+            className="max-w-md w-full rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -150,7 +242,7 @@ const Contact = () => {
 
       {/* Right Section - Contact Form */}
       <motion.div 
-        className="lg:w-1/2  py-12 lg:py-20 px-6 lg:pr-32 "
+        className="lg:w-1/2 py-12 lg:py-20 px-6 lg:pr-32"
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -161,7 +253,7 @@ const Contact = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          <h2 className="text-4xl  md:text-6xl lg:text-7xl font-heading font-medium text-taupe mb-6">Contact Us</h2>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-medium text-taupe mb-6">Contact Us</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <motion.div
               initial={{ y: 20, opacity: 0 }}
@@ -173,30 +265,57 @@ const Contact = () => {
                 type="text"
                 name="name"
                 required
-                className="w-full border-b-2 border-ashGray py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors"
+                className={`w-full border-b-2 ${formErrors.name ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors`}
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Your full name"
                 disabled={isLoading}
               />
+              {formErrors.name && (
+                <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
+              )}
             </motion.div>
 
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
+              className="flex space-x-3"
             >
-              <label className="block text-sm font-subheading text-pineGreen mb-2">Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                required
-                className="w-full border-b-2 border-ashGray py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="Your phone number"
-                disabled={isLoading}
-              />
+              <div className="w-1/3">
+                <label className="block text-sm font-subheading text-pineGreen mb-2">Country Code</label>
+                <input
+                  type="text"
+                  name="countryCode"
+                  required
+                  className={`w-full border-b-2 ${formErrors.countryCode ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors`}
+                  value={formData.countryCode}
+                  onChange={handleChange}
+                  placeholder="+91"
+                  disabled={isLoading}
+                />
+                {formErrors.countryCode && (
+                  <p className="text-red-500 text-xs mt-1">{formErrors.countryCode}</p>
+                )}
+              </div>
+
+              <div className="w-2/3">
+                <label className="block text-sm font-subheading text-pineGreen mb-2">Phone</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  className={`w-full border-b-2 ${formErrors.phone ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors`}
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="10-digit number"
+                  maxLength={10}
+                  disabled={isLoading}
+                />
+                {formErrors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
+                )}
+              </div>
             </motion.div>
 
             <motion.div
@@ -209,12 +328,15 @@ const Contact = () => {
                 type="email"
                 name="email"
                 required
-                className="w-full border-b-2 border-ashGray py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors"
+                className={`w-full border-b-2 ${formErrors.email ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors`}
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="your.email@example.com"
+                placeholder="abc@id.com"
                 disabled={isLoading}
               />
+              {formErrors.email && (
+                <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>
+              )}
             </motion.div>
 
             <motion.div
@@ -227,12 +349,15 @@ const Contact = () => {
                 name="query"
                 required
                 rows={4}
-                className="w-full border-b-2 border-ashGray py-2 px-3 bg-transparent focus:border-pineGreen outline-none resize-none transition-colors"
+                className={`w-full border-b-2 ${formErrors.query ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none resize-none transition-colors`}
                 value={formData.query}
                 onChange={handleChange}
                 placeholder="How can we help you?"
                 disabled={isLoading}
               />
+              {formErrors.query && (
+                <p className="text-red-500 text-xs mt-1">{formErrors.query}</p>
+              )}
             </motion.div>
 
             <motion.button

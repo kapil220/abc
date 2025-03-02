@@ -298,22 +298,30 @@ export const logoDesignWork = [
   {     
     title: "Minimalist Logo Design",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/log1.png"   
+    image: "/images/log1.png",
+    type: "image",
+    tags: ["Minimalist", "Tech", "Modern"]
   },   
   {     
     title: "Brand Identity Creation",     
     description: "Developed a unique logo and branding for an e-commerce store.",     
-    image: "/images/log2.png"   
+    image: "/images/log2.png",
+    type: "image",
+    tags: ["Branding", "E-commerce", "Identity"]
   },   
   {     
     title: "Luxury Logo Design",     
     description: "Designed a premium and elegant logo for a high-end fashion brand.",     
-    image: "/images/log3.png"   
+    image: "/images/log3.png",
+    type: "image",
+    tags: ["Luxury", "Fashion", "Elegant"]
   },   
   {     
     title: "Creative Typography Logo",     
     description: "Blended custom typography with creative elements for a modern brand.",     
-    image: "/images/log4.png"   
+    image: "/images/log4.png",
+    type: "image",
+    tags: ["Typography", "Creative", "Custom"]
   } 
 ];
 
@@ -321,45 +329,108 @@ export const realEstateWork = [
   {
     title: "Luxury Property Branding",
     description: "Designed a premium brand identity for high-end real estate.",
-    image: "/images/real1.jpg"
+    image: "/images/real1.jpg",
+    type: "image",
+    tags: ["Luxury", "Branding", "Premium"]
   },
   {
     title: "Real Estate Website Design",
     description: "Developed a user-friendly property listing platform.",
-    image: "/images/real2.jpg"
+    image: "/images/real2.jpg",
+    type: "image",
+    tags: ["Website", "UI/UX", "Property"]
   },
   {
     title: "Virtual Tour & 3D Rendering",
     description: "Created immersive property showcases with 3D visuals.",
-    image: "/images/real3.jpg"
+    video: "/video/realvideo2.mp4", 
+    
+    type: "video",
+    tags: ["3D", "Virtual Tour", "Immersive"]
   },
   {
     title: "Social Media Marketing for Realtors",
     description: "Increased property leads with targeted social campaigns.",
-    image: "/images/real4.jpg"
-  }
+    image: "/images/real4.jpg",
+    type: "image",
+    tags: ["Social Media", "Marketing", "Leads"]
+  },
+  {
+    title: "Luxury Home Walkthrough",
+    description: "A detailed walkthrough video highlighting premium real estate features.",
+    video: "/video/realvideo1.mp4",
+   
+    type: "video",
+    tags: ["Walkthrough", "Luxury", "Premium"]
+  },
+  {
+    title: "Social Media Marketing for Realtors",
+    description: "Increased property leads with targeted social campaigns.",
+    image: "/images/real5.jpg",
+    type: "image",
+    tags: ["Social Media", "Marketing", "Leads"]
+  },
+  {
+    title: "Social Media Marketing for Realtors",
+    description: "Increased property leads with targeted social campaigns.",
+    image: "/images/real6.jpg",
+    type: "image",
+    tags: ["Social Media", "Marketing", "Leads"]
+  },
+  {
+    title: "Virtual Tour & 3D Rendering",
+    description: "Created immersive property showcases with 3D visuals.",
+    video: "/video/realvideo3.mp4", 
+    
+    type: "video",
+    tags: ["3D", "Virtual Tour", "Immersive"]
+  },
+  {
+    title: "Social Media Marketing for Realtors",
+    description: "Increased property leads with targeted social campaigns.",
+    image: "/images/real7.jpg",
+    type: "image",
+    tags: ["Social Media", "Marketing", "Leads"]
+  },
 ];
 
 export const foodRestaurantWork = [
   {
     title: "Restaurant Logo & Branding",
     description: "Crafted a unique identity for a gourmet restaurant.",
-    image: "/images/content1.jpg"
+    image: "/images/content1.jpg",
+    type: "image",
+    tags: ["Logo", "Branding", "Gourmet"]
   },
   {
     title: "Food Photography & Menu Design",
     description: "Captured appetizing visuals for menus and promotions.",
-    image: "/images/content2.jpg"
+    image: "/images/content2.jpg",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
   },
   {
-    title: "Social Media Marketing for Restaurants",
-    description: "Engaged food lovers with creative social content.",
-    image: "/images/content3.jpg"
+    title: "Chef Spotlight Series",
+    description: "Video showcase featuring signature dishes and culinary expertise.",
+    video: "/videos/chef-spotlight.mp4",
+    thumbnail: "/images/chef-spotlight-thumb.jpg",
+    type: "video",
+    tags: ["Chef", "Culinary", "Video Series"]
   },
   {
     title: "Website & Online Ordering System",
     description: "Developed an intuitive platform for online reservations & delivery.",
-    image: "/images/content4.jpg"
+    image: "/images/content4.jpg",
+    type: "image",
+    tags: ["Website", "Online Ordering", "UX Design"]
+  },
+  {
+    title: "Restaurant Atmosphere Tour",
+    description: "An immersive video tour of a restaurant's unique ambiance and dining experience.",
+    video: "/videos/restaurant-tour.mp4",
+    thumbnail: "/images/restaurant-tour-thumb.jpg",
+    type: "video",
+    tags: ["Ambiance", "Tour", "Experience"]
   }
 ];
 
@@ -367,22 +438,30 @@ export const commercialsWork = [
   {
     title: "TV Commercial Production",
     description: "Produced high-quality commercials for brand awareness.",
-    image: "/images/branding3.jpg"
+    image: "/images/branding3.jpg",
+    type: "image",
+    tags: ["TV", "Commercial", "Production"]
   },
   {
     title: "Corporate Video Production",
     description: "Created professional videos for business marketing.",
-    image: "/images/branding1.jpg"
+    image: "/images/branding1.jpg",
+    type: "image",
+    tags: ["Corporate", "Professional", "Business"]
   },
   {
     title: "Product Video Advertising",
     description: "Showcased product features with compelling visuals.",
-    image: "/images/branding2.jpg"
+    image: "/images/branding2.jpg",
+    type: "image",
+    tags: ["Product", "Advertising", "Features"]
   },
   {
     title: "Influencer & Lifestyle Shoots",
     description: "Captured authentic content for brand storytelling.",
-    image: "/images/branding4.jpg"
+    image: "/images/branding4.jpg",
+    type: "image",
+    tags: ["Influencer", "Lifestyle", "Authentic"]
   }
 ];
 
@@ -390,22 +469,39 @@ export const postWork = [
   {
     title: "Social Media Post Design",
     description: "Designed engaging visuals for social media marketing campaigns.",
-    image: "/images/photo1.jpg"
+    image: "/images/photo1.jpg",
+    type: "image",
+    tags: ["Social Media", "Design", "Marketing"]
   },
   {
     title: "Instagram & Facebook Ads",
     description: "Created high-converting ad creatives for targeted social media promotions.",
-    image: "/images/photo2.jpg"
+    image: "/images/photo2.jpg",
+    type: "image",
+    tags: ["Instagram", "Facebook", "Ads"]
   },
   {
-    title: "Content Marketing Graphics",
-    description: "Developed infographics and visuals to boost content engagement.",
-    image: "/images/photo3.jpg"
+    title: "Viral Social Campaign",
+    description: "Short-form video content that drove significant engagement and brand awareness.",
+    video: "/videos/viral-campaign.mp4",
+    thumbnail: "/images/viral-campaign-thumb.jpg",
+    type: "video",
+    tags: ["Viral", "Campaign", "Short-form"]
   },
   {
     title: "Brand Awareness Campaign",
     description: "Designed a cohesive post series for brand storytelling.",
-    image: "/images/photo4.jpg"
+    image: "/images/photo4.jpg",
+    type: "image",
+    tags: ["Brand Awareness", "Storytelling", "Series"]
+  },
+  {
+    title: "Behind-the-Scenes Content",
+    description: "Engaging video showing the creative process behind popular campaigns.",
+    video: "/videos/behind-the-scenes.mp4",
+    thumbnail: "/images/behind-scenes-thumb.jpg",
+    type: "video",
+    tags: ["BTS", "Creative Process", "Documentary"]
   }
 ];
 

@@ -36,7 +36,7 @@ const Footer = () => {
         <a href="https://www.linkedin.com/company/theinkpotgroup/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
           <Linkedin className="h-6 w-6" />
         </a>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
+        <a href="https://www.facebook.com/share/15sn7Wy3fu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
           <Facebook className="h-6 w-6" />
         </a>
       </div>

@@ -1,15 +1,11 @@
 import { services } from "@/lib/constant";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 import ServiceContent from "./ServiceContent";
 
-type Props = {
-  params: Promise<{ service: string }> | { service: string };
-};
+// Remove type annotations for params
+export async function generateMetadata({ params }) {
+  const { service } = params;
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { service } = await props.params;
-  
   const serviceData = services.find((s) => s.slug === service);
 
   if (!serviceData) {
@@ -31,9 +27,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page(props: Props) {
-  const { service } = await props.params;
-  
+export default function Page({ params }) {
+  const { service } = params;
+
   const serviceData = services.find((s) => s.slug === service);
 
   if (!serviceData) {
