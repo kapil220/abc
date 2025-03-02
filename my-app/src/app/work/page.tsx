@@ -53,10 +53,13 @@ export default function WorkPage() {
   }, []);
   
   const getHeightClass = (index: number) => {
-    const mod = index % 3;
-    if (mod === 0) return "h-80";
-    if (mod === 1) return "h-96";
-    return "h-72";
+    // Create a varied pattern using modulo 5
+    const mod = index % 5;
+    if (mod === 0) return "h-80";      // 20rem
+    if (mod === 1) return "h-96";      // 24rem
+    if (mod === 2) return "h-72";      // 18rem
+    if (mod === 3) return "h-64";      // 16rem
+    return "h-84";                     // 21rem (custom height)
   };
   
   const openVideoModal = (work: WorkItem) => {
@@ -112,7 +115,7 @@ export default function WorkPage() {
           </div>
         </div>
         
-        {/* Creative Project Masonry-style Layout with Animations */}
+        {/* Masonry Layout with Animations */}
         <AnimatePresence mode="wait">
           <motion.div 
             key={selectedCategory}
@@ -124,9 +127,10 @@ export default function WorkPage() {
           >
             {filteredWorks.map((work, index) => {
               const isVideo = work.type === "video" && work.video;
+              const heightClass = getHeightClass(index);
               
               return isVideo ? (
-                // Only render VideoAutoplay for items with video property
+                // Video items
                 <VideoAutoplay 
                   key={`${selectedCategory}-${index}`}
                   work={work}
@@ -134,6 +138,7 @@ export default function WorkPage() {
                   openModal={openVideoModal}
                 />
               ) : (
+                // Image items with varying heights
                 <motion.div 
                   key={`${selectedCategory}-${index}`}
                   initial={{ opacity: 0, y: 20 }}
@@ -147,10 +152,10 @@ export default function WorkPage() {
                   className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
                 >
                   <div 
-                    className={`relative overflow-hidden rounded-xl shadow-md ${getHeightClass(index)} transition-all duration-500 ease-in-out group-hover:h-96 group-hover:shadow-lg transform group-hover:scale-[1.02]`}
+                    className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} transform transition-all duration-500 ease-in-out group-hover:h-96 group-hover:shadow-lg group-hover:scale-[1.02]`}
                   >
                     {/* Image container */}
-                    <div className="h-full w-full relative">
+                    <div className="h-full w-full relative overflow-hidden">
                       <Image 
                         src={work.image || work.thumbnail || "/placeholder.jpg"}
                         alt={work.title || "Project image"}
@@ -173,18 +178,18 @@ export default function WorkPage() {
                       aria-hidden="true"
                     >
                       <div>
+                        <h3 className="text-white text-lg font-medium mb-2">{work.title || "Untitled Project"}</h3>
                         <span className="inline-block px-2 py-1 text-xs font-medium bg-pineGreen text-white rounded-md">
                           {work.category || selectedCategory}
                         </span>
                       
                         <div className="mt-4">
-  {(work.tags?.length ? work.tags : ["Creative", "Design"]).map((tag, i) => (
-    <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm mr-2 mb-2">
-      {tag}
-    </span>
-  ))}
-</div>
-
+                          {(work.tags?.length ? work.tags : ["Creative", "Design"]).map((tag, i) => (
+                            <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm mr-2 mb-2 inline-block">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>

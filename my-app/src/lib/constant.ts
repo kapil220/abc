@@ -298,10 +298,32 @@ export const logoDesignWork = [
   {     
     title: "Minimalist Logo Design",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/log1.png",
+    image: "/images/log5.png",
+    type: "image",
+    tags: ["Minimalist", "Tech", "Modern"]
+  },  
+  {     
+    title: "Minimalist Logo Design",     
+    description: "Crafted a sleek and modern logo for a tech startup.",     
+    image: "/images/log1.jpg",
     type: "image",
     tags: ["Minimalist", "Tech", "Modern"]
   },   
+
+  {     
+    title: "Minimalist Logo Design",     
+    description: "Crafted a sleek and modern logo for a tech startup.",     
+    image: "/images/log3.jpg",
+    type: "image",
+    tags: ["Minimalist", "Tech", "Modern"]
+  },  
+  {     
+    title: "Minimalist Logo Design",     
+    description: "Crafted a sleek and modern logo for a tech startup.",     
+    image: "/images/log4.jpg",
+    type: "image",
+    tags: ["Minimalist", "Tech", "Modern"]
+  },
   {     
     title: "Brand Identity Creation",     
     description: "Developed a unique logo and branding for an e-commerce store.",     
@@ -312,14 +334,28 @@ export const logoDesignWork = [
   {     
     title: "Luxury Logo Design",     
     description: "Designed a premium and elegant logo for a high-end fashion brand.",     
-    image: "/images/log3.png",
+    image: "/images/log7.png",
     type: "image",
     tags: ["Luxury", "Fashion", "Elegant"]
   },   
   {     
     title: "Creative Typography Logo",     
     description: "Blended custom typography with creative elements for a modern brand.",     
-    image: "/images/log4.png",
+    image: "/images/log8.webp",
+    type: "image",
+    tags: ["Typography", "Creative", "Custom"]
+  } ,
+  {     
+    title: "Creative Typography Logo",     
+    description: "Blended custom typography with creative elements for a modern brand.",     
+    image: "/images/log6.jpg",
+    type: "image",
+    tags: ["Typography", "Creative", "Custom"]
+  } ,
+  {     
+    title: "Creative Typography Logo",     
+    description: "Blended custom typography with creative elements for a modern brand.",     
+    image: "/images/log9.jpeg",
     type: "image",
     tags: ["Typography", "Creative", "Custom"]
   } 
@@ -410,10 +446,17 @@ export const foodRestaurantWork = [
     tags: ["Photography", "Menu", "Culinary"]
   },
   {
+    title: "Food Photography & Menu Design",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/content8.jpg",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
     title: "Chef Spotlight Series",
     description: "Video showcase featuring signature dishes and culinary expertise.",
-    video: "/videos/chef-spotlight.mp4",
-    thumbnail: "/images/chef-spotlight-thumb.jpg",
+    video: "/video/food1.mp4",
+    
     type: "video",
     tags: ["Chef", "Culinary", "Video Series"]
   },
@@ -425,12 +468,35 @@ export const foodRestaurantWork = [
     tags: ["Website", "Online Ordering", "UX Design"]
   },
   {
+    title: "Website & Online Ordering System",
+    description: "Developed an intuitive platform for online reservations & delivery.",
+    image: "/images/content9.jpg",
+    type: "image",
+    tags: ["Website", "Online Ordering", "UX Design"]
+  },
+  {
     title: "Restaurant Atmosphere Tour",
     description: "An immersive video tour of a restaurant's unique ambiance and dining experience.",
-    video: "/videos/restaurant-tour.mp4",
-    thumbnail: "/images/restaurant-tour-thumb.jpg",
+    video: "/video/food2.mp4",
+    
     type: "video",
     tags: ["Ambiance", "Tour", "Experience"]
+  },
+  
+  {
+    title: "Chef Spotlight Series",
+    description: "Video showcase featuring signature dishes and culinary expertise.",
+    video: "/video/food3.mp4",
+    
+    type: "video",
+    tags: ["Chef", "Culinary", "Video Series"]
+  },
+  {
+    title: "Food Photography & Menu Design",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/content10.jpg",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
   }
 ];
 
@@ -443,14 +509,35 @@ export const commercialsWork = [
     tags: ["TV", "Commercial", "Production"]
   },
   {
-    title: "Corporate Video Production",
+    title: "Corporate Production",
     description: "Created professional videos for business marketing.",
     image: "/images/branding1.jpg",
     type: "image",
     tags: ["Corporate", "Professional", "Business"]
   },
   {
-    title: "Product Video Advertising",
+    title: "Corporate Production",
+    description: "Created professional videos for business marketing.",
+    image: "/images/comm1.jpg",
+    type: "image",
+    tags: ["Corporate", "Professional", "Business"]
+  },
+  {
+    title: "Corporate Production",
+    description: "Created professional videos for business marketing.",
+    image: "/images/comm2.jpg",
+    type: "image",
+    tags: ["Corporate", "Professional", "Business"]
+  },
+  {
+    title: "Corporate Production",
+    description: "Created professional videos for business marketing.",
+    image: "/images/comm4.webp",
+    type: "image",
+    tags: ["Corporate", "Professional", "Business"]
+  },
+  {
+    title: "Product Advertising",
     description: "Showcased product features with compelling visuals.",
     image: "/images/branding2.jpg",
     type: "image",
@@ -462,7 +549,23 @@ export const commercialsWork = [
     image: "/images/branding4.jpg",
     type: "image",
     tags: ["Influencer", "Lifestyle", "Authentic"]
-  }
+  },
+  {
+    title: "Shoes",
+    description: "An immersive video tour of a restaurant's unique ambiance and dining experience.",
+    video: "/video/shoes.mp4",
+    
+    type: "video",
+    tags: ["Product", "Branding", "Shoes"]
+  },
+  {
+    title: "shoes branding",
+    description: "Captured authentic content for brand storytelling.",
+    image: "/images/shoe.jpg",
+    type: "image",
+    tags: ["Influencer", "Lifestyle", "Authentic"]
+  },
+
 ];
 
 export const postWork = [
@@ -481,6 +584,13 @@ export const postWork = [
     tags: ["Instagram", "Facebook", "Ads"]
   },
   {
+    title: "Instagram & Facebook Ads",
+    description: "Created high-converting ad creatives for targeted social media promotions.",
+    image: "/images/post10.jpg",
+    type: "image",
+    tags: ["Instagram", "Facebook", "Ads"]
+  },
+  {
     title: "Viral Social Campaign",
     description: "Short-form video content that drove significant engagement and brand awareness.",
     video: "/videos/viral-campaign.mp4",
@@ -492,6 +602,27 @@ export const postWork = [
     title: "Brand Awareness Campaign",
     description: "Designed a cohesive post series for brand storytelling.",
     image: "/images/photo4.jpg",
+    type: "image",
+    tags: ["Brand Awareness", "Storytelling", "Series"]
+  },
+  {
+    title: "Brand Awareness Campaign",
+    description: "Designed a cohesive post series for brand storytelling.",
+    image: "/images/post5.jpg",
+    type: "image",
+    tags: ["Brand Awareness", "Storytelling", "Series"]
+  },
+  {
+    title: "Brand Awareness Campaign",
+    description: "Designed a cohesive post series for brand storytelling.",
+    image: "/images/post6.jpg",
+    type: "image",
+    tags: ["Brand Awareness", "Storytelling", "Series"]
+  },
+  {
+    title: "Brand Awareness Campaign",
+    description: "Designed a cohesive post series for brand storytelling.",
+    image: "/images/post7.jpg",
     type: "image",
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },
