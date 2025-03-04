@@ -3,8 +3,9 @@ import { dbConnect } from "@/lib/dbConnect";
 import Contact from "@/models/Contact";
 import nodemailer from "nodemailer";
 
+// Explicitly handle OPTIONS method
 export async function OPTIONS() {
-  return new Response(null, {
+  return new NextResponse(null, {
     status: 204,
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -14,45 +15,93 @@ export async function OPTIONS() {
   });
 }
 
+// POST method handler
 export async function POST(req: Request) {
-  console.log("📌 Received request:", req.method); // Log request method
+  // Log the entire request for debugging
+  console.log("📌 Received request method:", req.method);
+  console.log("📌 Request URL:", req.url);
+
+  // CORS headers for all responses
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Cache-Control": "no-store",
+  };
 
   try {
+    // Validate request method
     if (req.method !== "POST") {
       console.log("❌ 405 Error - Method Not Allowed");
-      return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
+      return new NextResponse(
+        JSON.stringify({ error: "Method Not Allowed" }), 
+        { 
+          status: 405,
+          headers: corsHeaders 
+        }
+      );
     }
 
+    // Database connection
     console.log("✅ Connecting to Database...");
     await dbConnect();
     console.log("✅ Connected to Database");
 
-    const { name, phone, email, query } = await req.json();
+    // Parse request body
+    const requestBody = await req.json();
+    const { name, phone, email, query } = requestBody;
+
+    // Validate input
     if (!name || !phone || !email || !query) {
       console.log("❌ 400 Error - Missing Fields");
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return new NextResponse(
+        JSON.stringify({ error: "Missing required fields" }), 
+        { 
+          status: 400,
+          headers: corsHeaders 
+        }
+      );
     }
 
+    // Save to database
     const submissionDate = new Date().toLocaleDateString();
     const timestamp = new Date().toISOString();
 
-    const newContact = new Contact({ name, phone, email, query, submissionDate, timestamp });
+    const newContact = new Contact({ 
+      name, 
+      phone, 
+      email, 
+      query, 
+      submissionDate, 
+      timestamp 
+    });
     await newContact.save();
     console.log("✅ Data Saved to Database");
 
-    sendEmailNotification(name, phone, email, query).catch(console.error);
+    // Send email notification
+    await sendEmailNotification(name, phone, email, query);
 
-    return new Response(JSON.stringify({ message: "Form submitted successfully!" }), {
-      status: 201,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-store",
-      },
-    });
+    // Successful response
+    return new NextResponse(
+      JSON.stringify({ message: "Form submitted successfully!" }), 
+      { 
+        status: 201,
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        }
+      }
+    );
+
   } catch (error) {
     console.error("❌ Server Error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return new NextResponse(
+      JSON.stringify({ error: "Internal Server Error" }), 
+      { 
+        status: 500,
+        headers: corsHeaders 
+      }
+    );
   }
 }
 
