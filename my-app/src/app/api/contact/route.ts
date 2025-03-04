@@ -3,7 +3,6 @@ import { dbConnect } from "@/lib/dbConnect";
 import Contact from "@/models/Contact";
 import nodemailer from "nodemailer";
 
-// Enable CORS for OPTIONS requests
 export async function OPTIONS() {
   return new Response(null, {
     status: 204,
@@ -17,6 +16,11 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
   try {
+    // Ensure we only handle POST requests
+    if (req.method !== "POST") {
+      return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
+    }
+
     await dbConnect();
 
     const { name, phone, email, query } = await req.json();
@@ -34,23 +38,19 @@ export async function POST(req: Request) {
     // Send Email (asynchronous, non-blocking)
     sendEmailNotification(name, phone, email, query).catch(console.error);
 
-    return NextResponse.json(
-      { message: "Form submitted successfully!" },
+    return new Response(
+      JSON.stringify({ message: "Form submitted successfully!" }),
       {
         status: 201,
         headers: {
+          "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
       }
     );
   } catch (error) {
-    let errorMessage = "An unknown error occurred";
-
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    }
-
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    console.error("Server Error:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -70,7 +70,7 @@ async function sendEmailNotification(name: string, phone: string, email: string,
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: "rajputkapil436@gmail.com", // Change to your email
+    to: "rajputkapil436@gmail.com",
     subject: `New Contact Form Submission from ${name}`,
     text: `
     📌 Name: ${name}
