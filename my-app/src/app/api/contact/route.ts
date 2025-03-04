@@ -15,41 +15,43 @@ export async function OPTIONS() {
 }
 
 export async function POST(req: Request) {
+  console.log("📌 Received request:", req.method); // Log request method
+
   try {
-    // Ensure we only handle POST requests
     if (req.method !== "POST") {
+      console.log("❌ 405 Error - Method Not Allowed");
       return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
     }
 
+    console.log("✅ Connecting to Database...");
     await dbConnect();
+    console.log("✅ Connected to Database");
 
     const { name, phone, email, query } = await req.json();
     if (!name || !phone || !email || !query) {
+      console.log("❌ 400 Error - Missing Fields");
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     const submissionDate = new Date().toLocaleDateString();
     const timestamp = new Date().toISOString();
 
-    // Save to the database
     const newContact = new Contact({ name, phone, email, query, submissionDate, timestamp });
     await newContact.save();
+    console.log("✅ Data Saved to Database");
 
-    // Send Email (asynchronous, non-blocking)
     sendEmailNotification(name, phone, email, query).catch(console.error);
 
-    return new Response(
-      JSON.stringify({ message: "Form submitted successfully!" }),
-      {
-        status: 201,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
+    return new Response(JSON.stringify({ message: "Form submitted successfully!" }), {
+      status: 201,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store",
+      },
+    });
   } catch (error) {
-    console.error("Server Error:", error);
+    console.error("❌ Server Error:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
