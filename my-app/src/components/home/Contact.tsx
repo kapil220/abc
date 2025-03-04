@@ -265,17 +265,19 @@ const Contact = () => {
     
     setIsLoading(true);
     
-    const submissionData = {
-      ...formData,
-      fullPhone: `${formData.countryCode}${formData.phone}`, // Combine country code and phone
-      submissionDate: new Date().toLocaleDateString(),
-      timestamp: new Date().toISOString(),
-    };
-  
     try {
-      const response = await fetch("http://theinkpotgroup.com/api/contact", {
+      const submissionData = {
+        ...formData,
+        fullPhone: `${formData.countryCode}${formData.phone}`,
+        submissionDate: new Date().toLocaleDateString(),
+        timestamp: new Date().toISOString(),
+      };
+
+      const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(submissionData),
       });
   
