@@ -264,6 +264,7 @@ const Contact = () => {
     }
     
     setIsLoading(true);
+    setSubmitStatus(null);
     
     try {
       const submissionData = {
@@ -272,7 +273,9 @@ const Contact = () => {
         submissionDate: new Date().toLocaleDateString(),
         timestamp: new Date().toISOString(),
       };
-
+  
+      console.log('Submitting form data:', JSON.stringify(submissionData, null, 2));
+  
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { 
@@ -280,22 +283,54 @@ const Contact = () => {
         },
         body: JSON.stringify(submissionData),
       });
-      
   
-      const data = await response.json();
-      console.log("✅ Server Response:", data);
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+  
+      // Handle different response scenarios
+      let responseData;
+      try {
+        responseData = await response.json();
+        console.log('Response data:', responseData);
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError);
+        
+        // Try to get response text if JSON parsing fails
+        const responseText = await response.text();
+        console.error('Response text:', responseText);
+  
+        throw new Error(`Failed to parse server response: ${responseText}`);
+      }
   
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Server Error Response:", errorData);
-        throw new Error(errorData.error || "Failed to submit form");
+        throw new Error(
+          responseData.error || 
+          responseData.message || 
+          'An unknown error occurred during form submission'
+        );
       }
       
       setSubmitStatus('success');
       setShowModal(true);
-      setFormData({ name: "", countryCode: formData.countryCode, phone: "", email: "", query: "" });
+      
+      // Reset form, keeping country code
+      setFormData({ 
+        name: "", 
+        countryCode: formData.countryCode, 
+        phone: "", 
+        email: "", 
+        query: "" 
+      });
     } catch (error) {
-      console.error("❌ Error submitting form:", error);
+      console.error('❌ Complete Error Object:', error);
+      
+      // More detailed error logging
+      console.error('Error Details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        name: error instanceof Error ? error.name : 'Unknown error type',
+        stack: error instanceof Error ? error.stack : 'No stack trace'
+      });
+  
       setSubmitStatus('error');
       setShowModal(true);
     } finally {
