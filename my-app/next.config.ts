@@ -3,13 +3,17 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: {}, // Ensure it's properly configured
+    serverActions: {
+      // You can add configuration options here if needed
+      // For example:
+      // bodySizeLimit: '2mb',
+      // allowedOrigins: ['https://example.com']
+    },
     typedRoutes: true,
   },
   images: {
-    domains: ["theinkpotgroup.com"], // Add any domains your images load from
+    domains: ["theinkpotgroup.com"],
   },
-  // Ensure Next.js API routes work in deployment
   webpack: (config) => {
     config.resolve.fallback = { fs: false, path: false };
     return config;

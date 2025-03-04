@@ -280,12 +280,15 @@ const Contact = () => {
         },
         body: JSON.stringify(submissionData),
       });
+      
   
       const data = await response.json();
       console.log("✅ Server Response:", data);
   
       if (!response.ok) {
-        throw new Error(data.error || "Failed to submit form");
+        const errorData = await response.json();
+        console.error("Server Error Response:", errorData);
+        throw new Error(errorData.error || "Failed to submit form");
       }
       
       setSubmitStatus('success');
