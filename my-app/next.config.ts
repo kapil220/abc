@@ -3,11 +3,16 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
-    serverActions: {}, // Use an empty object instead of `true`
-    typedRoutes: true, // This is fine
+    serverActions: {}, // Ensure it's properly configured
+    typedRoutes: true,
   },
   images: {
-    domains: ["yourdomain.com"], // Replace with actual domains if needed
+    domains: ["theinkpotgroup.com"], // Add any domains your images load from
+  },
+  // Ensure Next.js API routes work in deployment
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, path: false };
+    return config;
   },
 };
 
