@@ -5,6 +5,16 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
+    // Enable CORS
+    const headers = new Headers();
+    headers.set("Access-Control-Allow-Origin", "*");
+    headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+    if (req.method === "OPTIONS") {
+      return new Response(null, { headers, status: 204 });
+    }
+
     await dbConnect();
 
     const { name, phone, email, query } = await req.json();
@@ -22,18 +32,16 @@ export async function POST(req: Request) {
     // Send Email (asynchronous, non-blocking)
     sendEmailNotification(name, phone, email, query).catch(console.error);
 
-    return NextResponse.json({ message: "Form submitted successfully!" }, { status: 201 });
+    return NextResponse.json({ message: "Form submitted successfully!" }, { status: 201, headers });
   } catch (error) {
     let errorMessage = "An unknown error occurred";
     
     if (error instanceof Error) {
-        errorMessage = error.message;
+      errorMessage = error.message;
     }
 
     return NextResponse.json({ error: errorMessage }, { status: 500 });
-}
-
-
+  }
 }
 
 async function sendEmailNotification(name: string, phone: string, email: string, query: string) {

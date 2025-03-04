@@ -25,7 +25,6 @@ interface VideoThumbnailProps {
 const VideoThumbnail = ({ work, onClick }: VideoThumbnailProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  // Properly type the ref
   const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
@@ -121,10 +120,10 @@ const VideoThumbnail = ({ work, onClick }: VideoThumbnailProps) => {
 const WorkSection: React.FC = () => {
   // Use useMemo to prevent the array from being recreated on every render
   const featuredWorks = useMemo(() => [
-    ...logoDesignWork.slice(0, 4), 
-    ...realEstateWork.slice(0, 5), 
-    ...foodRestaurantWork.slice(0, 4), 
-    ...commercialsWork.slice(0, 4),
+    ...logoDesignWork.slice(0, 8), 
+    ...realEstateWork.slice(0, 8), 
+    ...foodRestaurantWork.slice(0, 8), 
+    ...commercialsWork.slice(0, 8),
   ], []);
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -175,7 +174,9 @@ const WorkSection: React.FC = () => {
     document.body.style.overflow = 'auto';
   };
 
-  const togglePlayPause = () => {
+  const togglePlayPause = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -262,43 +263,43 @@ const WorkSection: React.FC = () => {
       {/* Video Modal */}
       {videoModalOpen && selectedVideo && selectedVideo.video && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative bg-gray-900 rounded-xl overflow-hidden max-w-4xl w-full max-h-[80vh]">
-            <div className="relative">
-              <video 
-                ref={videoRef}
-                src={selectedVideo.video}
-                className="w-full"
-                controls={false}
-                autoPlay
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              />
-              
-              {/* Video controls */}
-              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+          <div className="relative bg-gray-900 rounded-xl overflow-hidden max-w-4xl w-full h-[80vh]">
+            <div className="relative w-full h-full flex items-center justify-center p-4">
+              <div className="w-full h-full flex items-center justify-center relative">
+                <video 
+                  ref={videoRef}
+                  src={selectedVideo.video}
+                  className="max-w-full max-h-full object-contain"
+                  autoPlay
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                />
+                
+                {/* Custom Play/Pause Button */}
                 <button 
                   onClick={togglePlayPause}
-                  className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors"
                 >
-                  {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+                  {isPlaying ? (
+                    <Pause className="h-6 w-6" />
+                  ) : (
+                    <Play className="h-6 w-6" />
+                  )}
                 </button>
-                
-                <h3 className="text-white text-sm md:text-base font-medium backdrop-blur-sm bg-black/30 px-3 py-1 rounded-full">
-                  {selectedVideo.title}
-                </h3>
               </div>
+              
+              {/* Close button */}
+              <button 
+                onClick={closeVideoModal}
+                className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-1 hover:bg-black/70 transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
             </div>
-            
-            {/* Close button */}
-            <button 
-              onClick={closeVideoModal}
-              className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-1 hover:bg-black/70 transition-colors"
-            >
-              <X className="h-6 w-6" />
-            </button>
           </div>
         </div>
       )}
+
     </section>
   );
 };

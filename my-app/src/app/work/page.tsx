@@ -164,7 +164,7 @@ export default function WorkPage() {
                         alt={work.title || "Project image"}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform" 
+                        className="object-contain  transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
                         priority={index < 10}
                       />
                       
@@ -213,40 +213,39 @@ export default function WorkPage() {
       {/* Video Modal */}
       {videoModalOpen && selectedVideo && selectedVideo.video && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative bg-gray-900 rounded-xl overflow-hidden max-w-4xl w-full max-h-[80vh]">
-            <div className="relative">
-              <video 
-                ref={videoRef}
-                src={selectedVideo.video}
-                className="w-full"
-                controls={false}
-                autoPlay
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              />
-              
-              {/* Video controls */}
-              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+          <div className="relative bg-gray-900 rounded-xl overflow-hidden max-w-4xl w-full h-[80vh]">
+            <div className="relative w-full h-full flex items-center justify-center p-4">
+              <div className="w-full h-full flex items-center justify-center relative">
+                <video 
+                  ref={videoRef}
+                  src={selectedVideo.video}
+                  className="max-w-full max-h-full object-contain"
+                  autoPlay
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                />
+                
+                {/* Custom Play/Pause Button */}
                 <button 
                   onClick={togglePlayPause}
-                  className="bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/30 transition-colors"
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors"
                 >
-                  {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+                  {isPlaying ? (
+                    <Pause className="h-6 w-6" />
+                  ) : (
+                    <Play className="h-6 w-6" />
+                  )}
                 </button>
-                
-                <h3 className="text-white text-sm md:text-base font-medium backdrop-blur-sm bg-black/30 px-3 py-1 rounded-full">
-                  {selectedVideo.title}
-                </h3>
               </div>
+              
+              {/* Close button */}
+              <button 
+                onClick={closeVideoModal}
+                className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-1 hover:bg-black/70 transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
             </div>
-            
-            {/* Close button */}
-            <button 
-              onClick={closeVideoModal}
-              className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-1 hover:bg-black/70 transition-colors"
-            >
-              <X className="h-6 w-6" />
-            </button>
           </div>
         </div>
       )}
