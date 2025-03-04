@@ -12,7 +12,7 @@ import {
   postWork 
 } from "@/lib/constant";
 import VideoAutoplay from "@/components/media/VideoAutoplay";
-import { WorkItem } from "@/types"; // Import the shared interface
+import { WorkItem } from "@/types";
 
 interface CategoryMap {
   [key: string]: WorkItem[];
@@ -27,8 +27,14 @@ const categories = [
   "Post",
 ];
 
-// Pre-compute the full work list to avoid recalculating on every render
-const allWorks = [...logoDesignWork, ...realEstateWork, ...foodRestaurantWork, ...commercialsWork, ...postWork];
+// Explicitly ensure all works are included in the allWorks array
+const allWorks = [
+  ...logoDesignWork, 
+  ...realEstateWork, 
+  ...foodRestaurantWork, 
+  ...commercialsWork, 
+  ...postWork
+].filter(Boolean); // Remove any potential null or undefined items
 
 const workCategories: CategoryMap = {
   "All": allWorks,
@@ -53,13 +59,9 @@ export default function WorkPage() {
   }, []);
   
   const getHeightClass = (index: number) => {
-    // Create a varied pattern using modulo 5
-    const mod = index % 5;
-    if (mod === 0) return "h-80";      // 20rem
-    if (mod === 1) return "h-96";      // 24rem
-    if (mod === 2) return "h-72";      // 18rem
-    if (mod === 3) return "h-64";      // 16rem
-    return "h-84";                     // 21rem (custom height)
+    // Modified to handle more varied heights if needed
+    const heightClasses = ["h-80", "h-96", "h-72", "h-64", "h-84", "h-64", "h-80", "h-96", "h-72", "h-84"];
+    return heightClasses[index % heightClasses.length];
   };
   
   const openVideoModal = (work: WorkItem) => {
@@ -127,6 +129,7 @@ export default function WorkPage() {
           >
             {filteredWorks.map((work, index) => {
               const isVideo = work.type === "video" && work.video;
+              // Assign base height class
               const heightClass = getHeightClass(index);
               
               return isVideo ? (
@@ -138,7 +141,7 @@ export default function WorkPage() {
                   openModal={openVideoModal}
                 />
               ) : (
-                // Image items with varying heights
+                // Image items with varying heights that don't change on hover
                 <motion.div 
                   key={`${selectedCategory}-${index}`}
                   initial={{ opacity: 0, y: 20 }}
@@ -152,17 +155,17 @@ export default function WorkPage() {
                   className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
                 >
                   <div 
-                    className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} transform transition-all duration-500 ease-in-out group-hover:h-96 group-hover:shadow-lg group-hover:scale-[1.02]`}
+                    className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} transform transition-all duration-500 ease-in-out hover:shadow-lg`}
                   >
                     {/* Image container */}
-                    <div className="h-full w-full relative overflow-hidden">
+                    <div className="absolute inset-0 w-full h-full">
                       <Image 
                         src={work.image || work.thumbnail || "/placeholder.jpg"}
                         alt={work.title || "Project image"}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform" 
-                        priority={index < 6}
+                        priority={index < 10}
                       />
                       
                       {/* Overlay that appears on hover */}
@@ -178,7 +181,7 @@ export default function WorkPage() {
                       aria-hidden="true"
                     >
                       <div>
-                        <h3 className="text-white text-lg font-medium mb-2">{work.title || "Untitled Project"}</h3>
+                        
                         <span className="inline-block px-2 py-1 text-xs font-medium bg-pineGreen text-white rounded-md">
                           {work.category || selectedCategory}
                         </span>

@@ -296,66 +296,73 @@ export function getServiceBySlug(slug: string): Service | undefined {
   
 export const logoDesignWork = [   
   {     
-    title: "Minimalist Logo Design",     
+    title: "Minimalist Logo Design1",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/log5.png",
+    image: "/images/log1.webp",
     type: "image",
     tags: ["Minimalist", "Tech", "Modern"]
   },  
   {     
-    title: "Minimalist Logo Design",     
+    title: "Minimalist Logo Design2",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/log1.jpg",
+    image: "/images/log2.webp",
     type: "image",
     tags: ["Minimalist", "Tech", "Modern"]
   },   
 
   {     
-    title: "Minimalist Logo Design",     
+    title: "Minimalist Logo Design3",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/log3.jpg",
+    image: "/images/log3.webp",
     type: "image",
     tags: ["Minimalist", "Tech", "Modern"]
   },  
   {     
-    title: "Minimalist Logo Design",     
+    title: "Minimalist Logo Design4",     
     description: "Crafted a sleek and modern logo for a tech startup.",     
-    image: "/images/log4.jpg",
+    image: "/images/log4.webp",
     type: "image",
     tags: ["Minimalist", "Tech", "Modern"]
   },
   {     
     title: "Brand Identity Creation",     
     description: "Developed a unique logo and branding for an e-commerce store.",     
-    image: "/images/log2.png",
+    image: "/images/log5.webp",
     type: "image",
     tags: ["Branding", "E-commerce", "Identity"]
   },   
   {     
     title: "Luxury Logo Design",     
     description: "Designed a premium and elegant logo for a high-end fashion brand.",     
-    image: "/images/log7.png",
+    image: "/images/log6.webp",
     type: "image",
     tags: ["Luxury", "Fashion", "Elegant"]
   },   
   {     
-    title: "Creative Typography Logo",     
+    title: "Creative Typography Logo1",     
+    description: "Blended custom typography with creative elements for a modern brand.",     
+    image: "/images/log7.webp",
+    type: "image",
+    tags: ["Typography", "Creative", "Custom"]
+  } ,
+  {     
+    title: "Creative Typography Logo2",     
     description: "Blended custom typography with creative elements for a modern brand.",     
     image: "/images/log8.webp",
     type: "image",
     tags: ["Typography", "Creative", "Custom"]
   } ,
   {     
-    title: "Creative Typography Logo",     
+    title: "Creative Typography Logo3",     
     description: "Blended custom typography with creative elements for a modern brand.",     
-    image: "/images/log6.jpg",
+    image: "/images/log9.webp",
     type: "image",
     tags: ["Typography", "Creative", "Custom"]
   } ,
   {     
-    title: "Creative Typography Logo",     
+    title: "Creative Typography Logo4",     
     description: "Blended custom typography with creative elements for a modern brand.",     
-    image: "/images/log9.jpeg",
+    image: "/images/log10.webp",
     type: "image",
     tags: ["Typography", "Creative", "Custom"]
   } 
@@ -365,14 +372,14 @@ export const realEstateWork = [
   {
     title: "Luxury Property Branding",
     description: "Designed a premium brand identity for high-end real estate.",
-    image: "/images/real1.jpg",
+    image: "/images/real1.webp",
     type: "image",
     tags: ["Luxury", "Branding", "Premium"]
   },
   {
-    title: "Real Estate Website Design",
+    title: "Real Estate Website Design2",
     description: "Developed a user-friendly property listing platform.",
-    image: "/images/real2.jpg",
+    image: "/images/real2.webp",
     type: "image",
     tags: ["Website", "UI/UX", "Property"]
   },
@@ -387,7 +394,7 @@ export const realEstateWork = [
   {
     title: "Social Media Marketing for Realtors",
     description: "Increased property leads with targeted social campaigns.",
-    image: "/images/real4.jpg",
+    image: "/images/real3.webp",
     type: "image",
     tags: ["Social Media", "Marketing", "Leads"]
   },
@@ -400,16 +407,16 @@ export const realEstateWork = [
     tags: ["Walkthrough", "Luxury", "Premium"]
   },
   {
-    title: "Social Media Marketing for Realtors",
+    title: "Social Media Marketing for Realtors2",
     description: "Increased property leads with targeted social campaigns.",
-    image: "/images/real5.jpg",
+    image: "/images/real4.webp",
     type: "image",
     tags: ["Social Media", "Marketing", "Leads"]
   },
   {
-    title: "Social Media Marketing for Realtors",
+    title: "Social Media Marketing for Realtors3",
     description: "Increased property leads with targeted social campaigns.",
-    image: "/images/real6.jpg",
+    image: "/images/real5.webp",
     type: "image",
     tags: ["Social Media", "Marketing", "Leads"]
   },
@@ -422,9 +429,16 @@ export const realEstateWork = [
     tags: ["3D", "Virtual Tour", "Immersive"]
   },
   {
-    title: "Social Media Marketing for Realtors",
+    title: "Social Media Marketing for Realtors5",
     description: "Increased property leads with targeted social campaigns.",
-    image: "/images/real7.jpg",
+    image: "/images/real6.webp",
+    type: "image",
+    tags: ["Social Media", "Marketing", "Leads"]
+  },
+  {
+    title: "Social Media Marketing for Realtors5",
+    description: "Increased property leads with targeted social campaigns.",
+    image: "/images/real7.webp",
     type: "image",
     tags: ["Social Media", "Marketing", "Leads"]
   },
@@ -434,21 +448,21 @@ export const foodRestaurantWork = [
   {
     title: "Restaurant Logo & Branding",
     description: "Crafted a unique identity for a gourmet restaurant.",
-    image: "/images/content1.jpg",
+    image: "/images/content1.webp",
     type: "image",
     tags: ["Logo", "Branding", "Gourmet"]
   },
   {
     title: "Food Photography & Menu Design",
     description: "Captured appetizing visuals for menus and promotions.",
-    image: "/images/content2.jpg",
+    image: "/images/content2.webp",
     type: "image",
     tags: ["Photography", "Menu", "Culinary"]
   },
   {
-    title: "Food Photography & Menu Design",
+    title: "Food Photography & Menu Design2",
     description: "Captured appetizing visuals for menus and promotions.",
-    image: "/images/content8.jpg",
+    image: "/images/content8.webp",
     type: "image",
     tags: ["Photography", "Menu", "Culinary"]
   },
@@ -463,14 +477,14 @@ export const foodRestaurantWork = [
   {
     title: "Website & Online Ordering System",
     description: "Developed an intuitive platform for online reservations & delivery.",
-    image: "/images/content4.jpg",
+    image: "/images/content4.webp",
     type: "image",
     tags: ["Website", "Online Ordering", "UX Design"]
   },
   {
-    title: "Website & Online Ordering System",
+    title: "Website & Online Ordering System3",
     description: "Developed an intuitive platform for online reservations & delivery.",
-    image: "/images/content9.jpg",
+    image: "/images/content9.webp",
     type: "image",
     tags: ["Website", "Online Ordering", "UX Design"]
   },
@@ -484,7 +498,7 @@ export const foodRestaurantWork = [
   },
   
   {
-    title: "Chef Spotlight Series",
+    title: "Chef Spotlight Series2",
     description: "Video showcase featuring signature dishes and culinary expertise.",
     video: "/video/food3.mp4",
     
@@ -492,9 +506,9 @@ export const foodRestaurantWork = [
     tags: ["Chef", "Culinary", "Video Series"]
   },
   {
-    title: "Food Photography & Menu Design",
+    title: "Food Photography & Menu Design3",
     description: "Captured appetizing visuals for menus and promotions.",
-    image: "/images/content10.jpg",
+    image: "/images/content10.webp",
     type: "image",
     tags: ["Photography", "Menu", "Culinary"]
   }
@@ -504,33 +518,33 @@ export const commercialsWork = [
   {
     title: "TV Commercial Production",
     description: "Produced high-quality commercials for brand awareness.",
-    image: "/images/branding3.jpg",
+    image: "/images/branding3.webp",
     type: "image",
     tags: ["TV", "Commercial", "Production"]
   },
   {
-    title: "Corporate Production",
+    title: "Corporate Production1",
     description: "Created professional videos for business marketing.",
-    image: "/images/branding1.jpg",
+    image: "/images/branding1.webp",
     type: "image",
     tags: ["Corporate", "Professional", "Business"]
   },
   {
-    title: "Corporate Production",
+    title: "Corporate Production2",
     description: "Created professional videos for business marketing.",
-    image: "/images/comm1.jpg",
+    image: "/images/comm1.webp",
     type: "image",
     tags: ["Corporate", "Professional", "Business"]
   },
   {
-    title: "Corporate Production",
+    title: "Corporate Production2",
     description: "Created professional videos for business marketing.",
-    image: "/images/comm2.jpg",
+    image: "/images/comm2.webp",
     type: "image",
     tags: ["Corporate", "Professional", "Business"]
   },
   {
-    title: "Corporate Production",
+    title: "Corporate Production3",
     description: "Created professional videos for business marketing.",
     image: "/images/comm4.webp",
     type: "image",
@@ -539,14 +553,14 @@ export const commercialsWork = [
   {
     title: "Product Advertising",
     description: "Showcased product features with compelling visuals.",
-    image: "/images/branding2.jpg",
+    image: "/images/branding2.webp",
     type: "image",
     tags: ["Product", "Advertising", "Features"]
   },
   {
-    title: "Influencer & Lifestyle Shoots",
+    title: "Influencer & Lifestyle Shoots4",
     description: "Captured authentic content for brand storytelling.",
-    image: "/images/branding4.jpg",
+    image: "/images/branding4.webp",
     type: "image",
     tags: ["Influencer", "Lifestyle", "Authentic"]
   },
@@ -561,7 +575,14 @@ export const commercialsWork = [
   {
     title: "shoes branding",
     description: "Captured authentic content for brand storytelling.",
-    image: "/images/shoe.jpg",
+    image: "/images/shoe.webp",
+    type: "image",
+    tags: ["Influencer", "Lifestyle", "Authentic"]
+  },
+  {
+    title: "Influencer & Lifestyle Shoots5",
+    description: "Captured authentic content for brand storytelling.",
+    image: "/images/branding5.webp",
     type: "image",
     tags: ["Influencer", "Lifestyle", "Authentic"]
   },
@@ -572,21 +593,21 @@ export const postWork = [
   {
     title: "Social Media Post Design",
     description: "Designed engaging visuals for social media marketing campaigns.",
-    image: "/images/photo1.jpg",
+    image: "/images/post1.webp",
     type: "image",
     tags: ["Social Media", "Design", "Marketing"]
   },
   {
     title: "Instagram & Facebook Ads",
     description: "Created high-converting ad creatives for targeted social media promotions.",
-    image: "/images/photo2.jpg",
+    image: "/images/post2.webp",
     type: "image",
     tags: ["Instagram", "Facebook", "Ads"]
   },
   {
-    title: "Instagram & Facebook Ads",
+    title: "Instagram & Facebook Ads2",
     description: "Created high-converting ad creatives for targeted social media promotions.",
-    image: "/images/post10.jpg",
+    image: "/images/post3.webp",
     type: "image",
     tags: ["Instagram", "Facebook", "Ads"]
   },
@@ -594,42 +615,36 @@ export const postWork = [
   {
     title: "Brand Awareness Campaign",
     description: "Designed a cohesive post series for brand storytelling.",
-    image: "/images/photo4.jpg",
+    image: "/images/post4.webp",
     type: "image",
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },
+ 
   {
     title: "Brand Awareness Campaign2",
     description: "Designed a cohesivec post series for brand storytelling.",
-    image: "/images/post5.jpg",
+    image: "/images/post5.webp",
     type: "image",
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },
   {
-    title: "Brand Awareness Campaign2",
-    description: "Designed a cohesivec post series for brand storytelling.",
-    image: "/images/post5.jpg",
-    type: "image",
-    tags: ["Brand Awareness", "Storytelling", "Series"]
-  },
-  {
-    title: "Brand Awareness Campaign",
+    title: "Brand Awareness Campaign3",
     description: "Designed a cohesive post series for brand storytelling.",
-    image: "/images/post6.jpg",
+    image: "/images/post6.webp",
     type: "image",
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },
   {
-    title: "Brand Awareness Campaign",
+    title: "Brand Awareness Campaign4",
     description: "Designed a cohesive post series for brand storytelling.",
-    image: "/images/post7.jpg",
+    image: "/images/post7.webp",
     type: "image",
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },
   {
-    title: "Brand Awareness Campaign",
+    title: "Brand Awareness Campaign5",
     description: "Designed a cohesive post series for brand storytelling.",
-    image: "/images/post11.jpg",
+    image: "/images/post8.webp",
     type: "image",
     tags: ["Brand Awareness", "Storytelling", "Series"]
   },

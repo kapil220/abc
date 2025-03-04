@@ -7,7 +7,7 @@ import { CheckCircle, ArrowRight, ChevronDown } from 'lucide-react';
 
 const steps = [
   { title: 'Consultation call', description: 'Initial discussion to understand your needs.', icon: CheckCircle },
-  { title: 'Proposal', description: 'We provide a tailored proposal.', icon: CheckCircle },
+  { title: 'Proposal', description: 'Providing a Tailored Proposal.', icon: CheckCircle },
   { title: 'Finalisation of contract', description: 'Agreement on terms and conditions.', icon: CheckCircle },
   { title: 'Ideation', description: 'Brainstorming creative solutions.', icon: CheckCircle },
   { title: 'Implementation', description: 'Executing the planned solutions.', icon: CheckCircle },

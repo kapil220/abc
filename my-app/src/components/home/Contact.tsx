@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface FormData {
@@ -18,6 +18,26 @@ interface FormErrors {
   query?: string;
 }
 
+interface CountryCode {
+  code: string;
+  name: string;
+  flag: string;
+}
+
+// Define type for country data from API
+interface CountryApiResponse {
+  name: {
+    common: string;
+  };
+  idd: {
+    root: string;
+    suffixes: string[];
+  };
+  flags: {
+    png: string;
+  };
+}
+
 const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -31,6 +51,107 @@ const Contact = () => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [countryCodes, setCountryCodes] = useState<CountryCode[]>([]);
+  const [filteredCodes, setFilteredCodes] = useState<CountryCode[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoadingCodes, setIsLoadingCodes] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Fetch country codes from API
+  useEffect(() => {
+    const fetchCountryCodes = async () => {
+      setIsLoadingCodes(true);
+      try {
+        // Using the REST Countries API to get country codes
+        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,idd,flags');
+        const data = await response.json() as CountryApiResponse[];
+        
+        // Process the API response to extract country codes
+        const formattedCodes = data
+          .filter((country) => country.idd && country.idd.root && country.idd.suffixes && country.idd.suffixes.length > 0)
+          .map((country) => {
+            // Some countries have multiple suffixes, we'll use the first one
+            const suffix = country.idd.suffixes[0] || '';
+            return {
+              code: `${country.idd.root}${suffix}`,
+              name: country.name.common,
+              flag: country.flags.png
+            };
+          })
+          // Remove duplicates by using a Map with code as the key
+          .reduce((uniqueCodes, country) => {
+            if (!uniqueCodes.has(country.code)) {
+              uniqueCodes.set(country.code, country);
+            }
+            return uniqueCodes;
+          }, new Map<string, CountryCode>());
+        
+        // Convert Map back to array and sort
+        const uniqueFormattedCodes = Array.from(formattedCodes.values())
+          .sort((a, b) => a.name.localeCompare(b.name));
+        
+        setCountryCodes(uniqueFormattedCodes);
+        setFilteredCodes(uniqueFormattedCodes);
+        
+        // Set default country code (e.g., India +91)
+        const indiaCode = uniqueFormattedCodes.find((c) => c.code === '+91');
+        if (indiaCode) {
+          setFormData(prevData => ({
+            ...prevData,
+            countryCode: indiaCode.code
+          }));
+        }
+      } catch (error) {
+        console.error('Error fetching country codes:', error);
+        // Fallback to a minimal set of country codes if API fails
+        const fallbackCodes = [
+          { code: '+1', name: 'United States', flag: '/api/placeholder/24/16' },
+          { code: '+91', name: 'India', flag: '/api/placeholder/24/16' },
+        ];
+        setCountryCodes(fallbackCodes);
+        setFilteredCodes(fallbackCodes);
+        setFormData(prevData => ({
+          ...prevData,
+          countryCode: '+91'
+        }));
+      } finally {
+        setIsLoadingCodes(false);
+      }
+    };
+
+    fetchCountryCodes();
+  }, []);
+
+  // Filter country codes based on search query
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      setFilteredCodes(countryCodes);
+    } else {
+      const query = searchQuery.toLowerCase();
+      const filtered = countryCodes.filter(
+        country => 
+          country.name.toLowerCase().includes(query) || 
+          country.code.includes(query)
+      );
+      setFilteredCodes(filtered);
+    }
+  }, [searchQuery, countryCodes]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -71,6 +192,27 @@ const Contact = () => {
         [name]: value
       }));
     }
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const selectCountryCode = (code: string) => {
+    setFormData(prevData => ({
+      ...prevData,
+      countryCode: code
+    }));
+    
+    // Clear any errors for country code
+    if (formErrors.countryCode) {
+      setFormErrors(prev => ({
+        ...prev,
+        countryCode: undefined
+      }));
+    }
+    
+    setIsDropdownOpen(false);
   };
 
   const validateForm = (): boolean => {
@@ -146,7 +288,7 @@ const Contact = () => {
       
       setSubmitStatus('success');
       setShowModal(true);
-      setFormData({ name: "", countryCode: "", phone: "", email: "", query: "" });
+      setFormData({ name: "", countryCode: formData.countryCode, phone: "", email: "", query: "" });
     } catch (error) {
       console.error("❌ Error submitting form:", error);
       setSubmitStatus('error');
@@ -160,6 +302,9 @@ const Contact = () => {
     setShowModal(false);
     setSubmitStatus(null);
   };
+
+  // Find selected country info
+  const selectedCountry = countryCodes.find(c => c.code === formData.countryCode);
   
   return (
     <div className="h-full flex flex-col lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] font-body">
@@ -282,18 +427,80 @@ const Contact = () => {
               transition={{ delay: 0.5, duration: 0.6 }}
               className="flex space-x-3"
             >
-              <div className="w-1/3">
+              {/* Country Code Dropdown */}
+              <div className="w-1/3 relative" ref={dropdownRef}>
                 <label className="block text-sm font-subheading text-pineGreen mb-2">Country Code</label>
-                <input
-                  type="text"
-                  name="countryCode"
-                  required
-                  className={`w-full border-b-2 ${formErrors.countryCode ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors`}
-                  value={formData.countryCode}
-                  onChange={handleChange}
-                  placeholder="+91"
-                  disabled={isLoading}
-                />
+                <div 
+                  className={`flex items-center border-b-2 ${formErrors.countryCode ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen cursor-pointer`}
+                  onClick={() => !isLoading && setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  {selectedCountry && selectedCountry.flag ? (
+                    <img 
+                      src={selectedCountry.flag} 
+                      alt={selectedCountry.name} 
+                      className="w-6 h-4 mr-2 object-cover"
+                    />
+                  ) : (
+                    <div className="w-6 h-4 bg-gray-200 mr-2 rounded"></div>
+                  )}
+                  <span className="flex-1 truncate">{formData.countryCode || '+91'}</span>
+                  <svg 
+                    className={`w-4 h-4 text-taupe transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+                
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <motion.div 
+                    className="absolute z-50 mt-1 w-64 max-h-64 overflow-y-auto bg-white rounded-lg shadow-lg"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {/* Search input */}
+                    <div className="p-2 border-b">
+                      <input
+                        type="text"
+                        placeholder="Search countries..."
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-pineGreen"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </div>
+                    
+                    {isLoadingCodes ? (
+                      <div className="p-4 text-center text-gray-500">Loading...</div>
+                    ) : filteredCodes.length === 0 ? (
+                      <div className="p-4 text-center text-gray-500">No results found</div>
+                    ) : (
+                      <div className="py-2">
+                        {filteredCodes.map((country) => (
+                          <div
+                            key={`${country.code}-${country.name}`}
+                            className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => selectCountryCode(country.code)}
+                          >
+                            {country.flag ? (
+                              <img src={country.flag} alt={country.name} className="w-6 h-4 mr-3 object-cover" />
+                            ) : (
+                              <div className="w-6 h-4 bg-gray-200 mr-3 rounded"></div>
+                            )}
+                            <span className="flex-1 truncate">{country.name}</span>
+                            <span className="text-gray-600 text-sm">{country.code}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+                
                 {formErrors.countryCode && (
                   <p className="text-red-500 text-xs mt-1">{formErrors.countryCode}</p>
                 )}
@@ -466,6 +673,7 @@ const Contact = () => {
                 </div>
               </div>
             </motion.div>
+          
           </motion.div>
         )}
       </AnimatePresence>

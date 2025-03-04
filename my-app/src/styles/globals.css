@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @font-face {
   font-family: 'TAN Harmoni';
   src: url('/fonts/TANHarmoni.woff2') format('woff2'),
@@ -29,6 +31,18 @@
   font-weight: 400;
   font-style: normal;
 }
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  
+}
+
+
+
+
+
+
 
 @layer base {
   body {
@@ -109,14 +123,14 @@
     right: 0;
     height: 4rem;
     z-index: 50;
+    width: 100%; /* Ensure it takes full width */
     background-color: #f0f0f0;
-    transform: none !important; /* Prevent unwanted transforms */
-    will-change: transform; /* Optimize rendering */
   }
-  
+
   body {
-    padding-top: 4rem; /* Ensure content starts below header */
+    padding-top: 4rem; /* Prevent content from hiding under header */
   }
 }
+
 
 

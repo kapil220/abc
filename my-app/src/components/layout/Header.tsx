@@ -26,23 +26,24 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        (menuRef.current && !menuRef.current.contains(event.target as Node)) &&
-        (servicesDropdownRef.current && !servicesDropdownRef.current.contains(event.target as Node))
-      ) {
-        setIsMenuOpen(false); // Close the mobile menu
-        setIsServicesOpen(false); // Close the services dropdown
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false); // Close the menu if clicked outside
+      }
+      if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(event.target as Node)) {
+        setIsServicesOpen(false); // Close the services dropdown if clicked outside
       }
     };
-
+  
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+  
+  
 
   return (
-    <header className="bg-isabelline bg-transparent text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg ">
+    <header className="bg-isabelline bg-transparent text-gray-900 fixed w-full z-50 shadow-xl backdrop-blur-lg">
 
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 md:py-4">
@@ -50,15 +51,16 @@ const Header: React.FC = () => {
           <div className="flex-shrink-0">
             <Link href="/">
             <div className="flex items-center cursor-pointer">
-  <Image 
-    className="h-16 md:h-28 w-auto filter brightness-50"  
-    src="/images/logo.webp" 
-    alt="Logo" 
-    width={120}  
-    height={50}  
-    priority  
-  />
-  <span className="ml-2 text-4xl font-heading font-medium text-taupe">
+            <Image 
+  className="h-16 md:h-28 w-auto max-w-full object-contain"  
+  src="/images/logo.webp" 
+  alt="Logo" 
+  width={120}  
+  height={50}  
+  priority  
+/>
+
+  <span className="ml-2 text-2xl  md:text-3xl lg:text-4xl font-heading font-medium text-taupe">
     The Ink Pot Group
   </span>
 </div>
@@ -102,18 +104,26 @@ const Header: React.FC = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 right-0 bg-ashGray  text-white space-y-4 py-4 px-6 z-50">
-          <NavLink href="/about">About Us</NavLink>
-          <ServicesDropdown
-            isMobile
-            ref={servicesDropdownRef}
-            isOpen={isServicesOpen}
-            toggleDropdown={toggleServicesDropdown}
-          />
-          <NavLink href="/#work">Our Work</NavLink>
-          <NavLink href="/#contact">Contact Us</NavLink>
-        </div>
-      )}
+  <div
+    className="lg:hidden absolute top-16 left-0 w-full bg-ashGray text-white py-4 px-6 z-50 flex flex-col space-y-2"
+    ref={menuRef}
+    onMouseLeave={() => setIsMenuOpen(false)} 
+  >
+    <NavLink href="/about">About Us</NavLink>
+    <ServicesDropdown
+      isMobile
+      ref={servicesDropdownRef}
+      isOpen={isServicesOpen}
+      toggleDropdown={toggleServicesDropdown}
+    />
+    <NavLink href="/#work">Our Work</NavLink>
+    <NavLink href="/#contact">Contact Us</NavLink>
+  </div>
+)}
+
+
+
+
     </header>
   );
 };
@@ -126,7 +136,7 @@ interface NavLinkProps {
 const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
   <Link href={href as Route}>
 
-    <div className="hover:border-b-2 hover:border-pineGreen px-3 py-2 text-taupe font-heading text-xl cursor-pointer">
+    <div className="hover:border-b-2 hover:border-pineGreen px-4 py-2 text-taupe font-heading text-xl cursor-pointer">
       {children}
     </div>
   </Link>
@@ -161,17 +171,17 @@ const itemVariants = {
 
 const ServicesDropdown = React.forwardRef<HTMLDivElement, ServicesDropdownProps>((props, ref) => {
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative" onMouseLeave={props.toggleDropdown}> {/* Added onMouseLeave */}
       <div
         onClick={props.toggleDropdown}
-        className="flex items-center  gap-1 hover:border-b-2 font-heading text-taupe hover:border-pineGreen px-4 py-2 text-xl cursor-pointer transition duration-300"
+        className="flex items-center gap-1 hover:border-b-2 font-heading text-taupe hover:border-pineGreen px-4 py-2 text-xl cursor-pointer transition duration-300"
       >
         Services{" "}
         <motion.div
           animate={{ rotate: props.isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-4 h-4" />
+          <ChevronDown className="w-3 h-3" />
         </motion.div>
       </div>
 
@@ -200,6 +210,8 @@ const ServicesDropdown = React.forwardRef<HTMLDivElement, ServicesDropdownProps>
     </div>
   );
 });
+
+
 
 ServicesDropdown.displayName = 'ServicesDropdown';
 
