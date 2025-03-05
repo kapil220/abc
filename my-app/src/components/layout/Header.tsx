@@ -178,7 +178,8 @@ const ServicesDropdown = React.forwardRef<HTMLDivElement, ServicesDropdownProps>
     > 
       <div
         onClick={props.toggleDropdown}
-        className="flex items-center gap-1 hover:border-b-2 font-heading text-taupe hover:border-pineGreen px-4 py-2 text-xl cursor-pointer transition duration-300"
+        className="flex items-center gap-1 hover:border-b-2 font-heading text-taupe
+         hover:border-pineGreen px-4 py-2 text-xl cursor-pointer transition duration-300"
       >
         Services{" "}
         <motion.div
@@ -194,7 +195,7 @@ const ServicesDropdown = React.forwardRef<HTMLDivElement, ServicesDropdownProps>
         animate={props.isOpen ? "visible" : "hidden"}
         exit="exit"
         variants={dropIn}
-        className={`absolute left-0 top-10 mt-3 w-64 bg-white text-black rounded-lg shadow-xl z-50 p-3 border border-gray-200 overflow-hidden ${
+        className={`absolute left-0 top-10  w-64 bg-white text-black rounded-lg shadow-xl z-50 p-3 border border-gray-200 overflow-hidden ${
           props.isOpen ? "block" : "hidden"
         }`}
       >

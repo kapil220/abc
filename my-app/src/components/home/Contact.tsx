@@ -110,13 +110,14 @@ const Contact = () => {
         setFilteredCodes(uniqueFormattedCodes);
         
         // Set default country code (e.g., India +91)
-        const indiaCode = uniqueFormattedCodes.find((c) => c.code === '+91');
-        if (indiaCode) {
+        const canadaCode = uniqueFormattedCodes.find((c) => c.code === '+1');
+        if (canadaCode) {
           setFormData(prevData => ({
             ...prevData,
-            countryCode: indiaCode.code
+            countryCode: canadaCode.code
           }));
         }
+        
       } catch (error) {
         console.error('Error fetching country codes:', error);
         // Fallback to a minimal set of country codes if API fails
@@ -541,7 +542,7 @@ const Contact = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              <label className="block text-sm font-subheading text-pineGreen mb-2">Email</label>
+              <label className="block text-sm font-subheading text-pineGreen mb-2">E-mail</label>
               <input
                 type="email"
                 name="email"
@@ -549,7 +550,7 @@ const Contact = () => {
                 className={`w-full border-b-2 ${formErrors.email ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none transition-colors`}
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="abc@id.com"
+                placeholder="abc@email.com"
                 disabled={isLoading}
               />
               {formErrors.email && (

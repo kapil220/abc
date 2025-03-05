@@ -446,6 +446,90 @@ export const realEstateWork = [
 
 export const foodRestaurantWork = [
   {
+    title: "Food Photography & Menu Design4",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food1.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design8",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food2.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design9",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food3.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design10",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food4.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design11",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food5.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design12",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food6.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design13",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food7.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design14",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food8.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design15",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food9.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design16",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food10.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design17",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food11.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
+    title: "Food Photography & Menu Design18",
+    description: "Captured appetizing visuals for menus and promotions.",
+    image: "/images/food12.webp",
+    type: "image",
+    tags: ["Photography", "Menu", "Culinary"]
+  },
+  {
     title: "Restaurant Logo & Branding",
     description: "Crafted a unique identity for a gourmet restaurant.",
     image: "/images/content1.webp",
@@ -497,6 +581,7 @@ export const foodRestaurantWork = [
     tags: ["Ambiance", "Tour", "Experience"]
   },
   
+  
   {
     title: "Chef Spotlight Series2",
     description: "Video showcase featuring signature dishes and culinary expertise.",
@@ -511,7 +596,8 @@ export const foodRestaurantWork = [
     image: "/images/content10.webp",
     type: "image",
     tags: ["Photography", "Menu", "Culinary"]
-  }
+  },
+  
 ];
 
 export const commercialsWork = [
@@ -522,6 +608,21 @@ export const commercialsWork = [
     type: "image",
     tags: ["TV", "Commercial", "Production"]
   },
+  {
+    title: "TV Commercial Production2",
+    description: "Produced high-quality commercials for brand awareness.",
+    image: "/images/commercial1.webp",
+    type: "image",
+    tags: ["TV", "Commercial", "Production"]
+  },
+  {
+    title: "TV Commercial Production3",
+    description: "Produced high-quality commercials for brand awareness.",
+    image: "/images/commercial2.webp",
+    type: "image",
+    tags: ["TV", "Commercial", "Production"]
+  },
+  
   {
     title: "Corporate Production1",
     description: "Created professional videos for business marketing.",

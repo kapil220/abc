@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, X } from "lucide-react";
@@ -27,6 +27,16 @@ const categories = [
   "Post",
 ];
 
+// Shuffle function
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 // Explicitly ensure all works are included in the allWorks array
 const allWorks = [
   ...logoDesignWork, 
@@ -52,7 +62,15 @@ export default function WorkPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  const filteredWorks = workCategories[selectedCategory] || [];
+  // Use useMemo to create shuffled works for each category
+  const shuffledWorkCategories = useMemo(() => {
+    return Object.keys(workCategories).reduce((acc, category) => {
+      acc[category] = shuffleArray(workCategories[category]);
+      return acc;
+    }, {} as CategoryMap);
+  }, []);
+  
+  const filteredWorks = shuffledWorkCategories[selectedCategory] || [];
   
   const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);

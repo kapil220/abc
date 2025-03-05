@@ -11,7 +11,7 @@ type ServiceContentProps = {
 
 export default function ServiceContent({ service }: ServiceContentProps) {
   return (
-    <main className="min-h-screen py-24 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
+    <main className="min-h-screen py-4 mg:py-24 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
       {/* Hero Section with Staggered Elements */}
       <div className="relative min-h-[90vh] w-full overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-2">

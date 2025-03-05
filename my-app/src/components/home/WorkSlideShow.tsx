@@ -118,13 +118,26 @@ const VideoThumbnail = ({ work, onClick }: VideoThumbnailProps) => {
 };
 
 const WorkSection: React.FC = () => {
+  // Shuffling function to mix video and image types
+  const shuffleWorks = (works: WorkItem[]) => {
+    const shuffled = [...works];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   // Use useMemo to prevent the array from being recreated on every render
-  const featuredWorks = useMemo(() => [
-    ...logoDesignWork.slice(0, 8), 
-    ...realEstateWork.slice(0, 8), 
-    ...foodRestaurantWork.slice(0, 8), 
-    ...commercialsWork.slice(0, 8),
-  ], []);
+  const featuredWorks = useMemo(() => {
+    const allWorks = [
+      ...logoDesignWork.slice(0, 8), 
+      ...realEstateWork.slice(0, 8), 
+      ...foodRestaurantWork.slice(0, 16), 
+      ...commercialsWork.slice(0, 8),
+    ];
+    return shuffleWorks(allWorks);
+  }, []);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(4);
