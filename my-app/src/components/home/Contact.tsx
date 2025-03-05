@@ -274,40 +274,42 @@ const Contact = () => {
         timestamp: new Date().toISOString(),
       };
   
-      console.log('Submitting form data:', JSON.stringify(submissionData, null, 2));
-  
       const response = await fetch("/api/contact", {
         method: "POST",
-        credentials: "include", // Important for cross-origin requests
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(submissionData),
       });
-      
   
+      // Log full response for debugging
       console.log('Response status:', response.status);
       console.log('Response headers:', Object.fromEntries(response.headers.entries()));
   
-      // Comprehensive response handling
-      let responseData;
-      try {
-        responseData = await response.json();
-        console.log('Response data:', responseData);
-      } catch (parseError) {
-        console.error('Failed to parse response:', parseError);
-        const responseText = await response.text();
-        console.error('Response text:', responseText);
-        throw new Error(`Failed to parse server response: ${responseText}`);
+      // Clone the response to allow multiple reads
+      const responseClone = response.clone();
+  
+      // Check if response is ok
+      if (!response.ok) {
+        // Try to parse error message
+        let errorData;
+        try {
+          errorData = await responseClone.json();
+          console.error('Error response:', errorData);
+          throw new Error(errorData.message || 'An unknown error occurred');
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (parseError) {
+          // If JSON parsing fails, try text
+          const errorText = await responseClone.text();
+          console.error('Error text:', errorText);
+          throw new Error(errorText || 'An unknown error occurred');
+        }
       }
   
-      if (!response.ok) {
-        throw new Error(
-          responseData.error ||
-          responseData.message ||
-          'An unknown error occurred during form submission'
-        );
-      }
+      // Parse successful response
+      const responseData = await response.json();
+      console.log('Success response:', responseData);
   
       setSubmitStatus('success');
       setShowModal(true);
