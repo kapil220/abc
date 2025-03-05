@@ -4,10 +4,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
     serverActions: {
-      // You can add configuration options here if needed
-      // For example:
-      // bodySizeLimit: '2mb',
-      // allowedOrigins: ['https://example.com']
+      // Explicitly define an empty configuration object
+      bodySizeLimit: undefined,
+      allowedOrigins: ["https://theinkpotgroup.com"]
     },
     typedRoutes: true,
   },
@@ -17,6 +16,28 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     config.resolve.fallback = { fs: false, path: false };
     return config;
+  },
+  async headers() {
+    return [
+      {
+        source: "/api/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          { 
+            key: "Access-Control-Allow-Origin", 
+            value: "https://theinkpotgroup.com" 
+          },
+          { 
+            key: "Access-Control-Allow-Methods", 
+            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" 
+          },
+          { 
+            key: "Access-Control-Allow-Headers", 
+            value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" 
+          },
+        ],
+      },
+    ];
   },
 };
 

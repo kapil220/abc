@@ -1,18 +1,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function middleware(req: NextRequest) {
   const response = NextResponse.next();
 
-  response.headers.set("Access-Control-Allow-Origin", "https://theinkpotgroup.com");
+  // Dynamically set CORS headers
+  const allowedOrigins = [
+    "https://theinkpotgroup.com",
+    "http://localhost:3000", // Add development environment
+    // Add any other domains you want to allow
+  ];
+
+  const origin = req.headers.get("origin") || "";
+  
+  if (allowedOrigins.includes(origin)) {
+    response.headers.set("Access-Control-Allow-Origin", origin);
+  }
+
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
   response.headers.set("Access-Control-Allow-Credentials", "true");
+
   return response;
 }
 
-// Apply middleware to API routes only
 export const config = {
   matcher: "/api/:path*",
 };

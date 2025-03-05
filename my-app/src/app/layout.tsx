@@ -3,8 +3,11 @@ import Footer from '@/components/layout/Footer';
 import '@/styles/globals.css';
 
 export const metadata = {
-  title: 'ACB Limited',
-  description: 'Leading provider of yoga services',
+  title: 'The Ink Pot Group',
+  description: 'Delivering exceptional visual content for your brand',
+  icons: {
+    icon: "images/logo.webp", // or "/favicon.png"
+  },
 };
 
 interface RootLayoutProps {
@@ -20,6 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@400;500;700&display=swap"
         />
+    
       </head>
       <body className="font-body">
         <div className="min-h-screen flex flex-col">

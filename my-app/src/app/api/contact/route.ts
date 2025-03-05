@@ -6,35 +6,128 @@ import nodemailer from "nodemailer";
 // Maximum execution time for the serverless function
 export const maxDuration = 30; // 30 seconds
 
-// Explicitly handle OPTIONS method
-export async function OPTIONS() {
+// CORS configuration
+const ALLOWED_ORIGINS = [
+  "https://theinkpotgroup.com",
+  "http://localhost:3000" // Add for local development
+];
+
+// Utility function to create CORS headers
+function getCorsHeaders(origin?: string | null) {
+  const safeOrigin = origin && ALLOWED_ORIGINS.includes(origin) 
+    ? origin 
+    : ALLOWED_ORIGINS[0];
+
+  return {
+    "Access-Control-Allow-Origin": safeOrigin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Credentials": "true",
+    "Cache-Control": "no-store",
+  };
+}
+
+// Handle preflight requests
+export async function OPTIONS(req: Request) {
+  const origin = req.headers.get("origin");
+  const corsHeaders = getCorsHeaders(origin);
+
   return new NextResponse(null, {
     status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": "https://theinkpotgroup.com",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
+    headers: corsHeaders,
   });
 }
 
-// POST method handler
-export async function POST(req: Request) {
-  // Start performance tracking
-  const startTime = Date.now();
-  
-  // Comprehensive CORS headers
-  const corsHeaders = {
-    "Access-Control-Allow-Origin": "https://theinkpotgroup.com",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Cache-Control": "no-store",
+// Validation function
+function validateInput(data: {
+  name: string, 
+  phone: string, 
+  email: string, 
+  query: string
+}) {
+  const errors: Record<string, string> = {};
+
+  // Name validation
+  if (!data.name || data.name.trim().length < 2) {
+    errors.name = "Name must be at least 2 characters long";
+  }
+
+  // Phone validation (10 digit check)
+  if (!data.phone || !/^\d{10}$/.test(data.phone)) {
+    errors.phone = "Phone number must be 10 digits";
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!data.email || !emailRegex.test(data.email)) {
+    errors.email = "Invalid email format";
+  }
+
+  // Query validation
+  if (!data.query || data.query.trim().length < 10) {
+    errors.query = "Query must be at least 10 characters long";
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors
   };
+}
+
+// Email sending function
+async function sendEmailNotification(
+  name: string, 
+  phone: string, 
+  email: string, 
+  query: string
+) {
+  // Validate email credentials
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error("❌ Missing email credentials");
+    throw new Error("Email configuration incomplete");
+  }
+
+  // Create transporter
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  // Prepare email options
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: "rajputkapil436@gmail.com", // Replace with your email
+    subject: `New Contact Form Submission from ${name}`,
+    text: `
+    📌 Name: ${name}
+    📞 Phone: ${phone}
+    ✉️ Email: ${email}
+    💬 Query: ${query}
+
+    Submitted on: ${new Date().toLocaleString()}
+    `,
+  };
+
+  // Send email
+  await transporter.sendMail(mailOptions);
+  console.log("📧 Email sent successfully");
+}
+
+// Main POST handler
+export async function POST(req: Request) {
+  // Track processing time
+  const startTime = Date.now();
+
+  // Get origin for CORS
+  const origin = req.headers.get("origin");
+  const corsHeaders = getCorsHeaders(origin);
 
   try {
     // Validate request method
     if (req.method !== "POST") {
-      console.warn(`❌ Invalid method: ${req.method}`);
       return new NextResponse(
         JSON.stringify({ 
           error: "Method Not Allowed", 
@@ -47,19 +140,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Detailed request logging
-    console.log("📌 Request Details:", {
-      url: req.url,
-      method: req.method,
-      timestamp: new Date().toISOString(),
-    });
-
-    // Database connection with timeout
-    const dbConnectStart = Date.now();
-    await dbConnect();
-    console.log(`✅ Database Connected in ${Date.now() - dbConnectStart}ms`);
-
-    // Parse and validate request body
+    // Parse request body
     let requestBody;
     try {
       requestBody = await req.json();
@@ -77,7 +158,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Destructure and validate input with more detailed checks
+    // Destructure and validate input
     const { 
       name = '', 
       phone = '', 
@@ -85,31 +166,20 @@ export async function POST(req: Request) {
       query = '' 
     } = requestBody;
 
-    // Comprehensive input validation
-    const validationErrors: Record<string, string> = {};
-
-    if (!name.trim() || name.length < 2) {
-      validationErrors.name = "Name must be at least 2 characters long";
-    }
-
-    if (!phone.trim() || !/^\d{10}$/.test(phone)) {
-      validationErrors.phone = "Phone number must be 10 digits";
-    }
-
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      validationErrors.email = "Invalid email format";
-    }
-
-    if (!query.trim() || query.length < 10) {
-      validationErrors.query = "Query must be at least 10 characters long";
-    }
+    // Run validation
+    const validationResult = validateInput({ 
+      name, 
+      phone, 
+      email, 
+      query 
+    });
 
     // Return validation errors if any
-    if (Object.keys(validationErrors).length > 0) {
+    if (!validationResult.isValid) {
       return new NextResponse(
         JSON.stringify({ 
           error: "Validation Failed", 
-          details: validationErrors 
+          details: validationResult.errors 
         }), 
         { 
           status: 400,
@@ -118,12 +188,14 @@ export async function POST(req: Request) {
       );
     }
 
+    // Connect to database
+    await dbConnect();
+
     // Prepare submission data
     const submissionDate = new Date().toLocaleDateString();
     const timestamp = new Date().toISOString();
 
     // Save to database
-    const dbSaveStart = Date.now();
     const newContact = new Contact({ 
       name, 
       phone, 
@@ -133,12 +205,9 @@ export async function POST(req: Request) {
       timestamp 
     });
     await newContact.save();
-    console.log(`✅ Data Saved to Database in ${Date.now() - dbSaveStart}ms`);
 
     // Send email notification
-    const emailStart = Date.now();
     await sendEmailNotification(name, phone, email, query);
-    console.log(`✅ Email Sent in ${Date.now() - emailStart}ms`);
 
     // Successful response
     return new NextResponse(
@@ -184,37 +253,4 @@ export async function POST(req: Request) {
       }
     );
   }
-}
-
-async function sendEmailNotification(name: string, phone: string, email: string, query: string) {
-  // Email sending logic remains the same
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.error("❌ Missing email credentials");
-    throw new Error("Email configuration incomplete");
-  }
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: "rajputkapil436@gmail.com",
-    subject: `New Contact Form Submission from ${name}`,
-    text: `
-    📌 Name: ${name}
-    📞 Phone: ${phone}
-    ✉️ Email: ${email}
-    💬 Query: ${query}
-
-    Submitted on: ${new Date().toLocaleString()}
-    `,
-  };
-
-  await transporter.sendMail(mailOptions);
-  console.log("📧 Email sent successfully");
 }

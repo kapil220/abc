@@ -257,15 +257,15 @@ const Contact = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+  
     // Validate form before submission
     if (!validateForm()) {
       return;
     }
-    
+  
     setIsLoading(true);
     setSubmitStatus(null);
-    
+  
     try {
       const submissionData = {
         ...formData,
@@ -278,8 +278,10 @@ const Contact = () => {
   
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { 
+        credentials: "include", // Important for cross-origin requests
+        headers: {
           "Content-Type": "application/json",
+          "Origin": window.location.origin, // Explicitly set origin
         },
         body: JSON.stringify(submissionData),
       });
@@ -287,43 +289,41 @@ const Contact = () => {
       console.log('Response status:', response.status);
       console.log('Response headers:', Object.fromEntries(response.headers.entries()));
   
-      // Handle different response scenarios
+      // Comprehensive response handling
       let responseData;
       try {
         responseData = await response.json();
         console.log('Response data:', responseData);
       } catch (parseError) {
         console.error('Failed to parse response:', parseError);
-        
-        // Try to get response text if JSON parsing fails
         const responseText = await response.text();
         console.error('Response text:', responseText);
-  
         throw new Error(`Failed to parse server response: ${responseText}`);
       }
   
       if (!response.ok) {
         throw new Error(
-          responseData.error || 
-          responseData.message || 
+          responseData.error ||
+          responseData.message ||
           'An unknown error occurred during form submission'
         );
       }
-      
+  
       setSubmitStatus('success');
       setShowModal(true);
-      
+  
       // Reset form, keeping country code
-      setFormData({ 
-        name: "", 
-        countryCode: formData.countryCode, 
-        phone: "", 
-        email: "", 
-        query: "" 
+      setFormData({
+        name: "",
+        countryCode: formData.countryCode,
+        phone: "",
+        email: "",
+        query: ""
       });
+  
     } catch (error) {
       console.error('❌ Complete Error Object:', error);
-      
+  
       // More detailed error logging
       console.error('Error Details:', {
         message: error instanceof Error ? error.message : 'Unknown error',
