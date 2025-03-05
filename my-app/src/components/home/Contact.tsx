@@ -281,10 +281,10 @@ const Contact = () => {
         credentials: "include", // Important for cross-origin requests
         headers: {
           "Content-Type": "application/json",
-          "Origin": window.location.origin, // Explicitly set origin
         },
         body: JSON.stringify(submissionData),
       });
+      
   
       console.log('Response status:', response.status);
       console.log('Response headers:', Object.fromEntries(response.headers.entries()));

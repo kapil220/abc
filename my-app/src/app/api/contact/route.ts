@@ -116,7 +116,7 @@ async function sendEmailNotification(
   console.log("📧 Email sent successfully");
 }
 
-// Main POST handler
+// Main POST handler - Simplified
 export async function POST(req: Request) {
   // Track processing time
   const startTime = Date.now();
@@ -126,20 +126,6 @@ export async function POST(req: Request) {
   const corsHeaders = getCorsHeaders(origin);
 
   try {
-    // Validate request method
-    if (req.method !== "POST") {
-      return new NextResponse(
-        JSON.stringify({ 
-          error: "Method Not Allowed", 
-          supportedMethods: ["POST"] 
-        }), 
-        { 
-          status: 405,
-          headers: corsHeaders 
-        }
-      );
-    }
-
     // Parse request body
     let requestBody;
     try {

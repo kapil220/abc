@@ -4,9 +4,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
     serverActions: {
-      // Explicitly define an empty configuration object
       bodySizeLimit: undefined,
-      allowedOrigins: ["https://theinkpotgroup.com"]
+      allowedOrigins: ["https://theinkpotgroup.com", "http://localhost:3000"]
     },
     typedRoutes: true,
   },
@@ -25,7 +24,7 @@ const nextConfig: NextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { 
             key: "Access-Control-Allow-Origin", 
-            value: "https://theinkpotgroup.com" 
+            value: "https://theinkpotgroup.com, http://localhost:3000" 
           },
           { 
             key: "Access-Control-Allow-Methods", 
