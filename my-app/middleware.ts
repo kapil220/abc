@@ -20,7 +20,7 @@ export function middleware(req: NextRequest) {
 
   // Dynamically set CORS headers
   const allowedOrigins = [
-    "https://theinkpotgroup.com",
+    "https://www.theinkpotgroup.com/",
     "http://localhost:3000", // Add development environment
   ];
 
@@ -30,7 +30,7 @@ export function middleware(req: NextRequest) {
     response.headers.set("Access-Control-Allow-Origin", origin);
   } else {
     // If origin is not allowed, you might want to set a default or not set the header
-    response.headers.set("Access-Control-Allow-Origin", "https://theinkpotgroup.com");
+    response.headers.set("Access-Control-Allow-Origin", "https://www.theinkpotgroup.com/");
   }
 
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");

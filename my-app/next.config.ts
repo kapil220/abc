@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       bodySizeLimit: undefined,
-      allowedOrigins: ["https://theinkpotgroup.com", "http://localhost:3000"]
+      allowedOrigins: ["https://www.theinkpotgroup.com/", "http://localhost:3000"]
     },
     typedRoutes: true,
   },
@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { 
             key: "Access-Control-Allow-Origin", 
-            value: "https://theinkpotgroup.com, http://localhost:3000" 
+            value: "https://www.theinkpotgroup.com/, http://localhost:3000" 
           },
           { 
             key: "Access-Control-Allow-Methods", 

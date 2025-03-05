@@ -1,25 +1,137 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Contact from "@/models/Contact";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import nodemailer from "nodemailer";
 
-// Increase timeout
-export const maxDuration = 60; // 60 seconds
+// Maximum execution time for the serverless function
+export const maxDuration = 30; // 30 seconds
 
+// CORS configuration
+const ALLOWED_ORIGINS = [
+  "https://www.theinkpotgroup.com/",
+  "http://localhost:3000" // Add for local development
+];
+
+// Utility function to create CORS headers
+function getCorsHeaders(origin?: string | null) {
+  const safeOrigin = origin && ALLOWED_ORIGINS.includes(origin) 
+    ? origin 
+    : ALLOWED_ORIGINS[0];
+
+  return {
+    "Access-Control-Allow-Origin": safeOrigin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Credentials": "true",
+    "Cache-Control": "no-store",
+  };
+}
+
+// Handle preflight requests
+export async function OPTIONS(req: Request) {
+  const origin = req.headers.get("origin");
+  const corsHeaders = getCorsHeaders(origin);
+
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders,
+  });
+}
+
+// Validation function
+function validateInput(data: {
+  name: string, 
+  phone: string, 
+  email: string, 
+  query: string
+}) {
+  const errors: Record<string, string> = {};
+
+  // Name validation
+  if (!data.name || data.name.trim().length < 2) {
+    errors.name = "Name must be at least 2 characters long";
+  }
+
+  // Phone validation (10 digit check)
+  if (!data.phone || !/^\d{10}$/.test(data.phone)) {
+    errors.phone = "Phone number must be 10 digits";
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!data.email || !emailRegex.test(data.email)) {
+    errors.email = "Invalid email format";
+  }
+
+  // Query validation
+  if (!data.query || data.query.trim().length < 10) {
+    errors.query = "Query must be at least 10 characters long";
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors
+  };
+}
+
+// Email sending function
+async function sendEmailNotification(
+  name: string, 
+  phone: string, 
+  email: string, 
+  query: string
+) {
+  // Validate email credentials
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error("❌ Missing email credentials");
+    throw new Error("Email configuration incomplete");
+  }
+
+  // Create transporter
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  // Prepare email options
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: "rajputkapil436@gmail.com", // Replace with your email
+    subject: `New Contact Form Submission from ${name}`,
+    text: `
+    📌 Name: ${name}
+    📞 Phone: ${phone}
+    ✉️ Email: ${email}
+    💬 Query: ${query}
+
+    Submitted on: ${new Date().toLocaleString()}
+    `,
+  };
+
+  // Send email
+  await transporter.sendMail(mailOptions);
+  console.log("📧 Email sent successfully");
+}
+
+// Main POST handler - Simplified
 export async function POST(req: Request) {
-  // Detailed logging
-  console.log('Received request at:', new Date().toISOString());
-  console.log('Request method:', req.method);
+  // Track processing time
+  const startTime = Date.now();
+
+  // Get origin for CORS
+  const origin = req.headers.get("origin");
+  const corsHeaders = getCorsHeaders(origin);
 
   try {
-    // Parse request body with error handling
+    // Parse request body
     let requestBody;
     try {
       requestBody = await req.json();
-      console.log('Parsed request body:', JSON.stringify(requestBody, null, 2));
     } catch (parseError) {
-      console.error('❌ Request Body Parsing Error:', parseError);
+      console.error("❌ Request Body Parsing Error:", parseError);
       return new NextResponse(
         JSON.stringify({ 
           error: "Invalid Request Body", 
@@ -27,171 +139,104 @@ export async function POST(req: Request) {
         }), 
         { 
           status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://theinkpotgroup.com',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
-          }
+          headers: corsHeaders 
         }
       );
     }
 
-    // Destructure with default values and type safety
+    // Destructure and validate input
     const { 
       name = '', 
       phone = '', 
       email = '', 
-      query = '',
-      countryCode = ''
+      query = '' 
     } = requestBody;
 
-    // Comprehensive validation
-    const errors: Record<string, string> = {};
+    // Run validation
+    const validationResult = validateInput({ 
+      name, 
+      phone, 
+      email, 
+      query 
+    });
 
-    if (!name || name.trim().length < 2) {
-      errors.name = "Name must be at least 2 characters long";
-    }
-
-    if (!phone || !/^\d{10}$/.test(phone)) {
-      errors.phone = "Phone number must be 10 digits";
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      errors.email = "Invalid email format";
-    }
-
-    if (!query || query.trim().length < 10) {
-      errors.query = "Query must be at least 10 characters long";
-    }
-
-    // If validation fails, return errors
-    if (Object.keys(errors).length > 0) {
+    // Return validation errors if any
+    if (!validationResult.isValid) {
       return new NextResponse(
         JSON.stringify({ 
           error: "Validation Failed", 
-          details: errors 
+          details: validationResult.errors 
         }), 
         { 
           status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://theinkpotgroup.com',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
-          }
+          headers: corsHeaders 
         }
       );
     }
 
-    // Connect to database with error handling
-    try {
-      await dbConnect();
-    } catch (dbError) {
-      console.error('Database Connection Error:', dbError);
-      return new NextResponse(
-        JSON.stringify({ 
-          error: "Database Connection Failed", 
-          message: "Unable to connect to database" 
-        }), 
-        { 
-          status: 500,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://theinkpotgroup.com',
-          }
-        }
-      );
-    }
+    // Connect to database
+    await dbConnect();
 
     // Prepare submission data
     const submissionDate = new Date().toLocaleDateString();
     const timestamp = new Date().toISOString();
 
     // Save to database
-    try {
-      const newContact = new Contact({ 
-        name, 
-        phone, 
-        email, 
-        query, 
-        countryCode,
-        submissionDate, 
-        timestamp 
-      });
-      await newContact.save();
-    } catch (saveError) {
-      console.error('Database Save Error:', saveError);
-      return new NextResponse(
-        JSON.stringify({ 
-          error: "Database Save Failed", 
-          message: "Unable to save contact information" 
-        }), 
-        { 
-          status: 500,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://theinkpotgroup.com',
-          }
-        }
-      );
-    }
+    const newContact = new Contact({ 
+      name, 
+      phone, 
+      email, 
+      query, 
+      submissionDate, 
+      timestamp 
+    });
+    await newContact.save();
 
-    // Send email notification (optional)
-    try {
-      // Your existing email notification logic
-      // Consider adding a try-catch block here as well
-    } catch (emailError) {
-      console.error('Email Notification Error:', emailError);
-      // Optionally, you might want to log this but not fail the entire request
-    }
+    // Send email notification
+    await sendEmailNotification(name, phone, email, query);
 
     // Successful response
     return new NextResponse(
       JSON.stringify({ 
         message: "Form submitted successfully!", 
-        timestamp: new Date().toISOString()
+        processingTime: Date.now() - startTime 
       }), 
       { 
         status: 201,
         headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://theinkpotgroup.com',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          ...corsHeaders,
+          "Content-Type": "application/json",
         }
       }
     );
 
   } catch (error) {
-    // Catch-all error handler
-    console.error('🔴 Unhandled Server Error:', error);
+    // Comprehensive error logging
+    console.error('🔴 Critical Error:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      name: error instanceof Error ? error.name : 'Unknown error type',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      timestamp: new Date().toISOString(),
+      processingTime: Date.now() - startTime
+    });
+
+    // Determine appropriate error response
+    const errorResponse = {
+      error: 'Internal Server Error',
+      message: error instanceof Error 
+        ? error.message 
+        : 'An unexpected error occurred during form submission',
+    };
 
     return new NextResponse(
-      JSON.stringify({ 
-        error: 'Internal Server Error', 
-        message: 'An unexpected error occurred during form submission'
-      }), 
+      JSON.stringify(errorResponse), 
       { 
         status: 500,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'https://theinkpotgroup.com',
+          ...corsHeaders
         }
       }
     );
   }
-}
-
-// Handle OPTIONS (preflight) requests
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': 'https://theinkpotgroup.com',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    }
-  });
 }
