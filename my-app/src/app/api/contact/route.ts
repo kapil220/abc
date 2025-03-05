@@ -3,170 +3,142 @@ import { dbConnect } from "@/lib/dbConnect";
 import Contact from "@/models/Contact";
 import nodemailer from "nodemailer";
 
-// Maximum execution time for the serverless function
-export const maxDuration = 30; // 30 seconds
-
-// CORS configuration
-const ALLOWED_ORIGINS = [
-  "https://www.theinkpotgroup.com/",
-  "http://localhost:3000" // Add for local development
-];
-
-// Utility function to create CORS headers
-function getCorsHeaders(origin?: string | null) {
-  const safeOrigin = origin && ALLOWED_ORIGINS.includes(origin) 
-    ? origin 
-    : ALLOWED_ORIGINS[0];
-
-  return {
-    "Access-Control-Allow-Origin": safeOrigin,
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Credentials": "true",
-    "Cache-Control": "no-store",
-  };
+// Define interface for form data
+interface ContactFormData {
+  name: string;
+  phone: string;
+  email: string;
+  query: string;
 }
 
-// Handle preflight requests
-export async function OPTIONS(req: Request) {
-  const origin = req.headers.get("origin");
-  const corsHeaders = getCorsHeaders(origin);
-
-  return new NextResponse(null, {
-    status: 204,
-    headers: corsHeaders,
-  });
-}
-
-// Validation function
-function validateInput(data: {
-  name: string, 
-  phone: string, 
-  email: string, 
-  query: string
-}) {
-  const errors: Record<string, string> = {};
+// Validation function with explicit typing
+function validateFormData(data: ContactFormData): string[] {
+  const errors: string[] = [];
 
   // Name validation
   if (!data.name || data.name.trim().length < 2) {
-    errors.name = "Name must be at least 2 characters long";
+    errors.push("Name must be at least 2 characters long");
   }
 
-  // Phone validation (10 digit check)
-  if (!data.phone || !/^\d{10}$/.test(data.phone)) {
-    errors.phone = "Phone number must be 10 digits";
+  // Phone validation
+  const phoneRegex = /^[0-9]{10}$/;
+  if (!data.phone || !phoneRegex.test(data.phone)) {
+    errors.push("Invalid phone number");
   }
 
   // Email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!data.email || !emailRegex.test(data.email)) {
-    errors.email = "Invalid email format";
+    errors.push("Invalid email address");
   }
 
   // Query validation
   if (!data.query || data.query.trim().length < 10) {
-    errors.query = "Query must be at least 10 characters long";
+    errors.push("Query must be at least 10 characters long");
   }
 
-  return {
-    isValid: Object.keys(errors).length === 0,
-    errors
-  };
+  return errors;
 }
 
-// Email sending function
-async function sendEmailNotification(
-  name: string, 
-  phone: string, 
-  email: string, 
-  query: string
-) {
-  // Validate email credentials
+// CORS preflight handling
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGIN || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    }
+  });
+}
+
+// Email notification function
+async function sendEmailNotification(contactData: ContactFormData): Promise<void> {
+  // Check for required email credentials
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     console.error("❌ Missing email credentials");
-    throw new Error("Email configuration incomplete");
+    return;
   }
 
-  // Create transporter
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  // Prepare email options
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: "rajputkapil436@gmail.com", // Replace with your email
-    subject: `New Contact Form Submission from ${name}`,
-    text: `
-    📌 Name: ${name}
-    📞 Phone: ${phone}
-    ✉️ Email: ${email}
-    💬 Query: ${query}
-
-    Submitted on: ${new Date().toLocaleString()}
-    `,
-  };
-
-  // Send email
-  await transporter.sendMail(mailOptions);
-  console.log("📧 Email sent successfully");
-}
-
-// Main POST handler - Simplified
-export async function POST(req: Request) {
-  // Track processing time
-  const startTime = Date.now();
-
-  // Get origin for CORS
-  const origin = req.headers.get("origin");
-  const corsHeaders = getCorsHeaders(origin);
-
   try {
-    // Parse request body
-    let requestBody;
-    try {
-      requestBody = await req.json();
-    } catch (parseError) {
-      console.error("❌ Request Body Parsing Error:", parseError);
-      return new NextResponse(
-        JSON.stringify({ 
-          error: "Invalid Request Body", 
-          message: "Unable to parse request data" 
-        }), 
-        { 
-          status: 400,
-          headers: corsHeaders 
-        }
-      );
-    }
-
-    // Destructure and validate input
-    const { 
-      name = '', 
-      phone = '', 
-      email = '', 
-      query = '' 
-    } = requestBody;
-
-    // Run validation
-    const validationResult = validateInput({ 
-      name, 
-      phone, 
-      email, 
-      query 
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      // Add secure connection settings
+      secure: true,
+      requireTLS: true,
     });
 
-    // Return validation errors if any
-    if (!validationResult.isValid) {
-      return new NextResponse(
-        JSON.stringify({ 
+    // Prepare mail options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.ADMIN_EMAIL || "rajputkapil436@gmail.com",
+      subject: `New Contact Form Submission from ${contactData.name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>📋 New Contact Form Submission</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>📛 Name:</strong></td>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contactData.name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>📞 Phone:</strong></td>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contactData.phone}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>✉️ Email:</strong></td>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contactData.email}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>💬 Query:</strong></td>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contactData.query}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px;"><strong>📅 Submission Date:</strong></td>
+              <td style="padding: 10px;">${new Date().toLocaleString()}</td>
+            </tr>
+          </table>
+        </div>
+      `,
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions);
+    console.log("📧 Email sent successfully");
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+  }
+}
+
+// Main POST handler
+export async function POST(req: Request) {
+  // CORS headers
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGIN || '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+
+  try {
+    // Connect to database
+    await dbConnect();
+
+    // Parse request body
+    const requestData: ContactFormData = await req.json();
+
+    // Validate form data
+    const validationErrors = validateFormData(requestData);
+    if (validationErrors.length > 0) {
+      return NextResponse.json(
+        { 
           error: "Validation Failed", 
-          details: validationResult.errors 
-        }), 
+          details: validationErrors 
+        }, 
         { 
           status: 400,
           headers: corsHeaders 
@@ -174,14 +146,14 @@ export async function POST(req: Request) {
       );
     }
 
-    // Connect to database
-    await dbConnect();
+    // Destructure validated data
+    const { name, phone, email, query } = requestData;
 
     // Prepare submission data
     const submissionDate = new Date().toLocaleDateString();
     const timestamp = new Date().toISOString();
 
-    // Save to database
+    // Create new contact record
     const newContact = new Contact({ 
       name, 
       phone, 
@@ -190,52 +162,44 @@ export async function POST(req: Request) {
       submissionDate, 
       timestamp 
     });
+
+    // Save to database
     await newContact.save();
 
-    // Send email notification
-    await sendEmailNotification(name, phone, email, query);
+    // Send email notification (async, non-blocking)
+    sendEmailNotification({ name, phone, email, query })
+      .catch(err => console.error("Email notification failed:", err));
 
     // Successful response
-    return new NextResponse(
-      JSON.stringify({ 
+    return NextResponse.json(
+      { 
         message: "Form submitted successfully!", 
-        processingTime: Date.now() - startTime 
-      }), 
+        contactId: newContact._id 
+      }, 
       { 
         status: 201,
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json",
-        }
+        headers: corsHeaders 
       }
     );
 
-  } catch (error) {
-    // Comprehensive error logging
-    console.error('🔴 Critical Error:', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-      name: error instanceof Error ? error.name : 'Unknown error type',
-      stack: error instanceof Error ? error.stack : 'No stack trace',
-      timestamp: new Date().toISOString(),
-      processingTime: Date.now() - startTime
-    });
+  } catch (error: unknown) {
+    // Detailed error logging
+    console.error("❌ Form Submission Error:", error);
 
-    // Determine appropriate error response
-    const errorResponse = {
-      error: 'Internal Server Error',
-      message: error instanceof Error 
-        ? error.message 
-        : 'An unexpected error occurred during form submission',
-    };
+    // Determine error message
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : "An unexpected error occurred during form submission";
 
-    return new NextResponse(
-      JSON.stringify(errorResponse), 
+    // Error response
+    return NextResponse.json(
+      { 
+        error: errorMessage,
+        details: String(error)
+      }, 
       { 
         status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-          ...corsHeaders
-        }
+        headers: corsHeaders 
       }
     );
   }

@@ -264,75 +264,44 @@ const Contact = () => {
     }
   
     setIsLoading(true);
-    setSubmitStatus(null);
+  
+    const submissionData = {
+      ...formData,
+      fullPhone: `${formData.countryCode}${formData.phone}`,
+      submissionDate: new Date().toLocaleDateString(),
+      timestamp: new Date().toISOString(),
+    };
   
     try {
-      const submissionData = {
-        ...formData,
-        fullPhone: `${formData.countryCode}${formData.phone}`,
-        submissionDate: new Date().toLocaleDateString(),
-        timestamp: new Date().toISOString(),
-      };
-  
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://www.theinkpotgroup.com/api/contact", {
         method: "POST",
-        credentials: "include",
-        headers: {
+        mode: 'cors', // Add this line
+        credentials: 'same-origin', // Or 'include' if cross-origin
+        headers: { 
           "Content-Type": "application/json",
+          // Optional: Add any additional headers if needed
         },
         body: JSON.stringify(submissionData),
       });
   
-      // Log full response for debugging
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      const data = await response.json();
+      console.log("✅ Server Response:", data);
   
-      // Clone the response to allow multiple reads
-      const responseClone = response.clone();
-  
-      // Check if response is ok
       if (!response.ok) {
-        // Try to parse error message
-        let errorData;
-        try {
-          errorData = await responseClone.json();
-          console.error('Error response:', errorData);
-          throw new Error(errorData.message || 'An unknown error occurred');
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (parseError) {
-          // If JSON parsing fails, try text
-          const errorText = await responseClone.text();
-          console.error('Error text:', errorText);
-          throw new Error(errorText || 'An unknown error occurred');
-        }
+        throw new Error(data.error || "Failed to submit form");
       }
-  
-      // Parse successful response
-      const responseData = await response.json();
-      console.log('Success response:', responseData);
   
       setSubmitStatus('success');
       setShowModal(true);
-  
-      // Reset form, keeping country code
-      setFormData({
-        name: "",
-        countryCode: formData.countryCode,
-        phone: "",
-        email: "",
-        query: ""
+      setFormData({ 
+        name: "", 
+        countryCode: formData.countryCode, 
+        phone: "", 
+        email: "", 
+        query: "" 
       });
-  
     } catch (error) {
-      console.error('❌ Complete Error Object:', error);
-  
-      // More detailed error logging
-      console.error('Error Details:', {
-        message: error instanceof Error ? error.message : 'Unknown error',
-        name: error instanceof Error ? error.name : 'Unknown error type',
-        stack: error instanceof Error ? error.stack : 'No stack trace'
-      });
-  
+      console.error("❌ Error submitting form:", error);
       setSubmitStatus('error');
       setShowModal(true);
     } finally {
