@@ -31,6 +31,9 @@ export default {
           '100%': { transform: 'translateX(-100%)' },
         },
       },
+      spacing: {
+        '122': '0.6rem', // 18px (Tailwind uses rem by default, 1rem = 16px)
+      },
     },
   },
   plugins: [],

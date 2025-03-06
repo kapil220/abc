@@ -157,7 +157,7 @@ const TestimonialsPage: React.FC = () => {
   };
 
   return (
-    <div className=" py-12 md:py-24 bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]">
+    <div className="pt-12 md:pt-16 lg:pt-20 bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]">
 
 
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
@@ -166,12 +166,12 @@ const TestimonialsPage: React.FC = () => {
        
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-7xl font-heading text-taupe font-medium text-center mb-8 md:mb-12">What Our Clients Say</h2>
-          <h3 className="text-xl font-subheading text-taupe/80 max-w-3xl mx-auto">
+          <h3 className="text-xl font-subheading text-taupe/80 mb-12 max-w-3xl mx-auto">
             Hear what our clients have to say about working with us
           </h3>
         </div>
 
-        <div className="relative h-[280px] md:h-[500px] flex justify-center items-center">
+        <div className="relative h-[280px] md:h-[450px] flex justify-center items-center">
 
 
         <div className="absolute inset-0 flex justify-center items-center transform-style-3d">
@@ -212,10 +212,11 @@ const TestimonialsPage: React.FC = () => {
       </div>
 
       <div className="p-4 md:p-6">
-        <p className="text-sm md:text-base text-center text-taupe/80 font-body mb-4">
-        {testimonial.feedback.replace(/"/g, '&quot;')}
+      <p className="text-sm md:text-base text-justify text-taupe/80 font-body mb-4 max-w-lg mx-auto">
+    {testimonial.feedback.replace(/"/g, '&quot;')}
+</p>
 
-        </p>
+
       </div>
     </div>
   </div>

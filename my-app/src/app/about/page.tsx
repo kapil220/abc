@@ -30,7 +30,7 @@ const AboutPage = () => {
 
   return (
     <main className="bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
-      <div className="max-w-5xl mx-auto px-4 py-16 md:py-36 space-y-12 md:space-y-24">
+      <div className="max-w-5xl mx-auto px-4 py-12 md:py-32 space-y-12 md:space-y-20">
         {/* Hero Section - Modified for better mobile responsiveness */}
         <motion.section 
           {...fadeIn} 
@@ -45,7 +45,7 @@ const AboutPage = () => {
         </motion.section>
 
         {/* Main Content Grid */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-16">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-16">
           {/* About Section */}
           <motion.section 
             {...fadeIn}
@@ -53,14 +53,14 @@ const AboutPage = () => {
           >
             <div className="space-y-4">
               <h2 className="text-3xl md:text-4xl text-taupe text-center font-bold font-subheading">Our Philosophy</h2>
-              <p className="text-sm md:text-md font-body text-center text-taupe/80 leading-relaxed">
+              <p className="text-sm md:text-md font-body text-justify text-taupe/80 leading-relaxed">
                 We believe in the power of storytelling to connect brands with their audiences. By blending creativity with data-driven insights, we develop strategies that not only capture attention but also foster lasting relationships.
               </p>
             </div>
 
             <div className="space-y-4">
               <h2 className="text-3xl md:text-4xl text-taupe text-center font-bold font-subheading">Our Team</h2>
-              <p className="text-sm md:text-md font-body text-center text-taupe/80 leading-relaxed">
+              <p className="text-sm md:text-md font-body text-justify text-taupe/80 leading-relaxed">
                 Our diverse team of experts brings together a wealth of experience in social media management, branding, content creation, and community engagement. We are dedicated to understanding your unique challenges and delivering tailored solutions.
               </p>
             </div>
@@ -69,7 +69,7 @@ const AboutPage = () => {
           {/* Features Grid */}
           <motion.section 
             {...fadeIn}
-            className="grid gap-4 md:gap-6"
+            className="grid gap-6 md:gap-6"
           >
             {features.map((feature, index) => (
               <motion.div
@@ -99,10 +99,10 @@ const AboutPage = () => {
         {/* Commitment Section */}
         <motion.section 
           {...fadeIn}
-          className="text-center max-w-3xl mx-auto space-y-6 py-8 md:py-12"
+          className="text-center max-w-3xl mx-auto space-y-6 "
         >
           <h2 className="text-3xl md:text-4xl text-taupe font-bold font-subheading">Our Commitment</h2>
-          <p className="text-sm md:text-md font-body text-taupe/80 leading-relaxed px-4">
+          <p className="text-sm md:text-md font-body text-taupe/80 leading-relaxed text-justify px-4">
             Transparency, collaboration, and excellence are at the core of everything we do. We are committed to helping your brand navigate the digital landscape, ensuring your story is told authentically and effectively.
           </p>
           <p className="text-lg md:text-xl font-bold text-taupe font-subheading pt-6 md:pt-12 px-4">

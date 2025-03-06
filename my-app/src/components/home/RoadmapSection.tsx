@@ -19,11 +19,15 @@ const RoadmapSection: React.FC = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
-  
-  const [activeStep, setActiveStep] = useState(0);
+
+  const [activeStep, setActiveStep] = useState<null | number>(null); // No step open initially
+
+  const handleStepClick = (index: number) => {
+    setActiveStep(prev => (prev === index ? null : index)); // Toggle step
+  };
 
   return (
-    <section className="py-12 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
+    <section className="pt-12 md:pt-16 lg:pt-20 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 opacity-20"></div>
       <div className="absolute w-6 h-6 bg-pineGreen rounded-full bottom-0 left-1/4 animate-bounce-slow"></div>
       <div className="absolute w-8 h-8 bg-yellow-500 rounded-full bottom-0 left-3/4 animate-bounce-medium"></div>
@@ -37,34 +41,46 @@ const RoadmapSection: React.FC = () => {
         </div>
 
         {/* Desktop view */}
-        <div className="hidden md:block relative py-20">
-          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-ashGray -translate-y-1/2" />
-          <div className="grid grid-cols-6 gap-8">
-            {steps.map((step, index) => (
-             <motion.div
-             key={`desktop-${step.title}`}
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true, amount: 0.1 }}
-             transition={{ duration: 0.5, delay: index * 0.1 }}
-           >
-           
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 rounded-full bg-pineGreen text-white flex items-center justify-center relative z-10">
-                    <step.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold mt-16">{step.title}</h3>
-                  <p className="text-taupe/80 font-body">{step.description}</p>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className="absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1/2">
-                    <ArrowRight className="w-6 h-6 text-pineGreen" />
-                  </div>
-                )}
-              </motion.div>
-            ))}
+        <div className="hidden md:block relative py-8">
+  {/* Background Line */}
+  <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-ashGray -translate-y-1/2" />
+
+  <div className="grid grid-cols-6 gap-8 relative">
+    {steps.map((step, index) => (
+      <motion.div
+        key={`desktop-${step.title}`}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="relative"
+      >
+        {/* Step Content */}
+        <div className="flex flex-col items-center text-center">
+          {/* Step Icon */}
+          <div className="w-12 h-12 rounded-full bg-pineGreen text-white flex items-center justify-center relative z-10">
+            <step.icon className="w-6 h-6" />
           </div>
+          {/* Step Title & Description */}
+          <h3 className="text-xl font-bold mt-16">{step.title}</h3>
+          <p className="text-taupe/80 font-body">{step.description}</p>
         </div>
+
+        {/* Arrow positioned exactly on the line */}
+        {index < steps.length - 1 && (
+          <motion.div
+            className="absolute top-1/2 left-full -translate-y-1/2 -mt-122"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <ArrowRight className="w-5 h-5 text-pineGreen" />
+          </motion.div>
+        )}
+      </motion.div>
+    ))}
+  </div>
+</div>
+
 
         {/* Mobile view - Timeline style */}
         <div ref={ref} className="md:hidden">
@@ -96,9 +112,10 @@ const RoadmapSection: React.FC = () => {
                   
                   {/* Card */}
                   <div 
-                    className={`ml-8 mr-4 pl-4 pr-2 py-3 rounded-lg transition-all ${activeStep === index ? 'bg-white shadow-md' : 'bg-transparent'}`}
-                    onClick={() => setActiveStep(index)}
-                  >
+  className={`ml-8 mr-4 pl-4 pr-2 py-3 rounded-lg transition-all ${activeStep === index ? 'bg-white shadow-md' : 'bg-transparent'}`}
+  onClick={() => handleStepClick(index)}
+>
+
                     <div className="flex items-center justify-between cursor-pointer">
                       <div className="flex items-center">
                         <div className="w-8 h-8 rounded-full bg-pineGreen/10 text-pineGreen flex items-center justify-center mr-3">

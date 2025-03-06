@@ -280,7 +280,131 @@ const Contact = () => {
     return Object.keys(errors).length === 0;
   };
 
+  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  
+  //   // Validate form before submission
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+  
+  //   setIsLoading(true);
+  
+  //   // const submissionData = {
+  //   //   ...formData,
+  //   //   fullPhone: `${formData.countryCode}${formData.phone}`,
+  //   //   submissionDate: new Date().toLocaleDateString(),
+  //   //   timestamp: new Date().toISOString(),
+  //   // };
+  //   const submissionData = {
+  //     name: formData.name,
+  //     phone: formData.phone, // Just sending the 10-digit number
+  //     email: formData.email,
+  //     query: formData.query
+  //   };
+  
+  //   // try {
+  //   //   const response = await fetch("https://www.theinkpotgroup.com/api/contact", {
+  //   //     method: "POST",
+  //   //     mode: 'cors', // Add this line
+  //   //     credentials: 'same-origin', // Or 'include' if cross-origin
+  //   //     headers: { 
+  //   //       "Content-Type": "application/json",
+  //   //       // Optional: Add any additional headers if needed
+  //   //     },
+  //   //     body: JSON.stringify(submissionData),
+  //   //   });
+  //   try {
+  //     const response = await fetch("/api/contact", { // Use relative URL
+  //       method: "POST",
+  //       headers: { 
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(submissionData),
+  //     });
+  
+  //     const data = await response.json();
+  //     console.log("✅ Server Response:", data);
+  
+  //     if (!response.ok) {
+  //       throw new Error(data.error || "Failed to submit form");
+  //     }
+  
+  //     setSubmitStatus('success');
+  //     setShowModal(true);
+  //     setFormData({ 
+  //       name: "", 
+  //       countryCode: formData.countryCode, 
+  //       phone: "", 
+  //       email: "", 
+  //       query: "" 
+  //     });
+  //   } catch (error) {
+  //     console.error("❌ Error submitting form:", error);
+  //     setSubmitStatus('error');
+  //     setShowModal(true);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
+  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  
+  //   // Validate form before submission
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+  
+  //   setIsLoading(true);
+  
+  //   // Prepare data in the format expected by the API
+  //   const apiData = {
+  //     name: formData.name,
+  //     // Format phone number to include country code
+  //     phone: formData.phone, // API expects just the 10-digit number
+  //     email: formData.email,
+  //     query: formData.query
+  //   };
+  
+  //   console.log("Submitting data:", apiData);
+  
+  //   try {
+  //     // Use relative URL for better portability between environments
+  //     const response = await fetch("/api/contact", {
+  //       method: "POST",
+  //       headers: { 
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(apiData),
+  //     });
+  
+  //     const data = await response.json();
+  //     console.log("✅ Server Response:", data);
+  
+  //     if (!response.ok) {
+  //       console.error("Server returned error:", data);
+  //       throw new Error(data.error || "Failed to submit form");
+  //     }
+  
+  //     // Success handling
+  //     setSubmitStatus('success');
+  //     setShowModal(true);
+  //     setFormData({ 
+  //       name: "", 
+  //       countryCode: formData.countryCode, // Keep the country code
+  //       phone: "", 
+  //       email: "", 
+  //       query: "" 
+  //     });
+  //   } catch (error) {
+  //     console.error("❌ Error submitting form:", error);
+  //     setSubmitStatus('error');
+  //     setShowModal(true);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -292,9 +416,10 @@ const Contact = () => {
   
     setIsLoading(true);
   
+    // Prepare data in the format expected by the API
     const apiData = {
       name: formData.name,
-      countryCode: formData.countryCode,
+      countryCode: formData.countryCode, // Now sending the country code
       phone: formData.phone,
       email: formData.email,
       query: formData.query
@@ -303,8 +428,11 @@ const Contact = () => {
     console.log("Submitting data:", apiData);
   
     try {
+      // Add more detailed error handling
       let response;
+      
       try {
+        // Use relative URL for better portability between environments
         response = await fetch("/api/contact", {
           method: "POST",
           headers: { 
@@ -317,6 +445,7 @@ const Contact = () => {
         throw new Error("Network error: Could not connect to server");
       }
   
+      // Handle response parsing with error handling
       let data;
       try {
         data = await response.json();
@@ -331,11 +460,12 @@ const Contact = () => {
         throw new Error(data.error || "Failed to submit form");
       }
   
+      // Success handling
       setSubmitStatus('success');
       setShowModal(true);
       setFormData({ 
         name: "", 
-        countryCode: formData.countryCode,
+        countryCode: formData.countryCode, // Keep the country code
         phone: "", 
         email: "", 
         query: "" 
@@ -358,7 +488,7 @@ const Contact = () => {
   const selectedCountry = countryCodes.find(c => c.code === formData.countryCode);
   
   return (
-    <div className="h-full flex flex-col lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] font-body">
+    <div className="h-full flex flex-col py-12 md:py-16 lg:py-20 lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] font-body">
       {/* Left Section - Schedule Meeting */}
       <motion.div 
           className="lg:w-1/2 p-6 lg:p-6 lg:pl-44 md:pl-24 flex flex-col justify-center items-center"
@@ -391,7 +521,7 @@ const Contact = () => {
               <h2 className="text-2xl md:text-3xl text-heading text-taupe mb-4">
                 Schedule a Free Session
               </h2>
-              <p className="text-taupe/80 mb-6 text-base font-body">
+              <p className="text-taupe/80 mb-6 text-base text-justify font-body">
                 Book a complimentary 30-minute consultation with our experts. We will help you understand 
                 how our services can benefit you and answer any questions you might have.
               </p>

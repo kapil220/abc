@@ -9,7 +9,7 @@ export default function ServicesGrid() {
       {/* Gradient Overlay for Color Effect */}
       <div className="absolute inset-0  opacity-20"></div>
 
-      <div className="max-w-5xl mx-auto px-4 py-12 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 pt-12 md:pt-16 lg:pt-20 relative z-10">
        
         <div className="text-center mb-16">
           <h2 className="text-4xl  md:text-6xl lg:text-7xl font-heading font-medium text-taupe text-center mb-12">Our Services</h2>

@@ -79,7 +79,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           className="mb-24"
         >
           <div className="p-10 rounded-3xl  bg-white shadow-xl">
-            <p className="text-xl leading-relaxed text-taupe/80 text-center font-body ">
+            <p className="text-lg leading-relaxed text-taupe/80 text-justify font-body ">
               {service.fullContent.introduction}
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               {index + 1}
             </span>
             <strong className="text-xl font-bold font-subheading text-taupe">{item.title}:</strong>
-            <p className="text-md  font-body text-center text-taupe/80">{item.description}</p>
+            <p className="text-md  font-body text-justify text-taupe/80">{item.description}</p>
           </div>
         </motion.div>
       </motion.div>
@@ -152,7 +152,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                     <div className="w-2 h-2 rounded-full bg-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-center font-subheading text-taupe mb-4">Step {step.step}</h3>
-                  <p className="text-md font-body text-center text-taupe/80">{step.description}</p>
+                  <p className="text-md font-body text-justify text-taupe/80">{step.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -205,7 +205,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           <div className="relative p-1 rounded-2xl overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-pineGreen via-wisteria to-pineGreen animate-gradient-x" />
             <div className="relative p-12 bg-white rounded-2xl">
-              <p className="text-xl font-body  text-center text-taupe/80 mb-10 max-w-3xl mx-auto">
+              <p className="text-xl font-body  text-justify text-taupe/80 mb-10 max-w-3xl mx-auto">
                 {service.fullContent.conclusion}
               </p>
               <div className="flex justify-center">
