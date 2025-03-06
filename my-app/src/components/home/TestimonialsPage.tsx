@@ -164,14 +164,14 @@ const TestimonialsPage: React.FC = () => {
 
 
        
-        <div className="text-center mb-16">
+        <div className="text-center ">
           <h2 className="text-4xl md:text-7xl font-heading text-taupe font-medium text-center mb-8 md:mb-12">What Our Clients Say</h2>
           <h3 className="text-xl font-subheading text-taupe/80 mb-12 max-w-3xl mx-auto">
             Hear what our clients have to say about working with us
           </h3>
         </div>
 
-        <div className="relative h-[280px] md:h-[450px] flex justify-center items-center">
+        <div className="relative h-[280px] md:h-[400px] flex justify-center items-center">
 
 
         <div className="absolute inset-0 flex justify-center items-center transform-style-3d">
@@ -179,7 +179,7 @@ const TestimonialsPage: React.FC = () => {
         {testimonials.map((testimonial, index) => (
   <div
     key={index}
-    className="absolute flex justify-center items-center w-[300px] md:w-[450px] h-[320px] md:h-[340px]"
+    className="absolute flex justify-center items-center w-[300px] md:w-[400px] h-[320px] md:h-[340px]"
     style={getCardStyle(index)}
     onClick={() => handleCardClick(index)}
     role="button"
@@ -212,7 +212,7 @@ const TestimonialsPage: React.FC = () => {
       </div>
 
       <div className="p-4 md:p-6">
-      <p className="text-sm md:text-base text-justify text-taupe/80 font-body mb-4 max-w-lg mx-auto">
+      <p className="text-sm md:text-base text-justify text-taupe/80 font-body mb-6 max-w-lg mx-auto">
     {testimonial.feedback.replace(/"/g, '&quot;')}
 </p>
 
