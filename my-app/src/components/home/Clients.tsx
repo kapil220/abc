@@ -22,9 +22,9 @@ const Clients = () => {
   const extendedLogos = [...clientLogos, ...clientLogos];
   
   return (
-    <section className="h-screen md:h-[60vh] lg:h-[50vh] py-12 bg-gray-100 flex items-center overflow-hidden">
+    <section className="min-h-[80vh] md:min-h-[50vh] lg:min-h-[50vh] py-12 md:py-12 lg:py-16 bg-gray-100 flex items-center overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 w-full">
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-medium text-taupe text-center mb-4 md:mb-16 ">
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-medium text-taupe text-center py-4 md:mb-16 ">
           Our Clients
         </h2>
         

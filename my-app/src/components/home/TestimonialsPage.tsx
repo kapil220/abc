@@ -157,7 +157,7 @@ const TestimonialsPage: React.FC = () => {
   };
 
   return (
-    <div className="py-12 md:py-24 bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]">
+    <div className=" py-12 md:py-24 bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]">
 
 
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
@@ -171,7 +171,7 @@ const TestimonialsPage: React.FC = () => {
           </h3>
         </div>
 
-        <div className="relative h-[500px] md:h-[500px] flex justify-center items-center">
+        <div className="relative h-[280px] md:h-[500px] flex justify-center items-center">
 
 
         <div className="absolute inset-0 flex justify-center items-center transform-style-3d">
@@ -179,7 +179,7 @@ const TestimonialsPage: React.FC = () => {
         {testimonials.map((testimonial, index) => (
   <div
     key={index}
-    className="absolute flex justify-center items-center w-[300px] md:w-[450px] h-[300px] md:h-[340px]"
+    className="absolute flex justify-center items-center w-[300px] md:w-[450px] h-[320px] md:h-[340px]"
     style={getCardStyle(index)}
     onClick={() => handleCardClick(index)}
     role="button"
@@ -212,7 +212,7 @@ const TestimonialsPage: React.FC = () => {
       </div>
 
       <div className="p-4 md:p-6">
-        <p className="text-sm md:text-base text-taupe/80 font-body">
+        <p className="text-sm md:text-base text-center text-taupe/80 font-body mb-4">
         {testimonial.feedback.replace(/"/g, '&quot;')}
 
         </p>

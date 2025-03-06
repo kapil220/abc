@@ -23,7 +23,7 @@ const RoadmapSection: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section className="py-16 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
+    <section className="py-12 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
       <div className="absolute inset-0 opacity-20"></div>
       <div className="absolute w-6 h-6 bg-pineGreen rounded-full bottom-0 left-1/4 animate-bounce-slow"></div>
       <div className="absolute w-8 h-8 bg-yellow-500 rounded-full bottom-0 left-3/4 animate-bounce-medium"></div>

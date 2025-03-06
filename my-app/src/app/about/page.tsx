@@ -52,15 +52,15 @@ const AboutPage = () => {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-4xl text-taupe font-bold font-subheading">Our Philosophy</h2>
-              <p className="text-sm md:text-md font-body text-taupe/80 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl text-taupe text-center font-bold font-subheading">Our Philosophy</h2>
+              <p className="text-sm md:text-md font-body text-center text-taupe/80 leading-relaxed">
                 We believe in the power of storytelling to connect brands with their audiences. By blending creativity with data-driven insights, we develop strategies that not only capture attention but also foster lasting relationships.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-4xl text-taupe font-bold font-subheading">Our Team</h2>
-              <p className="text-sm md:text-md font-body text-taupe/80 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl text-taupe text-center font-bold font-subheading">Our Team</h2>
+              <p className="text-sm md:text-md font-body text-center text-taupe/80 leading-relaxed">
                 Our diverse team of experts brings together a wealth of experience in social media management, branding, content creation, and community engagement. We are dedicated to understanding your unique challenges and delivering tailored solutions.
               </p>
             </div>

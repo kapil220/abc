@@ -11,7 +11,7 @@ type ServiceContentProps = {
 
 export default function ServiceContent({ service }: ServiceContentProps) {
   return (
-    <main className="min-h-screen py-4 mg:py-24 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
+    <main className="min-h-screen py-6 md:py-24 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
       {/* Hero Section with Staggered Elements */}
       <div className="relative min-h-[90vh] w-full overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
@@ -79,7 +79,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
           className="mb-24"
         >
           <div className="p-10 rounded-3xl  bg-white shadow-xl">
-            <p className="text-xl leading-relaxed text-taupe/80 font-body ">
+            <p className="text-xl leading-relaxed text-taupe/80 text-center font-body ">
               {service.fullContent.introduction}
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
   transition={{ duration: 0.8 }}
   className="mb-32"
 >
-  <h2 className="text-4xl font-subheading font-bold  mb-16 text-center text-taupe">
+  <h2 className="text-4xl font-subheading  font-bold  mb-16 text-center text-taupe">
     {service.fullContent.services.title}
   </h2>
 
@@ -116,7 +116,7 @@ export default function ServiceContent({ service }: ServiceContentProps) {
               {index + 1}
             </span>
             <strong className="text-xl font-bold font-subheading text-taupe">{item.title}:</strong>
-            <p className="text-md  font-body text-taupe/80">{item.description}</p>
+            <p className="text-md  font-body text-center text-taupe/80">{item.description}</p>
           </div>
         </motion.div>
       </motion.div>
@@ -151,8 +151,8 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                   <div className="absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-pineGreen transform -translate-x-11 flex items-center justify-center">
                     <div className="w-2 h-2 rounded-full bg-white" />
                   </div>
-                  <h3 className="text-xl font-semibold font-subheading text-taupe mb-4">Step {step.step}</h3>
-                  <p className="text-md font-body text-taupe/80">{step.description}</p>
+                  <h3 className="text-xl font-semibold text-center font-subheading text-taupe mb-4">Step {step.step}</h3>
+                  <p className="text-md font-body text-center text-taupe/80">{step.description}</p>
                 </div>
               </motion.div>
             ))}

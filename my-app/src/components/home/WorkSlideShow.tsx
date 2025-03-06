@@ -218,7 +218,7 @@ const WorkSection: React.FC = () => {
   const visibleWorks = featuredWorks.slice(startIndex, startIndex + itemsPerSlide);
 
   return (
-    <section className="py-40 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
+    <section className="py-12 md:py-32 bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-medium text-taupe mb-4">Featured Work</h2>
