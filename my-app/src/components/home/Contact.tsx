@@ -348,6 +348,64 @@ const Contact = () => {
   //   }
   // };
 
+  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  
+  //   // Validate form before submission
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+  
+  //   setIsLoading(true);
+  
+  //   // Prepare data in the format expected by the API
+  //   const apiData = {
+  //     name: formData.name,
+  //     // Format phone number to include country code
+  //     phone: formData.phone, // API expects just the 10-digit number
+  //     email: formData.email,
+  //     query: formData.query
+  //   };
+  
+  //   console.log("Submitting data:", apiData);
+  
+  //   try {
+  //     // Use relative URL for better portability between environments
+  //     const response = await fetch("/api/contact", {
+  //       method: "POST",
+  //       headers: { 
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(apiData),
+  //     });
+  
+  //     const data = await response.json();
+  //     console.log("✅ Server Response:", data);
+  
+  //     if (!response.ok) {
+  //       console.error("Server returned error:", data);
+  //       throw new Error(data.error || "Failed to submit form");
+  //     }
+  
+  //     // Success handling
+  //     setSubmitStatus('success');
+  //     setShowModal(true);
+  //     setFormData({ 
+  //       name: "", 
+  //       countryCode: formData.countryCode, // Keep the country code
+  //       phone: "", 
+  //       email: "", 
+  //       query: "" 
+  //     });
+  //   } catch (error) {
+  //     console.error("❌ Error submitting form:", error);
+  //     setSubmitStatus('error');
+  //     setShowModal(true);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+  
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
@@ -361,8 +419,8 @@ const Contact = () => {
     // Prepare data in the format expected by the API
     const apiData = {
       name: formData.name,
-      // Format phone number to include country code
-      phone: formData.phone, // API expects just the 10-digit number
+      countryCode: formData.countryCode, // Now sending the country code
+      phone: formData.phone,
       email: formData.email,
       query: formData.query
     };
@@ -370,17 +428,32 @@ const Contact = () => {
     console.log("Submitting data:", apiData);
   
     try {
-      // Use relative URL for better portability between environments
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(apiData),
-      });
+      // Add more detailed error handling
+      let response;
+      
+      try {
+        // Use relative URL for better portability between environments
+        response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(apiData),
+        });
+      } catch (fetchError) {
+        console.error("Network error:", fetchError);
+        throw new Error("Network error: Could not connect to server");
+      }
   
-      const data = await response.json();
-      console.log("✅ Server Response:", data);
+      // Handle response parsing with error handling
+      let data;
+      try {
+        data = await response.json();
+        console.log("✅ Server Response:", data);
+      } catch (parseError) {
+        console.error("Failed to parse response:", parseError);
+        throw new Error("Failed to parse server response");
+      }
   
       if (!response.ok) {
         console.error("Server returned error:", data);
@@ -405,7 +478,7 @@ const Contact = () => {
       setIsLoading(false);
     }
   };
-  
+
   const closeModal = () => {
     setShowModal(false);
     setSubmitStatus(null);
