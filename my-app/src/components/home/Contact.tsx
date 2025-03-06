@@ -156,7 +156,7 @@ const Contact = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    
+  
     // Clear error when user starts typing
     if (formErrors[name as keyof FormErrors]) {
       setFormErrors(prev => ({
@@ -164,15 +164,15 @@ const Contact = () => {
         [name]: undefined
       }));
     }
-    
-    // Input validation as user types
+  
     if (name === 'name') {
-      // Only allow alphabets and spaces
-      const nameValue = value.replace(/[^A-Za-z\s]/g, '');
+      // Allow alphabets, numbers, and spaces
+      const nameValue = value.replace(/[^A-Za-z0-9\s]/g, '');
       setFormData(prevData => ({
         ...prevData,
         [name]: nameValue
       }));
+        
     } else if (name === 'countryCode') {
       // Only allow + and numbers
       const codeValue = value.replace(/[^0-9+]/g, '');
@@ -180,13 +180,34 @@ const Contact = () => {
         ...prevData,
         [name]: codeValue
       }));
+  
     } else if (name === 'phone') {
       // Only allow numbers
       const phoneValue = value.replace(/[^0-9]/g, '');
+      
       setFormData(prevData => ({
         ...prevData,
         [name]: phoneValue
       }));
+  
+      // Show error if not exactly 10 digits
+      if (!phoneValue) {
+        setFormErrors(prevErrors => ({
+          ...prevErrors,
+          phone: "Phone number is required",
+        }));
+      } else if (phoneValue.length !== 10) {
+        setFormErrors(prevErrors => ({
+          ...prevErrors,
+          phone: "Phone number must be exactly 10 digits",
+        }));
+      } else {
+        setFormErrors(prevErrors => ({
+          ...prevErrors,
+          phone: undefined, // Clear error when valid
+        }));
+      }
+  
     } else {
       setFormData(prevData => ({
         ...prevData,
@@ -194,6 +215,7 @@ const Contact = () => {
       }));
     }
   };
+  
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -222,9 +244,10 @@ const Contact = () => {
     // Name validation - must contain only alphabets and spaces
     if (!formData.name.trim()) {
       errors.name = "Name is required";
-    } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
-      errors.name = "Name should contain only alphabets";
+    } else if (!/^[A-Za-z0-9\s]+$/.test(formData.name)) {
+      errors.name = "Name should contain only alphabets and numbers";
     }
+    
     
     // Country code validation
     if (!formData.countryCode.trim()) {
@@ -236,9 +259,10 @@ const Contact = () => {
     // Phone validation - must be 10 digits
     if (!formData.phone.trim()) {
       errors.phone = "Phone number is required";
-    } else if (formData.phone.length !== 10) {
-      errors.phone = "Phone number must be 10 digits";
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      errors.phone = "Phone number must be exactly 10 digits";
     }
+    
     
     // Email validation
     if (!formData.email.trim()) {
@@ -256,6 +280,74 @@ const Contact = () => {
     return Object.keys(errors).length === 0;
   };
 
+  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  
+  //   // Validate form before submission
+  //   if (!validateForm()) {
+  //     return;
+  //   }
+  
+  //   setIsLoading(true);
+  
+  //   // const submissionData = {
+  //   //   ...formData,
+  //   //   fullPhone: `${formData.countryCode}${formData.phone}`,
+  //   //   submissionDate: new Date().toLocaleDateString(),
+  //   //   timestamp: new Date().toISOString(),
+  //   // };
+  //   const submissionData = {
+  //     name: formData.name,
+  //     phone: formData.phone, // Just sending the 10-digit number
+  //     email: formData.email,
+  //     query: formData.query
+  //   };
+  
+  //   // try {
+  //   //   const response = await fetch("https://www.theinkpotgroup.com/api/contact", {
+  //   //     method: "POST",
+  //   //     mode: 'cors', // Add this line
+  //   //     credentials: 'same-origin', // Or 'include' if cross-origin
+  //   //     headers: { 
+  //   //       "Content-Type": "application/json",
+  //   //       // Optional: Add any additional headers if needed
+  //   //     },
+  //   //     body: JSON.stringify(submissionData),
+  //   //   });
+  //   try {
+  //     const response = await fetch("/api/contact", { // Use relative URL
+  //       method: "POST",
+  //       headers: { 
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(submissionData),
+  //     });
+  
+  //     const data = await response.json();
+  //     console.log("✅ Server Response:", data);
+  
+  //     if (!response.ok) {
+  //       throw new Error(data.error || "Failed to submit form");
+  //     }
+  
+  //     setSubmitStatus('success');
+  //     setShowModal(true);
+  //     setFormData({ 
+  //       name: "", 
+  //       countryCode: formData.countryCode, 
+  //       phone: "", 
+  //       email: "", 
+  //       query: "" 
+  //     });
+  //   } catch (error) {
+  //     console.error("❌ Error submitting form:", error);
+  //     setSubmitStatus('error');
+  //     setShowModal(true);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
@@ -266,37 +358,41 @@ const Contact = () => {
   
     setIsLoading(true);
   
-    const submissionData = {
-      ...formData,
-      fullPhone: `${formData.countryCode}${formData.phone}`,
-      submissionDate: new Date().toLocaleDateString(),
-      timestamp: new Date().toISOString(),
+    // Prepare data in the format expected by the API
+    const apiData = {
+      name: formData.name,
+      // Format phone number to include country code
+      phone: formData.phone, // API expects just the 10-digit number
+      email: formData.email,
+      query: formData.query
     };
   
+    console.log("Submitting data:", apiData);
+  
     try {
-      const response = await fetch("https://www.theinkpotgroup.com/api/contact", {
+      // Use relative URL for better portability between environments
+      const response = await fetch("/api/contact", {
         method: "POST",
-        mode: 'cors', // Add this line
-        credentials: 'same-origin', // Or 'include' if cross-origin
         headers: { 
-          "Content-Type": "application/json",
-          // Optional: Add any additional headers if needed
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(submissionData),
+        body: JSON.stringify(apiData),
       });
   
       const data = await response.json();
       console.log("✅ Server Response:", data);
   
       if (!response.ok) {
+        console.error("Server returned error:", data);
         throw new Error(data.error || "Failed to submit form");
       }
   
+      // Success handling
       setSubmitStatus('success');
       setShowModal(true);
       setFormData({ 
         name: "", 
-        countryCode: formData.countryCode, 
+        countryCode: formData.countryCode, // Keep the country code
         phone: "", 
         email: "", 
         query: "" 
@@ -466,7 +562,7 @@ const Contact = () => {
                   </svg>
                 </div>
                 
-                {/* Dropdown Menu */}
+                
                 {isDropdownOpen && (
                   <motion.div 
                     className="absolute z-50 mt-1 w-64 max-h-64 overflow-y-auto bg-white rounded-lg shadow-lg"
@@ -475,7 +571,7 @@ const Contact = () => {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {/* Search input */}
+                    
                     <div className="p-2 border-b">
                       <input
                         type="text"

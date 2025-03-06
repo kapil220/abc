@@ -20,7 +20,7 @@ function validateFormData(data: ContactFormData): string[] {
     errors.push("Name must be at least 2 characters long");
   }
 
-  // Phone validation
+  // Phone validation - expecting 10 digits from frontend
   const phoneRegex = /^[0-9]{10}$/;
   if (!data.phone || !phoneRegex.test(data.phone)) {
     errors.push("Invalid phone number");
@@ -45,7 +45,7 @@ export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGIN || '*',
+      'Access-Control-Allow-Origin': '*', // For development; restrict in production
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     }
@@ -76,7 +76,7 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
     // Prepare mail options
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.ADMIN_EMAIL || "rajputkapil436@gmail.com",
+      to: process.env.ADMIN_EMAIL || "admin@example.com", // Change this to your admin email
       subject: `New Contact Form Submission from ${contactData.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -117,9 +117,11 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
 
 // Main POST handler
 export async function POST(req: Request) {
+  console.log("📝 Received contact form submission");
+  
   // CORS headers
   const corsHeaders = {
-    'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGIN || '*',
+    'Access-Control-Allow-Origin': '*', // For development; restrict in production
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
@@ -127,13 +129,16 @@ export async function POST(req: Request) {
   try {
     // Connect to database
     await dbConnect();
+    console.log("✅ Connected to database");
 
     // Parse request body
     const requestData: ContactFormData = await req.json();
+    console.log("📤 Received form data:", JSON.stringify(requestData, null, 2));
 
     // Validate form data
     const validationErrors = validateFormData(requestData);
     if (validationErrors.length > 0) {
+      console.log("❌ Validation errors:", validationErrors);
       return NextResponse.json(
         { 
           error: "Validation Failed", 
@@ -165,6 +170,7 @@ export async function POST(req: Request) {
 
     // Save to database
     await newContact.save();
+    console.log("✅ Contact saved to database with ID:", newContact._id);
 
     // Send email notification (async, non-blocking)
     sendEmailNotification({ name, phone, email, query })
