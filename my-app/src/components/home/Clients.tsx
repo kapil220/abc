@@ -3,15 +3,15 @@ import React from 'react';
 import Image from 'next/image';
 
 const clientLogos = [
-  '/images/client1.jpg',
-  '/images/client2.jpg',
- '/images/client9.png',
-  '/images/client3.jpg',
-  '/images/client4.png',
-  '/images/client5.png',
-  '/images/client6.png',
-  '/images/client7.png',
-  '/images/client8.png',
+  '/images/client1.webp',
+  '/images/client2.webp',
+ '/images/client9.webp',
+  '/images/client3.webp',
+  '/images/client4.webp',
+  '/images/client5.webp',
+  '/images/client6.webp',
+  '/images/client7.webp',
+  '/images/client8.webp',
   
   
 ];

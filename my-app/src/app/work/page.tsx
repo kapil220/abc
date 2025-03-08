@@ -182,7 +182,7 @@ export default function WorkPage() {
                         alt={work.title || "Project image"}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain  transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
+                        className="object-contain transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
                         priority={index < 10}
                       />
                       

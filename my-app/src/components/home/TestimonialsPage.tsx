@@ -16,49 +16,49 @@ const testimonials: Testimonial[] = [
     name: 'Josephine Ben',
     role: 'CEO, TechCorp',
     feedback: 'Partnering with The Ink Pot Group for our social media management was a game-changer. Their strategic approach and engaging content significantly boosted our online presence, leading to a 40% increase in follower engagement within just three months.',
-    image: '/images/test1.jpg'
+    image: '/images/test1.webp'
   },
   {
     name: 'Kamran Ahemad',
     role: 'Marketing Director, Startup Brand',
     feedback: 'As a startup, we needed a robust marketing strategy to make our mark. The Ink Pot Group delivered beyond our expectations, crafting a comprehensive plan that elevated our brand and attracted our target audience effectively.',
-    image: '/images/test2.jpg'
+    image: '/images/test2.webp'
   },
   {
     name: 'Julian Gennifer',
     role: 'Influencer & Content Creator',
     feedback: 'Collaborating with The Ink Pot Group for content creation has been a delight. Their creative team understands the influencer landscape, producing authentic and engaging content that resonates with my followers and enhances my brand.',
-    image: '/images/test3.jpg'
+    image: '/images/test3.webp'
   },
   {
     name: 'Delton Mark',
     role: 'Event Organizer & Entrepreneur',
     feedback: 'The Ink Pot Group videography team captured the essence of our event flawlessly. Their attention to detail and cinematic approach resulted in a stunning video that we will cherish and use for future promotions.',
-    image: '/images/test4.jpg'
+    image: '/images/test4.webp'
   },
   {
     name: 'Pushp Sharma',
     role: 'Real Estate Consultant',
     feedback: 'The Ink Pot Group real estate photography services are top-notch. Their keen eye for detail and ability to highlight property features have significantly enhanced our listings, attracting more potential buyers.',
-    image: '/images/test5.jpg'
+    image: '/images/test5.webp'
   },
   {
     name: 'Vennesa Tylor',
     role: 'Brand Owner & Entrepreneur',
     feedback: 'We approached The Ink Pot Group for a logo redesign, and they exceeded our expectations. The new logo perfectly encapsulates our brand identity and has received numerous compliments from our clients.',
-    image: '/images/test6.jpg'
+    image: '/images/test6.webp'
   },
   {
     name: 'Yemi',
     role: 'Digital Marketing Specialist',
     feedback: 'The Ink Pot Group holistic approach to digital marketing transformed our online presence. From social media management to content creation, their expertise has driven measurable growth and increased our customer base.',
-    image: '/images/test7.jpg'
+    image: '/images/test7.webp'
   },
   {
     name: 'Luca Ross',
     role: 'Influencer Marketing Strategist',
     feedback: 'Thanks to The Ink Pot Group strategic guidance, our influencer collaborations have been more impactful. Their insights into the influencer market ensured authentic partnerships that aligned with our brand values.',
-    image: '/images/test8.jpg'
+    image: '/images/test8.webp'
   }
 ];
 

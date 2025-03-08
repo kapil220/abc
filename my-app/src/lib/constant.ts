@@ -549,7 +549,7 @@ export const foodRestaurantWork = [
   {
     title: "Culinary Techniques Masterclass",
     description: "Produced an educational video series featuring a renowned chef demonstrating signature techniques and recipes.",
-    video: "/video/food1.mp4",
+    video: "/video/res.mp4",
     type: "video",
     tags: ["Educational", "Techniques", "Masterclass"]
   },
@@ -570,14 +570,14 @@ export const foodRestaurantWork = [
   {
     title: "Dining Experience Documentary",
     description: "Created an immersive short film showcasing a restaurant's unique atmosphere, service style, and guest experience.",
-    video: "/video/food2.mp4",
+    video: "/video/res2.mp4",
     type: "video",
     tags: ["Documentary", "Service", "Guest Experience"]
   },
   {
     title: "Farm-to-Table Journey",
     description: "Produced a video story following ingredients from local farms to final dishes, highlighting sustainability practices.",
-    video: "/video/food3.mp4",
+    video: "/video/res3.mp4",
     type: "video",
     tags: ["Sustainability", "Local Sourcing", "Farm Relationships"]
   },
