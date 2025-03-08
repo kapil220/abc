@@ -409,17 +409,13 @@ const Contact = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
-    // Validate form before submission
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
   
     setIsLoading(true);
   
-    // Prepare data in the format expected by the API
     const apiData = {
       name: formData.name,
-      countryCode: formData.countryCode, // Now sending the country code
+      countryCode: formData.countryCode,
       phone: formData.phone,
       email: formData.email,
       query: formData.query
@@ -427,17 +423,15 @@ const Contact = () => {
   
     console.log("Submitting data:", apiData);
   
+    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+    
     try {
-      // Add more detailed error handling
       let response;
       
       try {
-        // Use relative URL for better portability between environments
-        response = await fetch("/api/contact", {
+        response = await fetch(`${API_URL}/api/contact`, {
           method: "POST",
-          headers: { 
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(apiData),
         });
       } catch (fetchError) {
@@ -445,7 +439,6 @@ const Contact = () => {
         throw new Error("Network error: Could not connect to server");
       }
   
-      // Handle response parsing with error handling
       let data;
       try {
         data = await response.json();
@@ -460,12 +453,11 @@ const Contact = () => {
         throw new Error(data.error || "Failed to submit form");
       }
   
-      // Success handling
       setSubmitStatus('success');
       setShowModal(true);
       setFormData({ 
         name: "", 
-        countryCode: formData.countryCode, // Keep the country code
+        countryCode: formData.countryCode, 
         phone: "", 
         email: "", 
         query: "" 
@@ -478,6 +470,7 @@ const Contact = () => {
       setIsLoading(false);
     }
   };
+  
 
   const closeModal = () => {
     setShowModal(false);
