@@ -296,460 +296,444 @@ export function getServiceBySlug(slug: string): Service | undefined {
   
 export const logoDesignWork = [   
   {     
-    title: "Minimalist Logo Design1",     
-    description: "Crafted a sleek and modern logo for a tech startup.",     
+    title: "Tech Startup Minimal Logo",     
+    description: "Created a clean, geometric logo design for a fintech startup focusing on simplicity and recognition.",     
     image: "/images/log1.webp",
     type: "image",
-    tags: ["Minimalist", "Tech", "Modern"]
+    tags: ["Minimalist", "Fintech", "Geometric"]
   },  
   {     
-    title: "Minimalist Logo Design2",     
-    description: "Crafted a sleek and modern logo for a tech startup.",     
+    title: "Corporate Identity Mark",     
+    description: "Developed a professional logo with strong visual hierarchy for a consulting firm.",     
     image: "/images/log2.webp",
     type: "image",
-    tags: ["Minimalist", "Tech", "Modern"]
+    tags: ["Corporate", "Professional", "Identity"]
   },   
-
   {     
-    title: "Minimalist Logo Design3",     
-    description: "Crafted a sleek and modern logo for a tech startup.",     
+    title: "Abstract Tech Emblem",     
+    description: "Designed an abstract, modern emblem representing innovation and digital transformation.",     
     image: "/images/log3.webp",
     type: "image",
-    tags: ["Minimalist", "Tech", "Modern"]
+    tags: ["Abstract", "Innovation", "Digital"]
   },  
   {     
-    title: "Minimalist Logo Design4",     
-    description: "Crafted a sleek and modern logo for a tech startup.",     
+    title: "Software Company Wordmark",     
+    description: "Crafted a distinctive wordmark logo with custom typography for a software development company.",     
     image: "/images/log4.webp",
     type: "image",
-    tags: ["Minimalist", "Tech", "Modern"]
+    tags: ["Wordmark", "Software", "Typography"]
   },
   {     
-    title: "Brand Identity Creation",     
-    description: "Developed a unique logo and branding for an e-commerce store.",     
+    title: "E-commerce Brand Identity",     
+    description: "Created a comprehensive visual identity system including logo, color palette, and typography for an online retailer.",     
     image: "/images/log5.webp",
     type: "image",
-    tags: ["Branding", "E-commerce", "Identity"]
+    tags: ["Brand System", "Retail", "Visual Identity"]
   },   
   {     
-    title: "Luxury Logo Design",     
-    description: "Designed a premium and elegant logo for a high-end fashion brand.",     
+    title: "Luxury Fashion Monogram",     
+    description: "Designed an elegant monogram logo with refined details for a high-end clothing brand.",     
     image: "/images/log6.webp",
     type: "image",
-    tags: ["Luxury", "Fashion", "Elegant"]
+    tags: ["Monogram", "Luxury", "Sophisticated"]
   },   
   {     
-    title: "Creative Typography Logo1",     
-    description: "Blended custom typography with creative elements for a modern brand.",     
+    title: "Dynamic Letterform Logo",     
+    description: "Created a dynamic, animated letterform with fluid motion for a digital media company.",     
     image: "/images/log7.webp",
     type: "image",
-    tags: ["Typography", "Creative", "Custom"]
-  } ,
+    tags: ["Animation", "Letterform", "Digital Media"]
+  },
   {     
-    title: "Creative Typography Logo2",     
-    description: "Blended custom typography with creative elements for a modern brand.",     
+    title: "Handcrafted Script Identity",     
+    description: "Developed a custom script logotype with organic, hand-drawn qualities for an artisan brand.",     
     image: "/images/log8.webp",
     type: "image",
-    tags: ["Typography", "Creative", "Custom"]
-  } ,
+    tags: ["Script", "Handcrafted", "Artisanal"]
+  },
   {     
-    title: "Creative Typography Logo3",     
-    description: "Blended custom typography with creative elements for a modern brand.",     
+    title: "Minimalist Symbol Design",     
+    description: "Designed a reductive symbol mark focusing on essential forms and negative space.",     
     image: "/images/log9.webp",
     type: "image",
-    tags: ["Typography", "Creative", "Custom"]
-  } ,
+    tags: ["Symbol", "Negative Space", "Reductive"]
+  },
   {     
-    title: "Creative Typography Logo4",     
-    description: "Blended custom typography with creative elements for a modern brand.",     
+    title: "Expressive Typographic Logo",     
+    description: "Created an expressive logotype that combines letterforms with visual metaphors related to the brand's purpose.",     
     image: "/images/log10.webp",
     type: "image",
-    tags: ["Typography", "Creative", "Custom"]
+    tags: ["Expressive", "Visual Metaphor", "Conceptual"]
   } 
 ];
 
 export const realEstateWork = [
   {
-    title: "Luxury Property Branding",
-    description: "Designed a premium brand identity for high-end real estate.",
+    title: "Exclusive Property Brand System",
+    description: "Developed a sophisticated brand identity for a luxury real estate developer, including logo, print materials, and digital assets.",
     image: "/images/real1.webp",
     type: "image",
-    tags: ["Luxury", "Branding", "Premium"]
+    tags: ["Luxury Branding", "Print Design", "Visual System"]
   },
   {
-    title: "Real Estate Website Design2",
-    description: "Developed a user-friendly property listing platform.",
+    title: "Interactive Property Listing Platform",
+    description: "Designed and developed a responsive website with advanced search features, map integration, and personalized user experience.",
     image: "/images/real2.webp",
     type: "image",
-    tags: ["Website", "UI/UX", "Property"]
+    tags: ["Web Development", "User Experience", "Interactive"]
   },
   {
-    title: "Virtual Tour & 3D Rendering",
-    description: "Created immersive property showcases with 3D visuals.",
+    title: "Architectural Visualization Tour",
+    description: "Produced photorealistic 3D walkthroughs of pre-construction properties to help clients visualize finished spaces.",
     video: "/video/realvideo2.mp4", 
-    
     type: "video",
-    tags: ["3D", "Virtual Tour", "Immersive"]
+    tags: ["3D Rendering", "Architectural", "Pre-visualization"]
   },
   {
-    title: "Social Media Marketing for Realtors",
-    description: "Increased property leads with targeted social campaigns.",
+    title: "Real Estate Lead Generation Campaign",
+    description: "Designed and implemented a multi-platform social media strategy resulting in 45% increase in qualified property inquiries.",
     image: "/images/real3.webp",
     type: "image",
-    tags: ["Social Media", "Marketing", "Leads"]
+    tags: ["Lead Generation", "Digital Strategy", "Conversion"]
   },
   {
-    title: "Luxury Home Walkthrough",
-    description: "A detailed walkthrough video highlighting premium real estate features.",
+    title: "Premium Estate Cinematic Tour",
+    description: "Produced a cinematic video showcase highlighting architectural features, interior design, and surrounding landscape of a luxury property.",
     video: "/video/realvideo1.mp4",
-   
     type: "video",
-    tags: ["Walkthrough", "Luxury", "Premium"]
+    tags: ["Cinematic", "Storytelling", "Luxury Property"]
   },
   {
-    title: "Social Media Marketing for Realtors2",
-    description: "Increased property leads with targeted social campaigns.",
+    title: "Realtor Personal Branding",
+    description: "Created a distinctive personal brand identity and content strategy for a high-performing real estate agent.",
     image: "/images/real4.webp",
     type: "image",
-    tags: ["Social Media", "Marketing", "Leads"]
+    tags: ["Personal Branding", "Content Strategy", "Agent Marketing"]
   },
   {
-    title: "Social Media Marketing for Realtors3",
-    description: "Increased property leads with targeted social campaigns.",
+    title: "Property Development Campaign",
+    description: "Designed promotional materials and digital advertisements for a new residential development targeting young professionals.",
     image: "/images/real5.webp",
     type: "image",
-    tags: ["Social Media", "Marketing", "Leads"]
+    tags: ["Development Marketing", "Target Audience", "Residential"]
   },
   {
-    title: "Virtual Tour & 3D Rendering",
-    description: "Created immersive property showcases with 3D visuals.",
+    title: "Commercial Property 3D Experience",
+    description: "Created an interactive 3D visualization allowing potential tenants to explore and customize commercial office spaces.",
     video: "/video/realvideo3.mp4", 
-    
     type: "video",
-    tags: ["3D", "Virtual Tour", "Immersive"]
+    tags: ["Commercial Real Estate", "Interactive", "Space Planning"]
   },
   {
-    title: "Social Media Marketing for Realtors5",
-    description: "Increased property leads with targeted social campaigns.",
+    title: "Real Estate Instagram Strategy",
+    description: "Developed a cohesive visual identity and content calendar for a real estate firm's Instagram presence.",
     image: "/images/real6.webp",
     type: "image",
-    tags: ["Social Media", "Marketing", "Leads"]
+    tags: ["Instagram Marketing", "Content Calendar", "Visual Identity"]
   },
   {
-    title: "Social Media Marketing for Realtors5",
-    description: "Increased property leads with targeted social campaigns.",
+    title: "Neighborhood Lifestyle Marketing",
+    description: "Created lifestyle-focused marketing materials highlighting community amenities, local businesses, and quality of life.",
     image: "/images/real7.webp",
     type: "image",
-    tags: ["Social Media", "Marketing", "Leads"]
+    tags: ["Lifestyle Marketing", "Community", "Location Branding"]
   },
 ];
 
 export const foodRestaurantWork = [
   {
-    title: "Food Photography & Menu Design4",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Artisanal Food Photography",
+    description: "Captured the craftsmanship and detail of handmade culinary creations for a farm-to-table restaurant.",
     image: "/images/food1.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Artisanal", "Craftsmanship", "Farm-to-Table"]
   },
   {
-    title: "Food Photography & Menu Design8",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Gourmet Plating Showcase",
+    description: "Photographed meticulously plated dishes highlighting texture, color, and composition for a fine dining establishment.",
     image: "/images/food2.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Fine Dining", "Plating", "Composition"]
   },
   {
-    title: "Food Photography & Menu Design9",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Seasonal Menu Highlights",
+    description: "Created a visual story of seasonal ingredients and special menu items for quarterly promotional campaigns.",
     image: "/images/food3.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Seasonal", "Ingredients", "Campaign"]
   },
   {
-    title: "Food Photography & Menu Design10",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Beverage Portfolio",
+    description: "Photographed craft cocktails and wine selections emphasizing mood, lighting, and atmosphere.",
     image: "/images/food4.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Beverages", "Cocktails", "Atmosphere"]
   },
   {
-    title: "Food Photography & Menu Design11",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Street Food Documentary",
+    description: "Captured the vibrant culture and authentic flavors of street food for a casual eatery's brand story.",
     image: "/images/food5.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Street Food", "Authentic", "Culture"]
   },
   {
-    title: "Food Photography & Menu Design12",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Dessert Collection",
+    description: "Showcased artful pastries and desserts with attention to detail and textural elements.",
     image: "/images/food6.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Pastry", "Desserts", "Textural"]
   },
   {
-    title: "Food Photography & Menu Design13",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Chef's Table Experience",
+    description: "Documented the intimate chef's table experience focusing on interaction, preparation, and exclusive dishes.",
     image: "/images/food7.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Chef's Table", "Exclusive", "Experience"]
   },
   {
-    title: "Food Photography & Menu Design14",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Ingredient Spotlight Series",
+    description: "Created a visual series highlighting key ingredients in their raw form and final dish presentation.",
     image: "/images/food8.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Ingredients", "Process", "Transformation"]
   },
   {
-    title: "Food Photography & Menu Design15",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "International Cuisine Feature",
+    description: "Photographed authentic international dishes emphasizing cultural heritage and traditional preparation methods.",
     image: "/images/food9.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["International", "Cultural", "Traditional"]
   },
   {
-    title: "Food Photography & Menu Design16",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Comfort Food Collection",
+    description: "Styled and photographed nostalgic comfort foods with warm, inviting aesthetics for a family restaurant.",
     image: "/images/food10.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Comfort Food", "Nostalgic", "Homestyle"]
   },
   {
-    title: "Food Photography & Menu Design17",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Breakfast Menu Launch",
+    description: "Created bright, morning-light imagery for a cafe's new breakfast menu launch campaign.",
     image: "/images/food11.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Breakfast", "Morning Light", "Cafe"]
   },
   {
-    title: "Food Photography & Menu Design18",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Food Truck Identity",
+    description: "Developed visual content for a food truck's social media presence capturing the mobile dining experience.",
     image: "/images/food12.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Food Truck", "Mobile", "Social Content"]
   },
   {
-    title: "Restaurant Logo & Branding",
-    description: "Crafted a unique identity for a gourmet restaurant.",
+    title: "Bistro Visual Identity",
+    description: "Designed a comprehensive brand identity system for a neighborhood bistro emphasizing local heritage.",
     image: "/images/content1.webp",
     type: "image",
-    tags: ["Logo", "Branding", "Gourmet"]
+    tags: ["Bistro", "Local Heritage", "Identity System"]
   },
   {
-    title: "Food Photography & Menu Design",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Editorial Food Photography",
+    description: "Created magazine-quality food photography with narrative storytelling for a restaurant's feature article.",
     image: "/images/content2.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Editorial", "Storytelling", "Publication"]
   },
   {
-    title: "Food Photography & Menu Design2",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Menu Design & Photography Integration",
+    description: "Developed a visually cohesive menu design integrating custom photography with typography and layout.",
     image: "/images/content8.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Menu Design", "Integration", "Typography"]
   },
   {
-    title: "Chef Spotlight Series",
-    description: "Video showcase featuring signature dishes and culinary expertise.",
+    title: "Culinary Techniques Masterclass",
+    description: "Produced an educational video series featuring a renowned chef demonstrating signature techniques and recipes.",
     video: "/video/food1.mp4",
-    
     type: "video",
-    tags: ["Chef", "Culinary", "Video Series"]
+    tags: ["Educational", "Techniques", "Masterclass"]
   },
   {
-    title: "Website & Online Ordering System",
-    description: "Developed an intuitive platform for online reservations & delivery.",
+    title: "Restaurant Online Ordering System",
+    description: "Created a user-centered design for a restaurant's custom ordering platform with seamless payment processing.",
     image: "/images/content4.webp",
     type: "image",
-    tags: ["Website", "Online Ordering", "UX Design"]
+    tags: ["E-commerce", "User-Centered", "Digital Platform"]
   },
   {
-    title: "Website & Online Ordering System3",
-    description: "Developed an intuitive platform for online reservations & delivery.",
+    title: "Restaurant Mobile Application",
+    description: "Designed a native mobile app for reservations, loyalty program, and personalized dining recommendations.",
     image: "/images/content9.webp",
     type: "image",
-    tags: ["Website", "Online Ordering", "UX Design"]
+    tags: ["Mobile App", "Loyalty", "Personalization"]
   },
   {
-    title: "Restaurant Atmosphere Tour",
-    description: "An immersive video tour of a restaurant's unique ambiance and dining experience.",
+    title: "Dining Experience Documentary",
+    description: "Created an immersive short film showcasing a restaurant's unique atmosphere, service style, and guest experience.",
     video: "/video/food2.mp4",
-    
     type: "video",
-    tags: ["Ambiance", "Tour", "Experience"]
+    tags: ["Documentary", "Service", "Guest Experience"]
   },
-  
-  
   {
-    title: "Chef Spotlight Series2",
-    description: "Video showcase featuring signature dishes and culinary expertise.",
+    title: "Farm-to-Table Journey",
+    description: "Produced a video story following ingredients from local farms to final dishes, highlighting sustainability practices.",
     video: "/video/food3.mp4",
-    
     type: "video",
-    tags: ["Chef", "Culinary", "Video Series"]
+    tags: ["Sustainability", "Local Sourcing", "Farm Relationships"]
   },
   {
-    title: "Food Photography & Menu Design3",
-    description: "Captured appetizing visuals for menus and promotions.",
+    title: "Fusion Cuisine Photography",
+    description: "Captured innovative fusion dishes that blend culinary traditions with contemporary presentation.",
     image: "/images/content10.webp",
     type: "image",
-    tags: ["Photography", "Menu", "Culinary"]
+    tags: ["Fusion", "Innovation", "Cross-Cultural"]
   },
-  
 ];
 
 export const commercialsWork = [
   {
-    title: "TV Commercial Production",
-    description: "Produced high-quality commercials for brand awareness.",
+    title: "National Brand Campaign",
+    description: "Directed and produced a multi-platform commercial campaign for national television and digital streaming services.",
     image: "/images/branding3.webp",
     type: "image",
-    tags: ["TV", "Commercial", "Production"]
+    tags: ["National", "Multi-Platform", "Campaign"]
   },
   {
-    title: "TV Commercial Production2",
-    description: "Produced high-quality commercials for brand awareness.",
+    title: "Emotional Storytelling Commercial",
+    description: "Created a narrative-driven commercial focusing on emotional connection and brand values rather than product features.",
     image: "/images/commercial1.webp",
     type: "image",
-    tags: ["TV", "Commercial", "Production"]
+    tags: ["Emotional", "Narrative", "Brand Values"]
   },
   {
-    title: "TV Commercial Production3",
-    description: "Produced high-quality commercials for brand awareness.",
+    title: "Technical Product Launch",
+    description: "Developed a technical product demonstration commercial highlighting innovative features and user benefits.",
     image: "/images/commercial2.webp",
     type: "image",
-    tags: ["TV", "Commercial", "Production"]
+    tags: ["Product Launch", "Technical", "Demonstration"]
   },
-  
   {
-    title: "Corporate Production1",
-    description: "Created professional videos for business marketing.",
+    title: "Corporate Documentary",
+    description: "Produced a mini-documentary showcasing company history, mission, and impact for investor relations and recruitment.",
     image: "/images/branding1.webp",
     type: "image",
-    tags: ["Corporate", "Professional", "Business"]
+    tags: ["Documentary", "Corporate History", "Investor Relations"]
   },
   {
-    title: "Corporate Production2",
-    description: "Created professional videos for business marketing.",
+    title: "Executive Interview Series",
+    description: "Created a professional interview series featuring leadership perspectives on industry trends and company vision.",
     image: "/images/comm1.webp",
     type: "image",
-    tags: ["Corporate", "Professional", "Business"]
+    tags: ["Leadership", "Interview Series", "Thought Leadership"]
   },
   {
-    title: "Corporate Production2",
-    description: "Created professional videos for business marketing.",
+    title: "Company Culture Showcase",
+    description: "Developed visual content highlighting workplace culture, team dynamics, and employee stories for recruitment.",
     image: "/images/comm2.webp",
     type: "image",
-    tags: ["Corporate", "Professional", "Business"]
+    tags: ["Company Culture", "Recruitment", "Employee Stories"]
   },
   {
-    title: "Corporate Production3",
-    description: "Created professional videos for business marketing.",
+    title: "Annual Report Visual Narrative",
+    description: "Translated financial results and yearly achievements into an engaging visual story for stakeholders.",
     image: "/images/comm4.webp",
     type: "image",
-    tags: ["Corporate", "Professional", "Business"]
+    tags: ["Annual Report", "Financial", "Stakeholder Communication"]
   },
   {
-    title: "Product Advertising",
-    description: "Showcased product features with compelling visuals.",
+    title: "Product Demonstration Video",
+    description: "Created a detailed walkthrough of product functionality, features, and benefits with professional demonstration.",
     image: "/images/branding2.webp",
     type: "image",
-    tags: ["Product", "Advertising", "Features"]
+    tags: ["Product Demo", "Walkthrough", "Features"]
   },
   {
-    title: "Influencer & Lifestyle Shoots4",
-    description: "Captured authentic content for brand storytelling.",
+    title: "Lifestyle Brand Campaign",
+    description: "Produced authentic lifestyle content featuring real users engaging with products in natural environments.",
     image: "/images/branding4.webp",
     type: "image",
-    tags: ["Influencer", "Lifestyle", "Authentic"]
+    tags: ["Lifestyle", "Authentic", "User-Generated"]
   },
   {
-    title: "Shoes",
-    description: "An immersive video tour of a restaurant's unique ambiance and dining experience.",
+    title: "Premium Footwear Commercial",
+    description: "Directed a high-end commercial showcasing craftsmanship, materials, and design philosophy of luxury shoes.",
     video: "/video/shoes.mp4",
-    
     type: "video",
-    tags: ["Product", "Branding", "Shoes"]
+    tags: ["Footwear", "Craftsmanship", "Luxury"]
   },
   {
-    title: "shoes branding",
-    description: "Captured authentic content for brand storytelling.",
+    title: "Athletic Shoe Campaign",
+    description: "Created performance-focused visual content for athletic footwear highlighting technical features and athlete testimonials.",
     image: "/images/shoe.webp",
     type: "image",
-    tags: ["Influencer", "Lifestyle", "Authentic"]
+    tags: ["Athletic", "Performance", "Technical"]
   },
   {
-    title: "Influencer & Lifestyle Shoots5",
-    description: "Captured authentic content for brand storytelling.",
+    title: "Influencer Collaboration Campaign",
+    description: "Managed production of authentic content through strategic partnerships with niche influencers aligned with brand values.",
     image: "/images/branding5.webp",
     type: "image",
-    tags: ["Influencer", "Lifestyle", "Authentic"]
+    tags: ["Influencer", "Collaboration", "Authentic"]
   },
-
 ];
 
 export const postWork = [
   {
-    title: "Social Media Post Design",
-    description: "Designed engaging visuals for social media marketing campaigns.",
+    title: "Engagement-Driven Content Series",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
     image: "/images/post1.webp",
     type: "image",
-    tags: ["Social Media", "Design", "Marketing"]
+    tags: ["Interactive", "Engagement", "Series"]
   },
   {
-    title: "Instagram & Facebook Ads",
-    description: "Created high-converting ad creatives for targeted social media promotions.",
+    title: "Conversion-Optimized Ad Campaign",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
     image: "/images/post2.webp",
     type: "image",
-    tags: ["Instagram", "Facebook", "Ads"]
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
   },
   {
-    title: "Instagram & Facebook Ads2",
-    description: "Created high-converting ad creatives for targeted social media promotions.",
+    title: "Platform-Specific Visual Strategy",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
     image: "/images/post3.webp",
     type: "image",
-    tags: ["Instagram", "Facebook", "Ads"]
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
   },
- 
   {
-    title: "Brand Awareness Campaign",
-    description: "Designed a cohesive post series for brand storytelling.",
+    title: "Brand Story Carousel Series",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
     image: "/images/post4.webp",
     type: "image",
-    tags: ["Brand Awareness", "Storytelling", "Series"]
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
   },
- 
   {
-    title: "Brand Awareness Campaign2",
-    description: "Designed a cohesivec post series for brand storytelling.",
+    title: "Visual Identity System for Social",
+    description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
     image: "/images/post5.webp",
     type: "image",
-    tags: ["Brand Awareness", "Storytelling", "Series"]
+    tags: ["Visual System", "Templates", "Consistency"]
   },
   {
-    title: "Brand Awareness Campaign3",
-    description: "Designed a cohesive post series for brand storytelling.",
+    title: "User-Generated Content Campaign",
+    description: "Designed a framework for soliciting, curating, and featuring authentic customer content within brand channels.",
     image: "/images/post6.webp",
     type: "image",
-    tags: ["Brand Awareness", "Storytelling", "Series"]
+    tags: ["UGC", "Customer Content", "Authenticity"]
   },
   {
-    title: "Brand Awareness Campaign4",
-    description: "Designed a cohesive post series for brand storytelling.",
+    title: "Educational Content Series",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
     image: "/images/post7.webp",
     type: "image",
-    tags: ["Brand Awareness", "Storytelling", "Series"]
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
   },
   {
-    title: "Brand Awareness Campaign5",
-    description: "Designed a cohesive post series for brand storytelling.",
+    title: "Seasonal Campaign Framework",
+    description: "Developed a flexible content system for seasonal promotions that maintains brand identity while adapting to timely themes.",
     image: "/images/post8.webp",
     type: "image",
-    tags: ["Brand Awareness", "Storytelling", "Series"]
+    tags: ["Seasonal", "Promotional", "Adaptable"]
   },
- 
 ];
 
 

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { ChevronLeft, ChevronRight, Play, Pause, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { logoDesignWork, realEstateWork, foodRestaurantWork, commercialsWork } from "@/lib/constant";
+import { logoDesignWork, realEstateWork, foodRestaurantWork, commercialsWork, postWork } from "@/lib/constant";
 
 // Define proper interfaces
 interface WorkItem {
@@ -131,10 +131,11 @@ const WorkSection: React.FC = () => {
   // Use useMemo to prevent the array from being recreated on every render
   const featuredWorks = useMemo(() => {
     const allWorks = [
-      ...logoDesignWork.slice(0, 8), 
-      ...realEstateWork.slice(0, 8), 
-      ...foodRestaurantWork.slice(0, 16), 
-      ...commercialsWork.slice(0, 8),
+      ...logoDesignWork.slice(0, 10), 
+      ...realEstateWork.slice(0, 10), 
+      ...foodRestaurantWork.slice(0, 21), 
+      ...commercialsWork.slice(0, 12),
+      ...postWork.slice(0, 8),
     ];
     return shuffleWorks(allWorks);
   }, []);
