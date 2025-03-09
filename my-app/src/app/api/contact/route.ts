@@ -83,13 +83,14 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
     // Create transporter
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false, // Use false for STARTTLS
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
+    
 
     // Format full phone with country code
     const fullPhone = `${contactData.countryCode}${contactData.phone}`;
