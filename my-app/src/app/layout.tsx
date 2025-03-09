@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import '@/styles/globals.css';
@@ -23,9 +24,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@400;500;700&display=swap"
         />
-    
       </head>
       <body className="font-body">
+        <SpeedInsights />  {/* Add this here */}
         <div className="min-h-screen flex flex-col">
           <Header />
           <main className="flex-grow">{children}</main>

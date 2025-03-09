@@ -63,6 +63,7 @@ export async function OPTIONS() {
 
 // Email notification function with fallback for missing admin email
 async function sendEmailNotification(contactData: ContactFormData): Promise<void> {
+  console.log("📧 Starting email sending process with user:", process.env.EMAIL_USER);
   // Check for required email credentials
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     console.error("❌ Missing email credentials");
@@ -78,6 +79,7 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
   }
 
   try {
+    console.log("📧 Mail transport created, attempting to send email");
     // Create transporter
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -129,6 +131,7 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
     // Send email
     await transporter.sendMail(mailOptions);
     console.log("📧 Email sent successfully to", adminEmail);
+    console.log("📧 Email sent successfully:", info.response);
   } catch (error) {
     console.error("❌ Error sending email:", error);
   }
