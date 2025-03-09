@@ -53,7 +53,7 @@ export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com/', // Change from '*' to your domain
+      'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com', // Change from '*' to your domain
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
@@ -80,14 +80,13 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
   try {
     // Create transporter
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
-      // Add secure connection settings
-      secure: true,
-      requireTLS: true,
     });
 
     // Format full phone with country code
@@ -141,7 +140,7 @@ export async function POST(req: Request) {
   
   // CORS headers
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*', // For development; restrict in production
+    'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com', // For development; restrict in production
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
