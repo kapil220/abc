@@ -53,7 +53,7 @@ export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com', // Change from '*' to your domain
+      'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com/', // Change from '*' to your domain
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
