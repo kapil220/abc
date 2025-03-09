@@ -83,8 +83,8 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
     // Create transporter
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,
-      secure: false, // Use false for STARTTLS
+      port: 465,
+      secure: true, // Use false for STARTTLS
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -230,7 +230,7 @@ export async function POST(req: Request) {
         headers: corsHeaders 
       }
     );
-
+ 
   } catch (error: unknown) {
     // Detailed error logging
     console.error("❌ Form Submission Error:", error);
