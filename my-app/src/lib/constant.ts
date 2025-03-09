@@ -734,6 +734,55 @@ export const postWork = [
     type: "image",
     tags: ["Seasonal", "Promotional", "Adaptable"]
   },
+  {
+    title: "Engagement-Driven Content Series2",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
+    image: "/images/post9.webp",
+    type: "image",
+    tags: ["Interactive", "Engagement", "Series"]
+  },
+  {
+    title: "Conversion-Optimized Ad Campaign2",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
+    image: "/images/post10.webp",
+    type: "image",
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
+  },
+  {
+    title: "Platform-Specific Visual Strategy2",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
+    image: "/images/post11.webp",
+    type: "image",
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
+  },
+  {
+    title: "Brand Story Carousel Series2",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post12.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
+  },
+  {
+    title: "Visual Identity System for Social2",
+    description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
+    image: "/images/post13.webp",
+    type: "image",
+    tags: ["Visual System", "Templates", "Consistency"]
+  },
+  {
+    title: "User-Generated Content Campaign2",
+    description: "Designed a framework for soliciting, curating, and featuring authentic customer content within brand channels.",
+    image: "/images/post14.webp",
+    type: "image",
+    tags: ["UGC", "Customer Content", "Authenticity"]
+  },
+  {
+    title: "Educational Content Series2",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
+    image: "/images/post15.webp",
+    type: "image",
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
 ];
 
 

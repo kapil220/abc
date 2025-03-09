@@ -29,22 +29,33 @@ const Clients = () => {
         </h2>
         
         {/* Mobile View - Grid Layout */}
-        <div className="block sm:hidden">
-          <div className="grid grid-cols-2 gap-3 items-center">
-            {clientLogos.map((logo, index) => (
-              <div key={index} className="flex items-center justify-center h-full py-4">
-                <Image
-                  src={logo}
-                  alt={`Client ${index + 1}`}
-                  width={150}
-                  height={50}
-                  className="object-contain h-20"
-                  priority
-                />
-              </div>
-            ))}
-          </div>
+       {/* Mobile View - Grid Layout */}
+<div className="block sm:hidden">
+  <div className="grid grid-cols-2 gap-3 items-center">
+    {clientLogos.map((logo, index) => {
+      const isLastItem = index === clientLogos.length - 1;
+      const isOdd = clientLogos.length % 2 !== 0;
+      return (
+        <div
+          key={index}
+          className={`flex items-center justify-center h-full py-4 ${
+            isLastItem && isOdd ? 'col-span-2 justify-center' : ''
+          }`}
+        >
+          <Image
+            src={logo}
+            alt={`Client ${index + 1}`}
+            width={150}
+            height={50}
+            className="object-contain h-20"
+            priority
+          />
         </div>
+      );
+    })}
+  </div>
+</div>
+
         
         {/* Desktop/Tablet View - Continuous Slider */}
         <div className="hidden sm:block relative w-full overflow-hidden">

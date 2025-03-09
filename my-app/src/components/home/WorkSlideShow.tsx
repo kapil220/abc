@@ -135,7 +135,7 @@ const WorkSection: React.FC = () => {
       ...realEstateWork.slice(0, 10), 
       ...foodRestaurantWork.slice(0, 21), 
       ...commercialsWork.slice(0, 12),
-      ...postWork.slice(0, 8),
+      ...postWork.slice(0, 15),
     ];
     return shuffleWorks(allWorks);
   }, []);

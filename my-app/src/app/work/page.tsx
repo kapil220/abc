@@ -44,16 +44,29 @@ const allWorks = [
   ...foodRestaurantWork, 
   ...commercialsWork, 
   ...postWork
-].filter(Boolean); // Remove any potential null or undefined items
+].filter(Boolean); // Remove any potential null or undefined items // Remove any potential null or undefined items
 
 const workCategories: CategoryMap = {
   "All": allWorks,
-  "Logo Design": logoDesignWork,
-  "Real Estate": realEstateWork,
-  "Food & Restaurant": foodRestaurantWork,
-  "Commercials": commercialsWork,
-  "Post": postWork,
+  "Logo Design": logoDesignWork.filter(Boolean),
+  "Real Estate": realEstateWork.filter(Boolean),
+  "Food & Restaurant": foodRestaurantWork.filter(Boolean),
+  "Commercials": commercialsWork.filter(Boolean),
+  "Post": postWork.filter(Boolean),
 };
+console.log({
+  all: allWorks.length,
+  logoDesign: logoDesignWork.length,
+  logoDesignFiltered: logoDesignWork.filter(Boolean).length,
+  realEstate: realEstateWork.length,
+  realEstateFiltered: realEstateWork.filter(Boolean).length,
+  foodRestaurant: foodRestaurantWork.length,
+  foodRestaurantFiltered: foodRestaurantWork.filter(Boolean).length,
+  commercials: commercialsWork.length,
+  commercialsFiltered: commercialsWork.filter(Boolean).length,
+  post: postWork.length,
+  postFiltered: postWork.filter(Boolean).length,
+});
 
 export default function WorkPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -107,7 +120,7 @@ export default function WorkPage() {
   
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-40">
+      <div className="max-w-7xl mx-auto px-4 py-40 pb-20">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">Our Work</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
@@ -153,7 +166,7 @@ export default function WorkPage() {
               return isVideo ? (
                 // Video items
                 <VideoAutoplay 
-                  key={`${selectedCategory}-${index}`}
+                key={`${selectedCategory}-${index}-${work.title}`}
                   work={work}
                   index={index}
                   openModal={openVideoModal}
@@ -161,7 +174,7 @@ export default function WorkPage() {
               ) : (
                 // Image items with varying heights that don't change on hover
                 <motion.div 
-                  key={`${selectedCategory}-${index}`}
+                key={`${selectedCategory}-${index}-${work.title}`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
@@ -172,19 +185,20 @@ export default function WorkPage() {
                   }}
                   className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
                 >
-                  <div 
-                    className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} transform transition-all duration-500 ease-in-out hover:shadow-lg`}
-                  >
+                <div 
+  className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} min-h-[16rem] transform transition-all duration-500 ease-in-out hover:shadow-lg`}
+>
                     {/* Image container */}
                     <div className="absolute inset-0 w-full h-full">
-                      <Image 
-                        src={work.image || work.thumbnail || "/placeholder.jpg"}
-                        alt={work.title || "Project image"}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
-                        priority={index < 10}
-                      />
+                    <Image 
+      loading="lazy"
+      src={work.image || work.thumbnail || "/placeholder.jpg"}
+      alt={work.title || "Project image"}
+      fill
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      className="object-contain transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
+      onError={() => console.error(`Failed to load image for: ${work.title}`)}
+    />
                       
                       {/* Overlay that appears on hover */}
                       <div 
