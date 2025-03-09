@@ -131,7 +131,7 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
     // Send email
     await transporter.sendMail(mailOptions);
     console.log("📧 Email sent successfully to", adminEmail);
-    console.log("📧 Email sent successfully:", info.response);
+    
   } catch (error) {
     console.error("❌ Error sending email:", error);
   }
