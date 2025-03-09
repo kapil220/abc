@@ -179,7 +179,7 @@ const TestimonialsPage: React.FC = () => {
         {testimonials.map((testimonial, index) => (
   <div
     key={index}
-    className="absolute flex justify-center items-center w-[300px] md:w-[400px] h-[320px] md:h-[340px]"
+    className="absolute flex justify-center items-center w-[300px] md:w-[400px] h-[330px] md:h-[340px]"
     style={getCardStyle(index)}
     onClick={() => handleCardClick(index)}
     role="button"
@@ -212,7 +212,7 @@ const TestimonialsPage: React.FC = () => {
       </div>
 
       <div className="p-4 md:p-6">
-      <p className="text-sm md:text-base text-justify text-taupe/80 font-body mb-6 max-w-lg mx-auto">
+      <p className="text-sm md:text-base text-justify text-taupe/80 font-body  pb-6 max-w-lg mx-auto">
     {testimonial.feedback.replace(/"/g, '&quot;')}
 </p>
 
@@ -225,7 +225,7 @@ const TestimonialsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-center gap-4 mt-8 md:mt-12">
+        <div className="flex justify-center gap-4 mt-12 md:mt-12">
           <button
             onClick={() => moveCarousel('prev')}
             className="p-2 rounded-full bg-pineGreen/10 hover:bg-pineGreen/20 transition-colors"
