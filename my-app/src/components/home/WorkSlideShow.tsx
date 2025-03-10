@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef, useMemo } from "react";
-import { ChevronLeft, ChevronRight, Play, Pause, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { logoDesignWork, realEstateWork, foodRestaurantWork, commercialsWork, postWork } from "@/lib/constant";
 
 // Define proper interfaces
@@ -118,6 +119,43 @@ const VideoThumbnail = ({ work, onClick }: VideoThumbnailProps) => {
 };
 
 const WorkSection: React.FC = () => {
+  const router = useRouter();
+  
+  // Mapping function to determine which category an item belongs to
+  const getWorkCategory = (work: WorkItem): string => {
+    if (logoDesignWork.some(item => 
+      item.title === work.title || 
+      
+      (item.image && item.image === work.image)
+    )) {
+      return "Logo Design";
+    } else if (realEstateWork.some(item => 
+      item.title === work.title || 
+      (item.video && item.video === work.video) || 
+      (item.image && item.image === work.image)
+    )) {
+      return "Real Estate";
+    } else if (foodRestaurantWork.some(item => 
+      item.title === work.title || 
+      (item.video && item.video === work.video) || 
+      (item.image && item.image === work.image)
+    )) {
+      return "Food & Restaurant";
+    } else if (commercialsWork.some(item => 
+      item.title === work.title || 
+      (item.video && item.video === work.video) || 
+      (item.image && item.image === work.image)
+    )) {
+      return "Commercials";
+    } else if (postWork.some(item => 
+      item.title === work.title || 
+      (item.image && item.image === work.image)
+    )) {
+      return "Post";
+    }
+    return "All"; // Default category
+  };
+
   // Shuffling function to mix video and image types
   const shuffleWorks = (works: WorkItem[]) => {
     const shuffled = [...works];
@@ -142,10 +180,6 @@ const WorkSection: React.FC = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(4);
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState<WorkItem | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
   
   // Adjust number of slides based on screen size
   useEffect(() => {
@@ -173,47 +207,11 @@ const WorkSection: React.FC = () => {
     }
   }, [featuredWorks, itemsPerSlide]);
 
-  // Handle modal open/close
-  const openVideoModal = (work: WorkItem) => {
-    setSelectedVideo(work);
-    setVideoModalOpen(true);
-    // Pause slideshow when modal is open
-    document.body.style.overflow = 'hidden';
+  // Navigate to work page with selected category
+  const navigateToWorkPage = (work: WorkItem) => {
+    const category = work.category || getWorkCategory(work);
+    router.push(`/work?category=${encodeURIComponent(category)}`);
   };
-
-  const closeVideoModal = () => {
-    setVideoModalOpen(false);
-    setSelectedVideo(null);
-    setIsPlaying(false);
-    document.body.style.overflow = 'auto';
-  };
-
-  const togglePlayPause = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play()
-          .then(() => setIsPlaying(true))
-          .catch((error) => console.log("Play prevented:", error));
-      }
-    }
-  };
-
-  // Add ESC key listener to close modal
-  useEffect(() => {
-    const handleEscKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && videoModalOpen) {
-        closeVideoModal();
-      }
-    };
-
-    window.addEventListener('keydown', handleEscKey);
-    return () => window.removeEventListener('keydown', handleEscKey);
-  }, [videoModalOpen]);
 
   const startIndex = currentSlide * itemsPerSlide;
   const visibleWorks = featuredWorks.slice(startIndex, startIndex + itemsPerSlide);
@@ -232,11 +230,14 @@ const WorkSection: React.FC = () => {
         <div className="relative flex gap-4 overflow-hidden py-8">
           {visibleWorks.map((work, index) => (
             <div key={index} className="w-full sm:w-1/2 lg:w-1/3">
-              <div className="cursor-pointer transition-transform hover:scale-105 duration-300 relative">
+              <div 
+                className="cursor-pointer transition-transform hover:scale-105 duration-300 relative"
+                onClick={() => navigateToWorkPage(work)} // Direct navigation for both image and video
+              >
                 {work.type === "video" ? (
                   <VideoThumbnail 
                     work={work} 
-                    onClick={() => openVideoModal(work)}
+                    onClick={() => navigateToWorkPage(work)} // Direct navigation for videos
                   />
                 ) : (
                   <Image 
@@ -273,47 +274,6 @@ const WorkSection: React.FC = () => {
           </Link>
         </div>
       </div>
-
-      {/* Video Modal */}
-      {videoModalOpen && selectedVideo && selectedVideo.video && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative bg-gray-900 rounded-xl overflow-hidden max-w-4xl w-full h-[80vh]">
-            <div className="relative w-full h-full flex items-center justify-center p-4">
-              <div className="w-full h-full flex items-center justify-center relative">
-                <video 
-                  ref={videoRef}
-                  src={selectedVideo.video}
-                  className="max-w-full max-h-full object-contain"
-                  autoPlay
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                />
-                
-                {/* Custom Play/Pause Button */}
-                <button 
-                  onClick={togglePlayPause}
-                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors"
-                >
-                  {isPlaying ? (
-                    <Pause className="h-6 w-6" />
-                  ) : (
-                    <Play className="h-6 w-6" />
-                  )}
-                </button>
-              </div>
-              
-              {/* Close button */}
-              <button 
-                onClick={closeVideoModal}
-                className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-1 hover:bg-black/70 transition-colors"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
     </section>
   );
 };
