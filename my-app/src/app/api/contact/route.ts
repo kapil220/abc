@@ -1,17 +1,15 @@
-
-
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Contact from "@/models/Contact";
 import nodemailer from "nodemailer";
 
-// Updated interface to include countryCode
+// Updated interface with optional query
 interface ContactFormData {
   name: string;
-  countryCode: string; // Added country code
+  countryCode: string;
   phone: string;
   email: string;
-  query: string;
+  query?: string; // Made query optional with "?"
 }
 
 function validateFormData(data: ContactFormData): string[] {
@@ -40,10 +38,8 @@ function validateFormData(data: ContactFormData): string[] {
     errors.push("Invalid email address");
   }
 
-  // Query validation
-  if (!data.query || data.query.trim().length < 10) {
-    errors.push("Query must be at least 10 characters long");
-  }
+  // Query validation - only validate if query is provided
+ 
 
   return errors;
 }
@@ -53,13 +49,12 @@ export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com', // Change from '*' to your domain
+      'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
   });
 }
-
 
 // Email notification function with fallback for missing admin email
 async function sendEmailNotification(contactData: ContactFormData): Promise<void> {
@@ -91,7 +86,6 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
       },
     });
     
-
     // Format full phone with country code
     const fullPhone = `${contactData.countryCode}${contactData.phone}`;
 
@@ -118,7 +112,7 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
             </tr>
             <tr>
               <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>💬 Query:</strong></td>
-              <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contactData.query}</td>
+              <td style="padding: 10px; border-bottom: 1px solid #ddd;">${contactData.query || "No query provided"}</td>
             </tr>
             <tr>
               <td style="padding: 10px;"><strong>📅 Submission Date:</strong></td>
@@ -144,7 +138,7 @@ export async function POST(req: Request) {
   
   // CORS headers
   const corsHeaders = {
-    'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com', // For development; restrict in production
+    'Access-Control-Allow-Origin': 'https://www.theinkpotgroup.com',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
@@ -192,7 +186,7 @@ export async function POST(req: Request) {
     }
 
     // Destructure validated data - now including countryCode
-    const { name, countryCode, phone, email, query } = requestData;
+    const { name, countryCode, phone, email, query = "" } = requestData;
 
     // Prepare submission data
     const submissionDate = new Date().toLocaleDateString();
@@ -200,16 +194,17 @@ export async function POST(req: Request) {
     const fullPhone = `${countryCode}${phone}`;
 
     // Create new contact record - with enhanced model
-    const newContact = new Contact({ 
-      name, 
-      countryCode,
-      phone, 
-      fullPhone,
-      email, 
-      query, 
-      submissionDate, 
-      timestamp 
-    });
+   // Create new contact record - with enhanced model
+const newContact = new Contact({ 
+  name, 
+  countryCode,
+  phone, 
+  fullPhone,
+  email, 
+  query, // Will be empty string if not provided
+  submissionDate, 
+  timestamp 
+});
 
     // Save to database
     await newContact.save();

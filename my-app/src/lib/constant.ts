@@ -438,6 +438,20 @@ export const realEstateWork = [
     type: "image",
     tags: ["Lifestyle Marketing", "Community", "Location Branding"]
   },
+  {
+    title: "Real Estate Instagram Strategy2",
+    description: "Developed a cohesive visual identity and content calendar for a real estate firm's Instagram presence.",
+    image: "/images/real8.webp",
+    type: "image",
+    tags: ["Instagram Marketing", "Content Calendar", "Visual Identity"]
+  },
+  {
+    title: "Neighborhood Lifestyle Marketing2",
+    description: "Created lifestyle-focused marketing materials highlighting community amenities, local businesses, and quality of life.",
+    image: "/images/real9.webp",
+    type: "image",
+    tags: ["Lifestyle Marketing", "Community", "Location Branding"]
+  },
 ];
 
 export const foodRestaurantWork = [
@@ -587,6 +601,138 @@ export const foodRestaurantWork = [
     image: "/images/content10.webp",
     type: "image",
     tags: ["Fusion", "Innovation", "Cross-Cultural"]
+  }, {
+    title: "Artisanal Food Photography2",
+    description: "Captured the craftsmanship and detail of handmade culinary creations for a farm-to-table restaurant.",
+    image: "/images/rest1.webp",
+    type: "image",
+    tags: ["Artisanal", "Craftsmanship", "Farm-to-Table"]
+  },
+  {
+    title: "Gourmet Plating Showcase2",
+    description: "Photographed meticulously plated dishes highlighting texture, color, and composition for a fine dining establishment.",
+    image: "/images/rest2.webp",
+    type: "image",
+    tags: ["Fine Dining", "Plating", "Composition"]
+  },
+  {
+    title: "Seasonal Menu Highlights2",
+    description: "Created a visual story of seasonal ingredients and special menu items for quarterly promotional campaigns.",
+    image: "/images/rest3.webp",
+    type: "image",
+    tags: ["Seasonal", "Ingredients", "Campaign"]
+  },
+  {
+    title: "Beverage Portfolio2",
+    description: "Photographed craft cocktails and wine selections emphasizing mood, lighting, and atmosphere.",
+    image: "/images/rest4.webp",
+    type: "image",
+    tags: ["Beverages", "Cocktails", "Atmosphere"]
+  },
+  {
+    title: "Street Food Documentary2",
+    description: "Captured the vibrant culture and authentic flavors of street food for a casual eatery's brand story.",
+    image: "/images/rest5.webp",
+    type: "image",
+    tags: ["Street Food", "Authentic", "Culture"]
+  },
+  {
+    title: "Dessert Collection2",
+    description: "Showcased artful pastries and desserts with attention to detail and textural elements.",
+    image: "/images/rest6.webp",
+    type: "image",
+    tags: ["Pastry", "Desserts", "Textural"]
+  },
+  {
+    title: "Chef's Table Experience2",
+    description: "Documented the intimate chef's table experience focusing on interaction, preparation, and exclusive dishes.",
+    image: "/images/rest7.webp",
+    type: "image",
+    tags: ["Chef's Table", "Exclusive", "Experience"]
+  },
+  {
+    title: "Ingredient Spotlight Series2",
+    description: "Created a visual series highlighting key ingredients in their raw form and final dish presentation.",
+    image: "/images/rest8.webp",
+    type: "image",
+    tags: ["Ingredients", "Process", "Transformation"]
+  },
+  {
+    title: "International Cuisine Feature2",
+    description: "Photographed authentic international dishes emphasizing cultural heritage and traditional preparation methods.",
+    image: "/images/rest9.webp",
+    type: "image",
+    tags: ["International", "Cultural", "Traditional"]
+  },
+  {
+    title: "Comfort Food Collection2",
+    description: "Styled and photographed nostalgic comfort foods with warm, inviting aesthetics for a family restaurant.",
+    image: "/images/rest10.webp",
+    type: "image",
+    tags: ["Comfort Food", "Nostalgic", "Homestyle"]
+  },
+  {
+    title: "Breakfast Menu Launch2",
+    description: "Created bright, morning-light imagery for a cafe's new breakfast menu launch campaign.",
+    image: "/images/rest11.webp",
+    type: "image",
+    tags: ["Breakfast", "Morning Light", "Cafe"]
+  },
+  {
+    title: "Food Truck Identity2",
+    description: "Developed visual content for a food truck's social media presence capturing the mobile dining experience.",
+    image: "/images/rest12.webp",
+    type: "image",
+    tags: ["Food Truck", "Mobile", "Social Content"]
+  },
+  {
+    title: "Artisanal Food Photography3",
+    description: "Captured the craftsmanship and detail of handmade culinary creations for a farm-to-table restaurant.",
+    image: "/images/rest13.webp",
+    type: "image",
+    tags: ["Artisanal", "Craftsmanship", "Farm-to-Table"]
+  },
+  {
+    title: "Gourmet Plating Showcase3",
+    description: "Photographed meticulously plated dishes highlighting texture, color, and composition for a fine dining establishment.",
+    image: "/images/rest14.webp",
+    type: "image",
+    tags: ["Fine Dining", "Plating", "Composition"]
+  },
+  {
+    title: "Seasonal Menu Highlights3",
+    description: "Created a visual story of seasonal ingredients and special menu items for quarterly promotional campaigns.",
+    image: "/images/rest15.webp",
+    type: "image",
+    tags: ["Seasonal", "Ingredients", "Campaign"]
+  },
+  {
+    title: "Beverage Portfolio3",
+    description: "Photographed craft cocktails and wine selections emphasizing mood, lighting, and atmosphere.",
+    image: "/images/rest16.webp",
+    type: "image",
+    tags: ["Beverages", "Cocktails", "Atmosphere"]
+  },
+  {
+    title: "Street Food Documentary3",
+    description: "Captured the vibrant culture and authentic flavors of street food for a casual eatery's brand story.",
+    image: "/images/rest17.webp",
+    type: "image",
+    tags: ["Street Food", "Authentic", "Culture"]
+  },
+  {
+    title: "Dessert Collection3",
+    description: "Showcased artful pastries and desserts with attention to detail and textural elements.",
+    image: "/images/rest18.webp",
+    type: "image",
+    tags: ["Pastry", "Desserts", "Textural"]
+  },
+  {
+    title: "Chef's Table Experience3",
+    description: "Documented the intimate chef's table experience focusing on interaction, preparation, and exclusive dishes.",
+    image: "/images/rest19.webp",
+    type: "image",
+    tags: ["Chef's Table", "Exclusive", "Experience"]
   },
 ];
 
@@ -782,6 +928,309 @@ export const postWork = [
     image: "/images/post15.webp",
     type: "image",
     tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
+  {
+    title: "Engagement-Driven Content Series3",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
+    image: "/images/post16.webp",
+    type: "image",
+    tags: ["Interactive", "Engagement", "Series"]
+  },
+  {
+    title: "Conversion-Optimized Ad Campaign3",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
+    image: "/images/post17.webp",
+    type: "image",
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
+  },
+  {
+    title: "Platform-Specific Visual Strategy3",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
+    image: "/images/post18.webp",
+    type: "image",
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
+  },
+  {
+    title: "Brand Story Carousel Series3",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post19.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
+  },
+  {
+    title: "Visual Identity System for Social3",
+    description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
+    image: "/images/post20.webp",
+    type: "image",
+    tags: ["Visual System", "Templates", "Consistency"]
+  },
+
+  {
+    title: "Educational Content Series3",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
+    image: "/images/post22.webp",
+    type: "image",
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
+  {
+    title: "Seasonal Campaign Framework3",
+    description: "Developed a flexible content system for seasonal promotions that maintains brand identity while adapting to timely themes.",
+    image: "/images/post23.webp",
+    type: "image",
+    tags: ["Seasonal", "Promotional", "Adaptable"]
+  },
+  {
+    title: "Engagement-Driven Content Series3",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
+    image: "/images/post24.webp",
+    type: "image",
+    tags: ["Interactive", "Engagement", "Series"]
+  },
+  {
+    title: "Conversion-Optimized Ad Campaign3",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
+    image: "/images/post25.webp",
+    type: "image",
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
+  },
+  {
+    title: "Platform-Specific Visual Strategy3",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
+    image: "/images/post26.webp",
+    type: "image",
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
+  },
+  {
+    title: "Brand Story Carousel Series3",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post27.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
+  },
+  {
+    title: "Visual Identity System for Social3",
+    description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
+    image: "/images/post28.webp",
+    type: "image",
+    tags: ["Visual System", "Templates", "Consistency"]
+  },
+  {
+    title: "User-Generated Content Campaign3",
+    description: "Designed a framework for soliciting, curating, and featuring authentic customer content within brand channels.",
+    image: "/images/post29.webp",
+    type: "image",
+    tags: ["UGC", "Customer Content", "Authenticity"]
+  },
+  {
+    title: "Educational Content Series3",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
+    image: "/images/post30.webp",
+    type: "image",
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
+  {
+    title: "User-Generated Content Campaign3",
+    description: "Designed a framework for soliciting, curating, and featuring authentic customer content within brand channels.",
+    image: "/images/post31.webp",
+    type: "image",
+    tags: ["UGC", "Customer Content", "Authenticity"]
+  },
+  {
+    title: "Educational Content Series3",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
+    image: "/images/post32.webp",
+    type: "image",
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
+  {
+    title: "Engagement-Driven Content Series4",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
+    image: "/images/post34.webp",
+    type: "image",
+    tags: ["Interactive", "Engagement", "Series"]
+  },
+  {
+    title: "Conversion-Optimized Ad Campaign4",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
+    image: "/images/post34.webp",
+    type: "image",
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
+  },
+  {
+    title: "Platform-Specific Visual Strategy4",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
+    image: "/images/post35.webp",
+    type: "image",
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
+  },
+  {
+    title: "Brand Story Carousel Series4",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post36.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
+  },
+  {
+    title: "Visual Identity System for Social4",
+    description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
+    image: "/images/post37.webp",
+    type: "image",
+    tags: ["Visual System", "Templates", "Consistency"]
+  },
+  {
+    title: "User-Generated Content Campaign4",
+    description: "Designed a framework for soliciting, curating, and featuring authentic customer content within brand channels.",
+    image: "/images/post38.webp",
+    type: "image",
+    tags: ["UGC", "Customer Content", "Authenticity"]
+  },
+  {
+    title: "Educational Content Series4",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
+    image: "/images/post39.webp",
+    type: "image",
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
+  {
+    title: "Seasonal Campaign Framework4",
+    description: "Developed a flexible content system for seasonal promotions that maintains brand identity while adapting to timely themes.",
+    image: "/images/post40.webp",
+    type: "image",
+    tags: ["Seasonal", "Promotional", "Adaptable"]
+  },
+  {
+    title: "Engagement-Driven Content Series4",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
+    image: "/images/post41.webp",
+    type: "image",
+    tags: ["Interactive", "Engagement", "Series"]
+  },
+  {
+    title: "Conversion-Optimized Ad Campaign4",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
+    image: "/images/post42.webp",
+    type: "image",
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
+  },
+  {
+    title: "Platform-Specific Visual Strategy4",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
+    image: "/images/post43.webp",
+    type: "image",
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
+  },
+  {
+    title: "Brand Story Carousel Series4",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post44.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
+  },
+  {
+    title: "Visual Identity System for Social4",
+    description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
+    image: "/images/post45.webp",
+    type: "image",
+    tags: ["Visual System", "Templates", "Consistency"]
+  },
+  {
+    title: "User-Generated Content Campaign4",
+    description: "Designed a framework for soliciting, curating, and featuring authentic customer content within brand channels.",
+    image: "/images/post46.webp",
+    type: "image",
+    tags: ["UGC", "Customer Content", "Authenticity"]
+  },
+  {
+    title: "Educational Content Series4",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
+    image: "/images/post47.webp",
+    type: "image",
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
+  {
+    title: "Engagement-Driven Content Series4",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
+    image: "/images/post48.webp",
+    type: "image",
+    tags: ["Interactive", "Engagement", "Series"]
+  },
+  {
+    title: "Conversion-Optimized Ad Campaign4",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
+    image: "/images/post49.webp",
+    type: "image",
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
+  },
+  {
+    title: "Platform-Specific Visual Strategy4",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
+    image: "/images/post50.webp",
+    type: "image",
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
+  },
+  {
+    title: "Brand Story Carousel Series4",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post51.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
+  },
+  {
+    title: "Visual Identity System for Social4",
+    description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
+    image: "/images/post52.webp",
+    type: "image",
+    tags: ["Visual System", "Templates", "Consistency"]
+  },
+
+  {
+    title: "Educational Content Series4",
+    description: "Created informative and visually engaging posts establishing thought leadership and addressing customer pain points.",
+    image: "/images/post53.webp",
+    type: "image",
+    tags: ["Educational", "Thought Leadership", "Value-Driven"]
+  },
+  {
+    title: "Seasonal Campaign Framework4",
+    description: "Developed a flexible content system for seasonal promotions that maintains brand identity while adapting to timely themes.",
+    image: "/images/post54.webp",
+    type: "image",
+    tags: ["Seasonal", "Promotional", "Adaptable"]
+  },
+  {
+    title: "Engagement-Driven Content Series4",
+    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
+    image: "/images/post55.webp",
+    type: "image",
+    tags: ["Interactive", "Engagement", "Series"]
+  },
+  {
+    title: "Conversion-Optimized Ad Campaign4",
+    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
+    image: "/images/post56.webp",
+    type: "image",
+    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
+  },
+  {
+    title: "Platform-Specific Visual Strategy4",
+    description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",
+    image: "/images/post57.webp",
+    type: "image",
+    tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
+  },
+  {
+    title: "Brand Story Carousel Series4",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post58.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
+  },
+  {
+    title: "Brand Story Carousel Series5",
+    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
+    image: "/images/post59.webp",
+    type: "image",
+    tags: ["Carousel", "Progressive Narrative", "Brand History"]
   },
 ];
 

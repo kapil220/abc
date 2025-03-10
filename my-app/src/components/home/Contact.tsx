@@ -7,7 +7,7 @@ interface FormData {
   countryCode: string;
   phone: string;
   email: string;
-  query: string;
+  query?: string;
 }
 
 interface FormErrors {
@@ -238,173 +238,45 @@ const Contact = () => {
     setIsDropdownOpen(false);
   };
 
-  const validateForm = (): boolean => {
-    const errors: FormErrors = {};
-    
-    // Name validation - must contain only alphabets and spaces
-    if (!formData.name.trim()) {
-      errors.name = "Name is required";
-    } else if (!/^[A-Za-z0-9\s]+$/.test(formData.name)) {
-      errors.name = "Name should contain only alphabets and numbers";
-    }
-    
-    
-    // Country code validation
-    if (!formData.countryCode.trim()) {
-      errors.countryCode = "Country code is required";
-    } else if (!/^\+[0-9]{1,4}$/.test(formData.countryCode)) {
-      errors.countryCode = "Invalid country code format (e.g. +1, +91)";
-    }
-    
-    // Phone validation - must be 10 digits
-    if (!formData.phone.trim()) {
-      errors.phone = "Phone number is required";
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      errors.phone = "Phone number must be exactly 10 digits";
-    }
-    
-    
-    // Email validation
-    if (!formData.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
-      errors.email = "Invalid email format";
-    }
-    
-    // Query validation
-    if (!formData.query.trim()) {
-      errors.query = "Please enter your message";
-    }
-    
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
+ // In your validateForm function, modify the query validation section:
+const validateForm = (): boolean => {
+  const errors: FormErrors = {};
+  
+  // Name validation - must contain only alphabets and spaces
+  if (!formData.name.trim()) {
+    errors.name = "Name is required";
+  } else if (!/^[A-Za-z0-9\s]+$/.test(formData.name)) {
+    errors.name = "Name should contain only alphabets and numbers";
+  }
+  
+  // Country code validation
+  if (!formData.countryCode.trim()) {
+    errors.countryCode = "Country code is required";
+  } else if (!/^\+[0-9]{1,4}$/.test(formData.countryCode)) {
+    errors.countryCode = "Invalid country code format (e.g. +1, +91)";
+  }
+  
+  // Phone validation - must be 10 digits
+  if (!formData.phone.trim()) {
+    errors.phone = "Phone number is required";
+  } else if (!/^\d{10}$/.test(formData.phone)) {
+    errors.phone = "Phone number must be exactly 10 digits";
+  }
+  
+  // Email validation
+  if (!formData.email.trim()) {
+    errors.email = "Email is required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+    errors.email = "Invalid email format";
+  }
+  
+  // No validation for query field since it's optional
+  
+  setFormErrors(errors);
+  return Object.keys(errors).length === 0;
+};
 
-  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  
-  //   // Validate form before submission
-  //   if (!validateForm()) {
-  //     return;
-  //   }
-  
-  //   setIsLoading(true);
-  
-  //   // const submissionData = {
-  //   //   ...formData,
-  //   //   fullPhone: `${formData.countryCode}${formData.phone}`,
-  //   //   submissionDate: new Date().toLocaleDateString(),
-  //   //   timestamp: new Date().toISOString(),
-  //   // };
-  //   const submissionData = {
-  //     name: formData.name,
-  //     phone: formData.phone, // Just sending the 10-digit number
-  //     email: formData.email,
-  //     query: formData.query
-  //   };
-  
-  //   // try {
-  //   //   const response = await fetch("https://www.theinkpotgroup.com/api/contact", {
-  //   //     method: "POST",
-  //   //     mode: 'cors', // Add this line
-  //   //     credentials: 'same-origin', // Or 'include' if cross-origin
-  //   //     headers: { 
-  //   //       "Content-Type": "application/json",
-  //   //       // Optional: Add any additional headers if needed
-  //   //     },
-  //   //     body: JSON.stringify(submissionData),
-  //   //   });
-  //   try {
-  //     const response = await fetch("/api/contact", { // Use relative URL
-  //       method: "POST",
-  //       headers: { 
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(submissionData),
-  //     });
-  
-  //     const data = await response.json();
-  //     console.log("✅ Server Response:", data);
-  
-  //     if (!response.ok) {
-  //       throw new Error(data.error || "Failed to submit form");
-  //     }
-  
-  //     setSubmitStatus('success');
-  //     setShowModal(true);
-  //     setFormData({ 
-  //       name: "", 
-  //       countryCode: formData.countryCode, 
-  //       phone: "", 
-  //       email: "", 
-  //       query: "" 
-  //     });
-  //   } catch (error) {
-  //     console.error("❌ Error submitting form:", error);
-  //     setSubmitStatus('error');
-  //     setShowModal(true);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
-  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  
-  //   // Validate form before submission
-  //   if (!validateForm()) {
-  //     return;
-  //   }
-  
-  //   setIsLoading(true);
-  
-  //   // Prepare data in the format expected by the API
-  //   const apiData = {
-  //     name: formData.name,
-  //     // Format phone number to include country code
-  //     phone: formData.phone, // API expects just the 10-digit number
-  //     email: formData.email,
-  //     query: formData.query
-  //   };
-  
-  //   console.log("Submitting data:", apiData);
-  
-  //   try {
-  //     // Use relative URL for better portability between environments
-  //     const response = await fetch("/api/contact", {
-  //       method: "POST",
-  //       headers: { 
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(apiData),
-  //     });
-  
-  //     const data = await response.json();
-  //     console.log("✅ Server Response:", data);
-  
-  //     if (!response.ok) {
-  //       console.error("Server returned error:", data);
-  //       throw new Error(data.error || "Failed to submit form");
-  //     }
-  
-  //     // Success handling
-  //     setSubmitStatus('success');
-  //     setShowModal(true);
-  //     setFormData({ 
-  //       name: "", 
-  //       countryCode: formData.countryCode, // Keep the country code
-  //       phone: "", 
-  //       email: "", 
-  //       query: "" 
-  //     });
-  //   } catch (error) {
-  //     console.error("❌ Error submitting form:", error);
-  //     setSubmitStatus('error');
-  //     setShowModal(true);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
   
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -413,12 +285,14 @@ const Contact = () => {
   
     setIsLoading(true);
   
+    // Create API data object - query can be empty
     const apiData = {
       name: formData.name,
       countryCode: formData.countryCode,
       phone: formData.phone,
       email: formData.email,
-      query: formData.query
+      query: formData.query || "No query provided"
+// Use empty string as fallback if query is undefined
     };
   
     console.log("Submitting data:", apiData);
@@ -579,7 +453,7 @@ const Contact = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <label className="block text-sm font-subheading text-pineGreen mb-2">Name</label>
+              <label className="block text-md font-subheading text-pineGreen mb-2">Name*</label>
               <input
                 type="text"
                 name="name"
@@ -603,7 +477,7 @@ const Contact = () => {
             >
               {/* Country Code Dropdown */}
               <div className="w-1/3 relative" ref={dropdownRef}>
-                <label className="block text-sm font-subheading text-pineGreen mb-2">Country Code</label>
+                <label className="block text-md font-subheading text-pineGreen mb-2">Country Code*</label>
                 <div 
                   className={`flex items-center border-b-2 ${formErrors.countryCode ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen cursor-pointer`}
                   onClick={() => !isLoading && setIsDropdownOpen(!isDropdownOpen)}
@@ -681,7 +555,7 @@ const Contact = () => {
               </div>
 
               <div className="w-2/3">
-                <label className="block text-sm font-subheading text-pineGreen mb-2">Phone</label>
+                <label className="block text-md font-subheading text-pineGreen mb-2">Phone*</label>
                 <input
                   type="tel"
                   name="phone"
@@ -704,7 +578,7 @@ const Contact = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              <label className="block text-sm font-subheading text-pineGreen mb-2">E-mail</label>
+              <label className="block text-sm font-subheading text-pineGreen mb-2">E-mail*</label>
               <input
                 type="email"
                 name="email"
@@ -728,7 +602,7 @@ const Contact = () => {
               <label className="block text-sm font-subheading text-pineGreen mb-2">Query</label>
               <textarea
                 name="query"
-                required
+                
                 rows={4}
                 className={`w-full border-b-2 ${formErrors.query ? 'border-red-500' : 'border-ashGray'} py-2 px-3 bg-transparent focus:border-pineGreen outline-none resize-none transition-colors`}
                 value={formData.query}

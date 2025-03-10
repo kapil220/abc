@@ -170,10 +170,10 @@ const WorkSection: React.FC = () => {
   const featuredWorks = useMemo(() => {
     const allWorks = [
       ...logoDesignWork.slice(0, 10), 
-      ...realEstateWork.slice(0, 10), 
-      ...foodRestaurantWork.slice(0, 21), 
+      ...realEstateWork.slice(0, 12), 
+      ...foodRestaurantWork.slice(0, 40), 
       ...commercialsWork.slice(0, 12),
-      ...postWork.slice(0, 15),
+      ...postWork.slice(0, 59),
     ];
     return shuffleWorks(allWorks);
   }, []);

@@ -102,7 +102,7 @@ const AboutPage = () => {
           className="text-center max-w-3xl mx-auto space-y-6 "
         >
           <h2 className="text-3xl md:text-4xl text-taupe font-bold font-subheading">Our Commitment</h2>
-          <p className="text-sm md:text-md font-body text-taupe/80 leading-relaxed text-justify px-4">
+          <p className="text-sm md:text-md font-body text-taupe/80 leading-relaxed text-justify md:text-center px-4">
             Transparency, collaboration, and excellence are at the core of everything we do. We are committed to helping your brand navigate the digital landscape, ensuring your story is told authentically and effectively.
           </p>
           <p className="text-lg md:text-xl font-bold text-taupe font-subheading pt-6 md:pt-12 px-4">
