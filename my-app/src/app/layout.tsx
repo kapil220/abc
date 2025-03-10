@@ -1,6 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Loading from "./loading";// Import your Loading component
 import "@/styles/globals.css";
 
 export const metadata = {
@@ -13,9 +14,10 @@ export const metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode;
+  loading?: boolean; // Optionally accept a loading prop
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, loading }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
@@ -33,9 +35,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="font-body">
         <SpeedInsights />
         <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
+          {loading ? (
+            <Loading /> // Render the Loading component conditionally based on loading prop
+          ) : (
+            <>
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </>
+          )}
         </div>
       </body>
     </html>
