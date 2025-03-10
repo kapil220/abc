@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { 
   logoDesignWork, 
   realEstateWork, 
@@ -56,7 +57,8 @@ const workCategories: CategoryMap = {
   "Post": postWork.filter(Boolean),
 };
 
-export default function WorkPage() {
+// Create a client component that uses useSearchParams
+function WorkPageClient() {
   const searchParams = useSearchParams();
   const categoryFromQuery = searchParams.get('category');
   
@@ -350,5 +352,14 @@ export default function WorkPage() {
         </div>
       )}
     </main>
+  );
+}
+
+// Main export with Suspense boundary
+export default function WorkPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <WorkPageClient />
+    </Suspense>
   );
 }
