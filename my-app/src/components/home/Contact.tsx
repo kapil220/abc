@@ -239,111 +239,119 @@ const Contact = () => {
   };
 
  // In your validateForm function, modify the query validation section:
-const validateForm = (): boolean => {
+ const validateForm = async (): Promise<boolean> => {
   const errors: FormErrors = {};
-  
-  // Name validation - must contain only alphabets and spaces
+
+  // Name validation
   if (!formData.name.trim()) {
     errors.name = "Name is required";
   } else if (!/^[A-Za-z0-9\s]+$/.test(formData.name)) {
     errors.name = "Name should contain only alphabets and numbers";
   }
-  
+
   // Country code validation
   if (!formData.countryCode.trim()) {
     errors.countryCode = "Country code is required";
   } else if (!/^\+[0-9]{1,4}$/.test(formData.countryCode)) {
     errors.countryCode = "Invalid country code format (e.g. +1, +91)";
   }
-  
-  // Phone validation - must be 10 digits
+
+  // Phone validation
   if (!formData.phone.trim()) {
     errors.phone = "Phone number is required";
   } else if (!/^\d{10}$/.test(formData.phone)) {
     errors.phone = "Phone number must be exactly 10 digits";
   }
-  
-  // Email validation
+
+  // Email validation using AbstractAPI
   if (!formData.email.trim()) {
     errors.email = "Email is required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
-    errors.email = "Invalid email format";
+  } else {
+    try {
+      const response = await fetch(`/api/validate-email?email=${formData.email}`);
+      const result = await response.json();
+
+      if (!result.valid) {
+        errors.email = result.message || "Invalid email address";
+      }
+    } catch (err) {
+      console.error("Email validation error:", err);
+      errors.email = "Could not verify email, please try again";
+    }
   }
-  
-  // No validation for query field since it's optional
-  
+
+  // Set errors and return validation result
   setFormErrors(errors);
-  return Object.keys(errors).length === 0;
+  return Object.keys(errors).length === 0; // Returns `false` if there are errors
 };
 
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-  
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  
-    if (!validateForm()) return;
-  
-    setIsLoading(true);
-  
-    // Create API data object - query can be empty
-    const apiData = {
-      name: formData.name,
-      countryCode: formData.countryCode,
-      phone: formData.phone,
-      email: formData.email,
-      query: formData.query || "No query provided"
-// Use empty string as fallback if query is undefined
-    };
-  
-    console.log("Submitting data:", apiData);
-  
-    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+  const isValid = await validateForm(); // ✅ Ensure email validation completes before proceeding
+  if (!isValid) return; // ❌ Stop form submission if validation fails
+
+  setIsLoading(true);
+
+  // Create API data object - query can be empty
+  const apiData = {
+    name: formData.name,
+    countryCode: formData.countryCode,
+    phone: formData.phone,
+    email: formData.email,
+    query: formData.query || "No query provided" // Use empty string as fallback if query is undefined
+  };
+
+  console.log("Submitting data:", apiData);
+
+  const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+
+  try {
+    let response;
     
     try {
-      let response;
-      
-      try {
-        response = await fetch(`${API_URL}/api/contact`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(apiData),
-        });
-      } catch (fetchError) {
-        console.error("Network error:", fetchError);
-        throw new Error("Network error: Could not connect to server");
-      }
-  
-      let data;
-      try {
-        data = await response.json();
-        console.log("✅ Server Response:", data);
-      } catch (parseError) {
-        console.error("Failed to parse response:", parseError);
-        throw new Error("Failed to parse server response");
-      }
-  
-      if (!response.ok) {
-        console.error("Server returned error:", data);
-        throw new Error(data.error || "Failed to submit form");
-      }
-  
-      setSubmitStatus('success');
-      setShowModal(true);
-      setFormData({ 
-        name: "", 
-        countryCode: formData.countryCode, 
-        phone: "", 
-        email: "", 
-        query: "" 
+      response = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(apiData),
       });
-    } catch (error) {
-      console.error("❌ Error submitting form:", error);
-      setSubmitStatus('error');
-      setShowModal(true);
-    } finally {
-      setIsLoading(false);
+    } catch (fetchError) {
+      console.error("Network error:", fetchError);
+      throw new Error("Network error: Could not connect to server");
     }
-  };
+
+    let data;
+    try {
+      data = await response.json();
+      console.log("✅ Server Response:", data);
+    } catch (parseError) {
+      console.error("Failed to parse response:", parseError);
+      throw new Error("Failed to parse server response");
+    }
+
+    if (!response.ok) {
+      console.error("Server returned error:", data);
+      throw new Error(data.error || "Failed to submit form");
+    }
+
+    setSubmitStatus('success');
+    setShowModal(true);
+    setFormData({ 
+      name: "", 
+      countryCode: formData.countryCode, 
+      phone: "", 
+      email: "", 
+      query: "" 
+    });
+  } catch (error) {
+    console.error("❌ Error submitting form:", error);
+    setSubmitStatus('error');
+    setShowModal(true);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
   
 
   const closeModal = () => {

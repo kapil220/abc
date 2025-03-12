@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     serverActions: {},
     typedRoutes: true,
   },
+  env: {
+    ABSTRACTAPI_KEY: process.env.ABSTRACTAPI_KEY,
+  },
   // Add CORS configuration
   async headers() {
     return [
