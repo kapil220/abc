@@ -77,12 +77,12 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
     console.log("📧 Mail transport created, attempting to send email");
     // Create transporter
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true, // Use false for STARTTLS
+      host: "smtp.gmail.com", // Your SMTP provider
+      port: 465, // Secure port (use 587 for STARTTLS)
+      secure: true, // True for 465, false for 587
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER, // Email from .env
+        pass: process.env.EMAIL_PASS, // Password from .env
       },
     });
     

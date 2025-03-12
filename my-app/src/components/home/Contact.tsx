@@ -239,7 +239,9 @@ const Contact = () => {
   };
 
  // In your validateForm function, modify the query validation section:
- const validateForm = async (): Promise<boolean> => {
+// Update your validateForm function to handle the API response correctly:
+
+const validateForm = async (): Promise<boolean> => {
   const errors: FormErrors = {};
 
   // Name validation
@@ -263,43 +265,57 @@ const Contact = () => {
     errors.phone = "Phone number must be exactly 10 digits";
   }
 
-  // Email validation using AbstractAPI
+  // Email validation
   if (!formData.email.trim()) {
     errors.email = "Email is required";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    errors.email = "Email format is invalid";
   } else {
+    // API validation
     try {
-      const response = await fetch(`/api/validate-email?email=${formData.email}`);
-      const result = await response.json();
+      console.log("Calling email validation API for:", formData.email);
+      const response = await fetch(`/api/validate-email?email=${encodeURIComponent(formData.email)}`);
 
-      if (!result.valid) {
-        errors.email = result.message || "Invalid email address";
+      if (!response.ok) {
+        console.error("Email validation response not OK:", response.status);
+        errors.email = "Email validation service unavailable"; // ✅ Set error here
+      } else {
+        const result = await response.json();
+        console.log("Email validation result:", result);
+
+        if (!result.valid) {
+          errors.email = result.message || "Invalid email address";
+        }
       }
     } catch (err) {
       console.error("Email validation error:", err);
-      errors.email = "Could not verify email, please try again";
+      errors.email = "Could not verify email, please try again"; // ✅ Ensure error is set
     }
   }
 
-  // Set errors and return validation result
-  setFormErrors(errors);
-  return Object.keys(errors).length === 0; // Returns `false` if there are errors
+  // ✅ Ensure errors are updated properly
+  setFormErrors({ ...errors });
+
+  return Object.keys(errors).length === 0; // ❌ If errors exist, return false
 };
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
-  const isValid = await validateForm(); // ✅ Ensure email validation completes before proceeding
-  if (!isValid) return; // ❌ Stop form submission if validation fails
+  const isValid = await validateForm();
+  if (!isValid) {
+    console.warn("🚨 Validation failed, form submission stopped.");
+    return; // 🚀 Stop submission if validation fails
+  }
 
   setIsLoading(true);
 
-  // Create API data object - query can be empty
   const apiData = {
     name: formData.name,
     countryCode: formData.countryCode,
     phone: formData.phone,
     email: formData.email,
-    query: formData.query || "No query provided" // Use empty string as fallback if query is undefined
+    query: formData.query || "No query provided"
   };
 
   console.log("Submitting data:", apiData);
@@ -307,27 +323,14 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
   try {
-    let response;
-    
-    try {
-      response = await fetch(`${API_URL}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(apiData),
-      });
-    } catch (fetchError) {
-      console.error("Network error:", fetchError);
-      throw new Error("Network error: Could not connect to server");
-    }
+    const response = await fetch(`${API_URL}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(apiData),
+    });
 
-    let data;
-    try {
-      data = await response.json();
-      console.log("✅ Server Response:", data);
-    } catch (parseError) {
-      console.error("Failed to parse response:", parseError);
-      throw new Error("Failed to parse server response");
-    }
+    const data = await response.json();
+    console.log("✅ Server Response:", data);
 
     if (!response.ok) {
       console.error("Server returned error:", data);
@@ -351,6 +354,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     setIsLoading(false);
   }
 };
+
 
   
 
