@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Contact from "@/models/Contact";
-import nodemailer from "nodemailer";
+import sgMail from '@sendgrid/mail';
 
 // Updated interface with optional query
 interface ContactFormData {
@@ -9,7 +10,7 @@ interface ContactFormData {
   countryCode: string;
   phone: string;
   email: string;
-  query?: string; // Made query optional with "?"
+  query?: string;
 }
 
 function validateFormData(data: ContactFormData): string[] {
@@ -38,9 +39,6 @@ function validateFormData(data: ContactFormData): string[] {
     errors.push("Invalid email address");
   }
 
-  // Query validation - only validate if query is provided
- 
-
   return errors;
 }
 
@@ -56,44 +54,69 @@ export async function OPTIONS() {
   });
 }
 
-// Email notification function with fallback for missing admin email
-async function sendEmailNotification(contactData: ContactFormData): Promise<void> {
-  console.log("📧 Starting email sending process with user:", process.env.EMAIL_USER);
-  // Check for required email credentials
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.error("❌ Missing email credentials");
-    return;
+// Diagnostic function to check SendGrid configuration
+async function checkSendGridConfig(): Promise<boolean> {
+  if (!process.env.SENDGRID_API_KEY) {
+    console.error("❌ SENDGRID_API_KEY is missing");
+    return false;
   }
-
-  // Default admin email fallback
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
   
-  if (!adminEmail) {
-    console.error("❌ No admin email configured");
-    return;
+  if (!process.env.FROM_EMAIL) {
+    console.error("❌ FROM_EMAIL is missing");
+    return false;
   }
+  
+  if (!process.env.ADMIN_EMAIL) {
+    console.error("❌ ADMIN_EMAIL is missing (will use FROM_EMAIL instead)");
+    // Not returning false as we'll fall back to FROM_EMAIL
+  }
+  
+  console.log("✅ SendGrid configuration check passed");
+  console.log(`📧 From email: ${process.env.FROM_EMAIL}`);
+  console.log(`📧 Admin email: ${process.env.ADMIN_EMAIL || process.env.FROM_EMAIL}`);
+  console.log(`📧 API Key present: ${process.env.SENDGRID_API_KEY ? "Yes" : "No"}`);
+  
+  return true;
+}
 
+// SendGrid email notification function with enhanced error handling
+async function sendEmailNotification(contactData: ContactFormData): Promise<boolean> {
+  console.log("🚀 Starting SendGrid email process");
+  
+  // Check configuration
+  const configValid = await checkSendGridConfig();
+  if (!configValid) {
+    return false;
+  }
+  
+  // Set SendGrid API key
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+  
+  // Get admin email (with fallback)
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.FROM_EMAIL;
+  const fromEmail = process.env.FROM_EMAIL as string;
+  
   try {
-    console.log("📧 Mail transport created, attempting to send email");
-    // Create transporter
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com", // Your SMTP provider
-      port: 465, // Secure port (use 587 for STARTTLS)
-      secure: true, // True for 465, false for 587
-      auth: {
-        user: process.env.EMAIL_USER, // Email from .env
-        pass: process.env.EMAIL_PASS, // Password from .env
-      },
-    });
-    
     // Format full phone with country code
     const fullPhone = `${contactData.countryCode}${contactData.phone}`;
+    
+    // Create a simple text version for better deliverability
+    const textContent = `
+      New Contact Form Submission
+      ---------------------------
+      Name: ${contactData.name}
+      Phone: ${fullPhone}
+      Email: ${contactData.email}
+      Query: ${contactData.query || "No query provided"}
+      Submission Date: ${new Date().toLocaleString()}
+    `;
 
-    // Prepare mail options
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: adminEmail,
+    // Prepare email message
+    const msg = {
+      to: adminEmail as string,
+      from: fromEmail,
       subject: `New Contact Form Submission from ${contactData.name}`,
+      text: textContent, // Plain text version
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>📋 New Contact Form Submission</h2>
@@ -123,16 +146,48 @@ async function sendEmailNotification(contactData: ContactFormData): Promise<void
       `,
     };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
-    console.log("📧 Email sent successfully to", adminEmail);
+    console.log(`📧 Attempting to send email from ${fromEmail} to ${adminEmail}`);
     
-  } catch (error) {
-    console.error("❌ Error sending email:", error);
+    // Send email and capture response
+    const [response] = await sgMail.send(msg);
+    
+    console.log(`📧 SendGrid response status: ${response.statusCode}`);
+    
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      console.log("✅ Email sent successfully");
+      return true;
+    } else {
+      console.error(`❌ SendGrid returned non-success status code: ${response.statusCode}`);
+      console.error("Headers:", JSON.stringify(response.headers));
+      return false;
+    }
+    
+  } catch (error: any) {
+    console.error("❌ SendGrid email sending failed:");
+    
+    if (error.code) {
+      console.error(`Error code: ${error.code}`);
+    }
+    
+    if (error.response) {
+      console.error(`Status code: ${error.response.statusCode}`);
+      console.error("Response body:", JSON.stringify(error.response.body));
+      
+      // Log specific SendGrid errors
+      if (error.response.body && error.response.body.errors) {
+        error.response.body.errors.forEach((err: any, index: number) => {
+          console.error(`SendGrid Error ${index + 1}:`, err.message, `(${err.field})`);
+        });
+      }
+    } else {
+      console.error("Error details:", error.message || error);
+    }
+    
+    return false;
   }
 }
 
-// Main POST handler
+// Main POST handler with refined email notification handling
 export async function POST(req: Request) {
   console.log("📝 Received contact form submission");
   
@@ -144,11 +199,11 @@ export async function POST(req: Request) {
   };
 
   try {
-    // Parse request body - add error handling for JSON parsing
+    // Parse request body
     let requestData: ContactFormData;
     try {
       requestData = await req.json();
-      console.log("📤 Received form data:", JSON.stringify(requestData, null, 2));
+      console.log("📤 Form data received:", JSON.stringify(requestData, null, 2));
     } catch (error) {
       console.error("❌ Failed to parse request body:", error);
       return NextResponse.json(
@@ -157,7 +212,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // Connect to database - with better error handling
+    // Validate form data
+    const validationErrors = validateFormData(requestData);
+    if (validationErrors.length > 0) {
+      console.log("❌ Validation errors:", validationErrors);
+      return NextResponse.json(
+        { error: "Validation Failed", details: validationErrors }, 
+        { status: 400, headers: corsHeaders }
+      );
+    }
+
+    // Connect to database
     try {
       await dbConnect();
       console.log("✅ Connected to database");
@@ -169,23 +234,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Validate form data
-    const validationErrors = validateFormData(requestData);
-    if (validationErrors.length > 0) {
-      console.log("❌ Validation errors:", validationErrors);
-      return NextResponse.json(
-        { 
-          error: "Validation Failed", 
-          details: validationErrors 
-        }, 
-        { 
-          status: 400,
-          headers: corsHeaders 
-        }
-      );
-    }
-
-    // Destructure validated data - now including countryCode
+    // Destructure validated data
     const { name, countryCode, phone, email, query = "" } = requestData;
 
     // Prepare submission data
@@ -193,32 +242,37 @@ export async function POST(req: Request) {
     const timestamp = new Date().toISOString();
     const fullPhone = `${countryCode}${phone}`;
 
-    // Create new contact record - with enhanced model
-   // Create new contact record - with enhanced model
-const newContact = new Contact({ 
-  name, 
-  countryCode,
-  phone, 
-  fullPhone,
-  email, 
-  query, // Will be empty string if not provided
-  submissionDate, 
-  timestamp 
-});
+    // Create new contact record
+    const newContact = new Contact({ 
+      name, 
+      countryCode,
+      phone, 
+      fullPhone,
+      email, 
+      query,
+      submissionDate, 
+      timestamp 
+    });
 
     // Save to database
     await newContact.save();
     console.log("✅ Contact saved to database with ID:", newContact._id);
 
-    // Send email notification (async, non-blocking)
-    sendEmailNotification({ name, countryCode, phone, email, query })
-      .catch(err => console.error("Email notification failed:", err));
+    // Send email notification (synchronously wait for result)
+    let emailSent = false;
+    try {
+      emailSent = await sendEmailNotification(requestData);
+      console.log(`📧 Email notification ${emailSent ? "sent" : "failed"}`);
+    } catch (emailError) {
+      console.error("❌ Email notification exception:", emailError);
+    }
 
-    // Successful response
+    // Always return success if contact was saved, even if email failed
     return NextResponse.json(
       { 
         message: "Form submitted successfully!", 
-        contactId: newContact._id 
+        contactId: newContact._id,
+        emailSent: emailSent
       }, 
       { 
         status: 201,
@@ -227,24 +281,12 @@ const newContact = new Contact({
     );
  
   } catch (error: unknown) {
-    // Detailed error logging
     console.error("❌ Form Submission Error:", error);
-
-    // Determine error message
-    const errorMessage = error instanceof Error 
-      ? error.message 
-      : "An unexpected error occurred during form submission";
-
-    // Error response
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    
     return NextResponse.json(
-      { 
-        error: errorMessage,
-        details: String(error)
-      }, 
-      { 
-        status: 500,
-        headers: corsHeaders 
-      }
+      { error: errorMessage },
+      { status: 500, headers: corsHeaders }
     );
   }
 }
