@@ -41,15 +41,21 @@ async function validateEmail(email: string): Promise<{ valid: boolean; message?:
   }
 
   // Extract domain
-  const [localPart, domain] = email.split("@");
-  
+  const domain = email.split("@")[1]?.toLowerCase();
+
+  console.log("🔍 Checking email domain:", domain);
+
+  if (!domain) {
+    return { valid: false, message: "Invalid email domain" };
+  }
+
   // Step 2: Check for disposable email domains
   if (isDisposableEmail(domain)) {
     return { valid: false, message: "Disposable email addresses are not accepted" };
   }
 
   // Step 3: Check for role-based emails
-  if (isRoleEmail(localPart)) {
+  if (isRoleEmail(email.split("@")[0])) {
     return { valid: false, message: "Role-based email addresses are not accepted" };
   }
 
@@ -65,9 +71,7 @@ async function validateEmail(email: string): Promise<{ valid: boolean; message?:
       return { valid: false, message: "Email domain does not have valid mail servers" };
     }
   } catch (error) {
-    console.error("MX Record check error:", error);
-    // If we can't check MX records due to an error, we'll be lenient and pass the email
-    // Many environments have limitations on DNS resolution
+    console.error("⚠️ MX Record check error:", error);
     console.log("⚠️ Skipping MX verification due to DNS error");
   }
 
@@ -86,7 +90,10 @@ function isDisposableEmail(domain: string): boolean {
     "emailondeck.com", "anonbox.net", "tuamae.com", "keemail.me", "mailsac.com"
   ];
 
-  return disposableDomains.includes(domain.toLowerCase());
+  console.log("🔍 Checking disposable domain:", domain);
+
+  // Check if the domain **ends with** any known disposable domain (handles subdomains)
+  return disposableDomains.some(d => domain.endsWith(d));
 }
 
 function isRoleEmail(localPart: string): boolean {
@@ -96,6 +103,8 @@ function isRoleEmail(localPart: string): boolean {
     "webmaster", "hello", "abuse", "marketing", "team", "careers", "accounts",
     "hr", "jobs", "service", "test", "finance", "newsletter"
   ];
+
+  console.log("🔍 Checking role-based email:", localPart);
 
   return roleBasedEmails.includes(localPart.toLowerCase());
 }
@@ -109,15 +118,18 @@ function isInvalidDomain(domain: string): boolean {
     "domain.com", "email.com", "mail.com"
   ];
   
+  console.log("🔍 Checking invalid domain:", domain);
+
   return invalidDomains.includes(domain.toLowerCase());
 }
 
 async function checkMxRecords(domain: string): Promise<boolean> {
   try {
     const addresses = await resolveMx(domain);
+    console.log("✅ MX Records found:", addresses);
     return addresses && addresses.length > 0;
   } catch (error) {
-    console.error("MX lookup error:", error);
+    console.error("❌ MX lookup error:", error);
     return false;
   }
 }
