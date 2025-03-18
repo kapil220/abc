@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
@@ -67,6 +67,9 @@ const TestimonialsPage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [autoPlay, setAutoPlay] = useState(true);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const userInteractedRef = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -78,9 +81,55 @@ const TestimonialsPage: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const moveCarousel = (direction: 'prev' | 'next') => {
+  // Auto-rotation effect
+  useEffect(() => {
+    const startAutoPlay = () => {
+      autoPlayRef.current = setInterval(() => {
+        if (autoPlay && !userInteractedRef.current) {
+          moveCarousel('next', false);
+        }
+        userInteractedRef.current = false;
+      }, 3000);
+    };
+
+    startAutoPlay();
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [autoPlay]);
+
+  // Reset auto-rotation when activeIndex changes
+  useEffect(() => {
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+    }
+    
+    if (autoPlay) {
+      autoPlayRef.current = setInterval(() => {
+        if (autoPlay && !userInteractedRef.current) {
+          moveCarousel('next', false);
+        }
+        userInteractedRef.current = false;
+      }, 3000);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [activeIndex, autoPlay]);
+
+  const moveCarousel = (direction: 'prev' | 'next', userInitiated: boolean = true) => {
     if (isAnimating) return;
     
+    if (userInitiated) {
+      userInteractedRef.current = true;
+    }
+
     setIsAnimating(true);
     setActiveIndex(prev => {
       if (direction === 'next') {
@@ -96,6 +145,7 @@ const TestimonialsPage: React.FC = () => {
   const handleCardClick = (clickedIndex: number) => {
     if (isAnimating || clickedIndex === activeIndex) return;
     
+    userInteractedRef.current = true;
     setIsAnimating(true);
     setActiveIndex(clickedIndex);
     setTimeout(() => setIsAnimating(false), 400);
@@ -158,70 +208,66 @@ const TestimonialsPage: React.FC = () => {
 
   return (
     <div className="pt-12 md:pt-16 lg:pt-20 bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7]">
-
-
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center text-center">
-
-
-       
-        <div className="text-center ">
+        <div className="text-center">
           <h2 className="text-4xl md:text-7xl font-heading text-taupe font-medium text-center mb-8 md:mb-12">What Our Clients Say</h2>
           <h3 className="text-xl font-subheading text-taupe/80 mb-12 max-w-3xl mx-auto">
             Hear what our clients have to say about working with us
           </h3>
         </div>
 
-        <div className="relative h-[280px] md:h-[400px] flex justify-center items-center">
+        <div 
+          className="relative h-[280px] md:h-[400px] flex justify-center items-center"
+          onMouseEnter={() => setAutoPlay(false)}
+          onMouseLeave={() => setAutoPlay(true)}
+          onTouchStart={() => setAutoPlay(false)}
+          onTouchEnd={() => {
+            setTimeout(() => setAutoPlay(true), 5000);
+          }}
+        >
+          <div className="absolute inset-0 flex justify-center items-center transform-style-3d">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="absolute flex justify-center items-center w-[300px] md:w-[400px] h-[330px] md:h-[340px]"
+                style={getCardStyle(index)}
+                onClick={() => handleCardClick(index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleCardClick(index);
+                  }
+                }}
+                aria-label={`View testimonial from ${testimonial.name}`}
+              >
+                <div className="bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow h-full">
+                  <div className="p-4 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-4 border-b border-gray-100">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      width={150}
+                      height={50}
+                      className="w-16 h-16 rounded-full object-cover"
+                    />
+                    <div className="text-center md:text-left">
+                      <h3 className="text-lg md:text-xl text-semibold font-heading text-pineGreen">
+                        {testimonial.name}
+                      </h3>
+                      <h3 className="text-md font-subheading text-taupe">
+                        {testimonial.role}
+                      </h3>
+                    </div>
+                  </div>
 
-
-        <div className="absolute inset-0 flex justify-center items-center transform-style-3d">
-
-        {testimonials.map((testimonial, index) => (
-  <div
-    key={index}
-    className="absolute flex justify-center items-center w-[300px] md:w-[400px] h-[330px] md:h-[340px]"
-    style={getCardStyle(index)}
-    onClick={() => handleCardClick(index)}
-    role="button"
-    tabIndex={0}
-    onKeyDown={(e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        handleCardClick(index);
-      }
-    }}
-    aria-label={`View testimonial from ${testimonial.name}`}
-  >
-    <div className="bg-white rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow h-full">
-      <div className="p-4 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-4 border-b border-gray-100">
-        <Image
-         
-          src={testimonial.image}
-          alt={testimonial.name}
-          width={150}
-          height={50}
-          className="w-16 h-16 rounded-full object-cover"
-        />
-        <div className="text-center md:text-left">
-          <h3 className="text-lg md:text-xl text-semibold font-heading text-pineGreen">
-            {testimonial.name}
-          </h3>
-          <h3 className="text-md font-subheading text-taupe">
-            {testimonial.role}
-          </h3>
-        </div>
-      </div>
-
-      <div className="p-4 md:p-6">
-      <p className="text-sm md:text-base text-justify text-taupe/80 font-body  pb-6 max-w-lg mx-auto">
-    {testimonial.feedback.replace(/"/g, '&quot;')}
-</p>
-
-
-      </div>
-    </div>
-  </div>
-))}
-
+                  <div className="p-4 md:p-6">
+                    <p className="text-sm md:text-base text-justify text-taupe/80 font-body pb-6 max-w-lg mx-auto">
+                      {testimonial.feedback.replace(/"/g, '&quot;')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

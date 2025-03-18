@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Instagram, Linkedin, Facebook, } from 'lucide-react';
+import { Instagram, Linkedin, Facebook, Youtube, } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -30,16 +30,20 @@ const Footer = () => {
         Creating compelling digital experiences that transform brands and drive results. Your success story starts here.
       </p>
       <div className="flex space-x-4">
-        <a href="https://www.instagram.com/the.inkpotgroup/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
-          <Instagram className="h-6 w-6" />
-        </a>
-        <a href="https://www.linkedin.com/company/theinkpotgroup/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
-          <Linkedin className="h-6 w-6" />
-        </a>
-        <a href="https://www.facebook.com/share/15sn7Wy3fu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
-          <Facebook className="h-6 w-6" />
-        </a>
-      </div>
+  <a href="https://www.instagram.com/the.inkpotgroup/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
+    <Instagram className="h-6 w-6" />
+  </a>
+  <a href="https://www.linkedin.com/company/theinkpotgroup/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
+    <Linkedin className="h-6 w-6" />
+  </a>
+  <a href="https://www.facebook.com/share/15sn7Wy3fu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
+    <Facebook className="h-6 w-6" />
+  </a>
+  <a href="https://www.youtube.com/@TheInkpotGroup" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">
+    <Youtube className="h-6 w-6" />
+  </a>
+</div>
+
     </div>
   </div>
 </div>
