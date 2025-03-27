@@ -74,50 +74,50 @@ function useVideoThumbnail(videoSrc: string | undefined) {
     if (!videoSrc) return;
 
     const generateThumbnail = async () => {
-      return new Promise<string>((resolve, reject) => {
-        const video = document.createElement('video');
+      try {
+        const video = document.createElement("video");
         video.src = videoSrc;
-        video.crossOrigin = 'anonymous';
-        
-        video.onloadedmetadata = () => {
-          video.currentTime = Math.min(1, video.duration * 0.1);
-        };
+        video.crossOrigin = "anonymous";
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = "auto"; // Force preload
+        video.load();
 
-        video.onseeked = () => {
-          try {
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth || 640;
-            canvas.height = video.videoHeight || 360;
-            const ctx = canvas.getContext('2d');
-            
-            if (ctx) {
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-              const thumbnailDataUrl = canvas.toDataURL('image/jpeg');
-              resolve(thumbnailDataUrl);
-            } else {
-              reject(new Error('Could not create canvas context'));
-            }
-          } catch (error) {
-            reject(error);
-          }
-        };
+        await new Promise<void>((resolve, reject) => {
+          video.oncanplaythrough = () => resolve(); // Ensure video can be played
+          video.onerror = () => reject(new Error("Video failed to load"));
+        });
 
-        video.onerror = () => reject(new Error('Video loading error'));
-      });
+        video.currentTime = Math.min(1, video.duration * 0.1);
+
+        await new Promise<void>((resolve) => {
+          video.onseeked = () => resolve();
+        });
+
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.min(640, video.videoWidth || 640);
+        canvas.height = Math.min(360, video.videoHeight || 360);
+        const ctx = canvas.getContext("2d");
+
+        if (ctx) {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          setVideoThumbnail(canvas.toDataURL("image/jpeg"));
+        } else {
+          throw new Error("Canvas context is null");
+        }
+      } catch (error) {
+        console.error("Thumbnail generation failed:", error);
+        setVideoThumbnail("/fallback-thumbnail.jpg");
+      }
     };
 
-    generateThumbnail()
-      .then(setVideoThumbnail)
-      .catch(error => {
-        console.error('Thumbnail generation failed:', error);
-        setVideoThumbnail('/placeholder.jpg');
-      });
-
-    return () => {};
+    generateThumbnail();
   }, [videoSrc]);
 
   return videoThumbnail;
 }
+
+
 
 // Memoized Work Item Component
 const MemoizedWorkItem: React.FC<{ 
