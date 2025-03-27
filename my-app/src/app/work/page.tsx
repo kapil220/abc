@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+
+// Assuming you have these imports from your project
 import { 
   logoDesignWork, 
   realEstateWork, 
@@ -15,20 +17,22 @@ import {
 } from "@/lib/constant";
 import { WorkItem } from "@/types";
 
+// Interfaces and Types
 interface CategoryMap {
   [key: string]: WorkItem[];
 }
 
+// Categories for filtering
 const categories = [
   "All",
   "Logo Design",
-  "Real Estate",
+  "Real Estate", 
   "Food & Restaurant",
   "Commercials",
   "Post",
 ];
 
-// Memoized shuffle function to prevent unnecessary re-computations
+// Utility Functions
 const shuffleArray = <T,>(array: T[]): T[] => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -38,14 +42,14 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-// Explicitly ensure all works are included in the allWorks array
+// Combine and filter works
 const allWorks = [
   ...logoDesignWork, 
   ...realEstateWork, 
   ...foodRestaurantWork, 
   ...commercialsWork, 
   ...postWork
-].filter(Boolean); // Remove any potential null or undefined items
+].filter(Boolean);
 
 const workCategories: CategoryMap = {
   "All": allWorks,
@@ -56,13 +60,66 @@ const workCategories: CategoryMap = {
   "Post": postWork.filter(Boolean),
 };
 
-// Performance optimization: Precompute shuffled works
+// Precompute shuffled works
 const precomputedShuffledWorks = Object.keys(workCategories).reduce((acc, category) => {
   acc[category] = shuffleArray(workCategories[category]);
   return acc;
 }, {} as CategoryMap);
 
-// Memoized work item renderer with video thumbnail extraction
+// Custom Video Thumbnail Hook
+function useVideoThumbnail(videoSrc: string | undefined) {
+  const [videoThumbnail, setVideoThumbnail] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!videoSrc) return;
+
+    const generateThumbnail = async () => {
+      return new Promise<string>((resolve, reject) => {
+        const video = document.createElement('video');
+        video.src = videoSrc;
+        video.crossOrigin = 'anonymous';
+        
+        video.onloadedmetadata = () => {
+          video.currentTime = Math.min(1, video.duration * 0.1);
+        };
+
+        video.onseeked = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 360;
+            const ctx = canvas.getContext('2d');
+            
+            if (ctx) {
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              const thumbnailDataUrl = canvas.toDataURL('image/jpeg');
+              resolve(thumbnailDataUrl);
+            } else {
+              reject(new Error('Could not create canvas context'));
+            }
+          } catch (error) {
+            reject(error);
+          }
+        };
+
+        video.onerror = () => reject(new Error('Video loading error'));
+      });
+    };
+
+    generateThumbnail()
+      .then(setVideoThumbnail)
+      .catch(error => {
+        console.error('Thumbnail generation failed:', error);
+        setVideoThumbnail('/placeholder.jpg');
+      });
+
+    return () => {};
+  }, [videoSrc]);
+
+  return videoThumbnail;
+}
+
+// Memoized Work Item Component
 const MemoizedWorkItem: React.FC<{ 
   work: WorkItem, 
   index: number, 
@@ -80,40 +137,8 @@ const MemoizedWorkItem: React.FC<{
   const heightClasses = ["h-80", "h-96", "h-72", "h-64", "h-84", "h-64", "h-80", "h-96", "h-72", "h-84"];
   const heightClass = heightClasses[index % heightClasses.length];
 
-  // Video thumbnail extraction
-  const [videoThumbnail, setVideoThumbnail] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (isVideo && work.video) {
-      const video = document.createElement('video');
-      video.src = work.video;
-
-      const handleLoadedMetadata = () => {
-        video.currentTime = 1; // Seek to 1 second to get a representative frame
-      };
-
-      const handleTimeUpdate = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d')?.drawImage(video, 0, 0, canvas.width, canvas.height);
-        setVideoThumbnail(canvas.toDataURL());
-        
-        // Remove event listeners
-        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-        video.removeEventListener('timeupdate', handleTimeUpdate);
-      };
-
-      video.addEventListener('loadedmetadata', handleLoadedMetadata);
-      video.addEventListener('timeupdate', handleTimeUpdate);
-
-      // Cleanup function
-      return () => {
-        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-        video.removeEventListener('timeupdate', handleTimeUpdate);
-      };
-    }
-  }, [work.video, isVideo]);
+  // Use custom thumbnail hook
+  const videoThumbnail = useVideoThumbnail(isVideo ? work.video : undefined);
 
   if (isVideo) {
     return (
@@ -180,6 +205,7 @@ const MemoizedWorkItem: React.FC<{
     );
   }
 
+  // Image rendering remains the same
   return (
     <motion.div 
       key={`${selectedCategory}-${index}-${work.title}`}
@@ -238,6 +264,7 @@ const MemoizedWorkItem: React.FC<{
 });
 MemoizedWorkItem.displayName = 'MemoizedWorkItem';
 
+// Main Client Component
 function WorkPageClient() {
   const searchParams = useSearchParams();
   const categoryFromQuery = searchParams.get('category');
@@ -256,29 +283,25 @@ function WorkPageClient() {
   const loadMoreTriggerRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
   
-  // Performance optimization: Use precomputed shuffled works
+  // Memoized filtered works
   const filteredWorks = useMemo(() => {
     return precomputedShuffledWorks[selectedCategory] || [];
   }, [selectedCategory]);
   
-  // Memoized infinite scroll setup
+  // Infinite scroll setup
   const setupInfiniteScroll = useCallback(() => {
-    // Disconnect any existing observer
     if (observerRef.current) {
       observerRef.current.disconnect();
     }
 
-    // Create a new observer
     observerRef.current = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && visibleItems < filteredWorks.length) {
           setIsLoading(true);
           
-          // Use requestAnimationFrame for smoother loading
           requestAnimationFrame(() => {
             setVisibleItems(prev => Math.min(prev + 12, filteredWorks.length));
             
-            // Slight delay to ensure smooth transition
             setTimeout(() => {
               setIsLoading(false);
             }, 300);
@@ -288,17 +311,15 @@ function WorkPageClient() {
       { threshold: 0.1 }
     );
 
-    // Observe the load more trigger
     if (loadMoreTriggerRef.current) {
       observerRef.current.observe(loadMoreTriggerRef.current);
     }
   }, [filteredWorks.length, visibleItems]);
 
-  // Infinite scroll setup effect
+  // Infinite scroll effect
   useEffect(() => {
     setupInfiniteScroll();
 
-    // Cleanup observer
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
@@ -306,7 +327,7 @@ function WorkPageClient() {
     };
   }, [setupInfiniteScroll]);
   
-  // Update selectedCategory when URL parameter changes
+  // Update category from URL
   useEffect(() => {
     if (categoryFromQuery && categories.includes(categoryFromQuery)) {
       setSelectedCategory(categoryFromQuery);
@@ -314,18 +335,17 @@ function WorkPageClient() {
     }
   }, [categoryFromQuery]);
   
-  // Memoized category change handler
+  // Category change handler
   const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
     setVisibleItems(15);
     
-    // Update URL with the selected category without refreshing the page
     const url = new URL(window.location.href);
     url.searchParams.set('category', category);
     window.history.pushState({}, '', url);
   }, []);
   
-  // Memoized modal open/close handlers
+  // Modal open/close handlers
   const openVideoModal = useCallback((work: WorkItem) => {
     setSelectedVideo(work);
     setVideoModalOpen(true);
@@ -371,7 +391,7 @@ function WorkPageClient() {
     }
   }, [isPlaying]);
 
-  // Render method for work items with memoization
+  // Render method for work items
   const renderWorkItem = useCallback((work: WorkItem, index: number) => (
     <MemoizedWorkItem
       key={`${selectedCategory}-${index}-${work.title}`}
@@ -413,7 +433,7 @@ function WorkPageClient() {
           </div>
         </div>
         
-        {/* Masonry Layout with Horizontal-like Loading */}
+        {/* Masonry Layout */}
         <AnimatePresence mode="wait">
           <motion.div 
             key={selectedCategory}
@@ -427,7 +447,7 @@ function WorkPageClient() {
           </motion.div>
         </AnimatePresence>
         
-        {/* Infinite Scroll Trigger with Smooth Loading */}
+        {/* Infinite Scroll Trigger */}
         {visibleItems < filteredWorks.length && (
           <motion.div 
             ref={loadMoreTriggerRef}
@@ -440,7 +460,7 @@ function WorkPageClient() {
           </motion.div>
         )}
         
-        {/* Show message if no works found */}
+        {/* No Works Message */}
         {filteredWorks.length === 0 && (
           <div className="text-center p-8 bg-white rounded-xl shadow-md">
             <p className="text-lg text-gray-600">No projects found in this category.</p>
@@ -505,7 +525,6 @@ function WorkPageClient() {
             className="relative bg-transparent rounded-xl overflow-hidden max-w-6xl w-full max-h-[90vh] flex items-center justify-center"
           >
             <div className="relative w-full h-full flex items-center justify-center">
-              {/* Image with proper sizing to ensure it's fully visible */}
               <div className="relative w-full h-full max-h-[90vh] flex items-center justify-center">
                 <Image 
                   src={selectedImage.image || selectedImage.thumbnail || "/placeholder.jpg"}
@@ -517,7 +536,7 @@ function WorkPageClient() {
                 />
               </div>
               
-              {/* Close button - made more visible */}
+              {/* Close button */}
               <button 
                 onClick={closeImageModal}
                 className="absolute top-4 right-4 bg-black/70 text-white rounded-full p-2 hover:bg-black transition-colors z-10"
@@ -540,4 +559,3 @@ export default function WorkPage() {
     </Suspense>
   );
 }
-
