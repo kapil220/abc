@@ -117,8 +117,6 @@ function useVideoThumbnail(videoSrc: string | undefined) {
   return videoThumbnail;
 }
 
-
-
 // Memoized Work Item Component
 const MemoizedWorkItem: React.FC<{ 
   work: WorkItem, 
@@ -152,7 +150,7 @@ const MemoizedWorkItem: React.FC<{
           delay: index * 0.05,
           ease: "easeOut"
         }}
-        className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
+        className="group cursor-pointer break-inside-avoid mb-6 will-change-transform w-full md:w-1/2 lg:w-1/3 px-4"
         onClick={() => openVideoModal(work)}
       >
         <div 
@@ -205,7 +203,7 @@ const MemoizedWorkItem: React.FC<{
     );
   }
 
-  // Image rendering remains the same
+  // Image rendering
   return (
     <motion.div 
       key={`${selectedCategory}-${index}-${work.title}`}
@@ -217,7 +215,7 @@ const MemoizedWorkItem: React.FC<{
         delay: index * 0.05,
         ease: "easeOut"
       }}
-      className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
+      className="group cursor-pointer break-inside-avoid mb-6 will-change-transform w-full md:w-1/2 lg:w-1/3 px-4"
       onClick={() => openImageModal(work)}
     >
       <div 
@@ -437,7 +435,7 @@ function WorkPageClient() {
         <AnimatePresence mode="wait">
           <motion.div 
             key={selectedCategory}
-            className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
+            className="flex flex-wrap -mx-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
