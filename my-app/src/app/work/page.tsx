@@ -541,4 +541,3 @@ export default function WorkPage() {
   );
 }
 
-export { WorkPageClient };
