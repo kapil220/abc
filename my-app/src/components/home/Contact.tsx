@@ -370,7 +370,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     <div className="h-full flex flex-col py-12 md:py-16 lg:py-20 lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] font-body">
       {/* Left Section - Schedule Meeting */}
       <motion.div 
-          className="lg:w-1/2 p-6 lg:p-6 lg:pl-44 md:pl-24 flex flex-col justify-center items-center"
+          className="order-2 lg:order-1 lg:w-1/2 p-6 lg:p-6 lg:pl-44 md:pl-24 flex flex-col justify-center items-center"
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
@@ -447,7 +447,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
       {/* Right Section - Contact Form */}
       <motion.div 
-        className="lg:w-1/2 py-12 lg:py-20 px-6 lg:pr-32"
+        className="order-1 lg:order-2 lg:w-1/2 py-12 lg:py-20 px-6 lg:pr-32"
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}

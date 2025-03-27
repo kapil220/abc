@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useMemo, useEffect } from "react";
+import React, { useState, useCallback, useRef, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, X } from "lucide-react";
@@ -29,7 +29,7 @@ const categories = [
   "Post",
 ];
 
-// Shuffle function
+// Memoized shuffle function to prevent unnecessary re-computations
 const shuffleArray = <T,>(array: T[]): T[] => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -57,7 +57,99 @@ const workCategories: CategoryMap = {
   "Post": postWork.filter(Boolean),
 };
 
-// Create a client component that uses useSearchParams
+// Performance optimization: Precompute shuffled works
+const precomputedShuffledWorks = Object.keys(workCategories).reduce((acc, category) => {
+  acc[category] = shuffleArray(workCategories[category]);
+  return acc;
+}, {} as CategoryMap);
+
+// Memoized work item renderer
+const MemoizedWorkItem: React.FC<{ 
+  work: WorkItem, 
+  index: number, 
+  selectedCategory: string, 
+  openImageModal: (work: WorkItem) => void,
+  openVideoModal: (work: WorkItem) => void 
+}> = React.memo(({ 
+  work, 
+  index, 
+  selectedCategory, 
+  openImageModal, 
+  openVideoModal 
+}) =>  {
+  const isVideo = work.type === "video" && work.video;
+  const heightClasses = ["h-80", "h-96", "h-72", "h-64", "h-84", "h-64", "h-80", "h-96", "h-72", "h-84"];
+  const heightClass = heightClasses[index % heightClasses.length];
+
+  if (isVideo) {
+    return (
+      <VideoAutoplay 
+        key={`${selectedCategory}-${index}-${work.title}`}
+        work={work}
+        index={index}
+        openModal={openVideoModal}
+      />
+    );
+  }
+
+  return (
+    <motion.div 
+      key={`${selectedCategory}-${index}-${work.title}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ 
+        duration: 0.4, 
+        delay: index * 0.05,
+        ease: "easeOut"
+      }}
+      className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
+      onClick={() => openImageModal(work)}
+    >
+      <div 
+        className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} min-h-[16rem] transform transition-all duration-500 ease-in-out hover:shadow-lg`}
+      >
+        <div className="absolute inset-0 w-full h-full">
+          <Image 
+            loading="lazy"
+            src={work.image || work.thumbnail || "/placeholder.jpg"}
+            alt={work.title || "Project image"}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-contain transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
+            onError={() => console.error(`Failed to load image for: ${work.title}`)}
+          />
+          
+          <div 
+            className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+            aria-hidden="true"
+          ></div>
+          
+          <div 
+            className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out delay-75 pointer-events-none"
+            aria-hidden="true"
+          >
+            <div>
+              <span className="inline-block px-2 py-1 text-xs font-medium bg-pineGreen text-white rounded-md">
+                {work.category || selectedCategory}
+              </span>
+            
+              <div className="mt-4">
+                {(work.tags?.length ? work.tags : ["Creative", "Design"]).map((tag, i) => (
+                  <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm mr-2 mb-2 inline-block">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+});
+MemoizedWorkItem.displayName = 'MemoizedWorkItem';
+
 function WorkPageClient() {
   const searchParams = useSearchParams();
   const categoryFromQuery = searchParams.get('category');
@@ -68,28 +160,76 @@ function WorkPageClient() {
   const [selectedVideo, setSelectedVideo] = useState<WorkItem | null>(null);
   const [selectedImage, setSelectedImage] = useState<WorkItem | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [visibleItems, setVisibleItems] = useState(15);
+  const [isLoading, setIsLoading] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadMoreTriggerRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
+  
+  // Performance optimization: Use precomputed shuffled works
+  const filteredWorks = useMemo(() => {
+    return precomputedShuffledWorks[selectedCategory] || [];
+  }, [selectedCategory]);
+  
+  // Memoized infinite scroll setup
+  const setupInfiniteScroll = useCallback(() => {
+    // Disconnect any existing observer
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    // Create a new observer
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && visibleItems < filteredWorks.length) {
+          setIsLoading(true);
+          
+          // Use requestAnimationFrame for smoother loading
+          requestAnimationFrame(() => {
+            setVisibleItems(prev => Math.min(prev + 12, filteredWorks.length));
+            
+            // Slight delay to ensure smooth transition
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 300);
+          });
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    // Observe the load more trigger
+    if (loadMoreTriggerRef.current) {
+      observerRef.current.observe(loadMoreTriggerRef.current);
+    }
+  }, [filteredWorks.length, visibleItems]);
+
+  // Infinite scroll setup effect
+  useEffect(() => {
+    setupInfiniteScroll();
+
+    // Cleanup observer
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [setupInfiniteScroll]);
   
   // Update selectedCategory when URL parameter changes
   useEffect(() => {
     if (categoryFromQuery && categories.includes(categoryFromQuery)) {
       setSelectedCategory(categoryFromQuery);
+      setVisibleItems(15);
     }
   }, [categoryFromQuery]);
   
-  // Use useMemo to create shuffled works for each category
-  const shuffledWorkCategories = useMemo(() => {
-    return Object.keys(workCategories).reduce((acc, category) => {
-      acc[category] = shuffleArray(workCategories[category]);
-      return acc;
-    }, {} as CategoryMap);
-  }, []);
-  
-  const filteredWorks = shuffledWorkCategories[selectedCategory] || [];
-  
+  // Memoized category change handler
   const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
+    setVisibleItems(15);
     
     // Update URL with the selected category without refreshing the page
     const url = new URL(window.location.href);
@@ -97,36 +237,31 @@ function WorkPageClient() {
     window.history.pushState({}, '', url);
   }, []);
   
-  const getHeightClass = (index: number) => {
-    // Modified to handle more varied heights if needed
-    const heightClasses = ["h-80", "h-96", "h-72", "h-64", "h-84", "h-64", "h-80", "h-96", "h-72", "h-84"];
-    return heightClasses[index % heightClasses.length];
-  };
-  
-  const openVideoModal = (work: WorkItem) => {
+  // Memoized modal open/close handlers
+  const openVideoModal = useCallback((work: WorkItem) => {
     setSelectedVideo(work);
     setVideoModalOpen(true);
     setIsPlaying(true);
-  };
+  }, []);
   
-  const closeVideoModal = () => {
+  const closeVideoModal = useCallback(() => {
     setVideoModalOpen(false);
     setSelectedVideo(null);
     setIsPlaying(false);
-  };
+  }, []);
 
-  const openImageModal = (work: WorkItem) => {
+  const openImageModal = useCallback((work: WorkItem) => {
     setSelectedImage(work);
     setImageModalOpen(true);
-  };
+  }, []);
   
-  const closeImageModal = () => {
+  const closeImageModal = useCallback(() => {
     setImageModalOpen(false);
     setSelectedImage(null);
-  };
+  }, []);
   
-  const handleModalBackdropClick = (e: React.MouseEvent) => {
-    // Check if the click is on the backdrop and not on the content
+  // Modal backdrop click handler
+  const handleModalBackdropClick = useCallback((e: React.MouseEvent) => {
     if (modalContentRef.current && !modalContentRef.current.contains(e.target as Node)) {
       if (imageModalOpen) {
         closeImageModal();
@@ -134,9 +269,10 @@ function WorkPageClient() {
         closeVideoModal();
       }
     }
-  };
+  }, [imageModalOpen, videoModalOpen, closeImageModal, closeVideoModal]);
   
-  const togglePlayPause = () => {
+  // Video play/pause toggle
+  const togglePlayPause = useCallback(() => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -145,8 +281,20 @@ function WorkPageClient() {
       }
       setIsPlaying(!isPlaying);
     }
-  };
-  
+  }, [isPlaying]);
+
+  // Render method for work items with memoization
+  const renderWorkItem = useCallback((work: WorkItem, index: number) => (
+    <MemoizedWorkItem
+      key={`${selectedCategory}-${index}-${work.title}`}
+      work={work}
+      index={index}
+      selectedCategory={selectedCategory}
+      openImageModal={openImageModal}
+      openVideoModal={openVideoModal}
+    />
+  ), [selectedCategory, openImageModal, openVideoModal]);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#E6DED7] via-[#F8F4EF] to-gray-100">
       <div className="max-w-7xl mx-auto px-4 md:py-40 py-12 pb-20">
@@ -177,7 +325,7 @@ function WorkPageClient() {
           </div>
         </div>
         
-        {/* Masonry Layout with Animations */}
+        {/* Masonry Layout with Horizontal-like Loading */}
         <AnimatePresence mode="wait">
           <motion.div 
             key={selectedCategory}
@@ -187,81 +335,22 @@ function WorkPageClient() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {filteredWorks.map((work, index) => {
-              const isVideo = work.type === "video" && work.video;
-              // Assign base height class
-              const heightClass = getHeightClass(index);
-              
-              return isVideo ? (
-                // Video items
-                <VideoAutoplay 
-                  key={`${selectedCategory}-${index}-${work.title}`}
-                  work={work}
-                  index={index}
-                  openModal={openVideoModal}
-                />
-              ) : (
-                // Image items with varying heights that don't change on hover
-                <motion.div 
-                  key={`${selectedCategory}-${index}-${work.title}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ 
-                    duration: 0.4, 
-                    delay: index * 0.05,
-                    ease: "easeOut"
-                  }}
-                  className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
-                  onClick={() => openImageModal(work)}
-                >
-                  <div 
-                    className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} min-h-[16rem] transform transition-all duration-500 ease-in-out hover:shadow-lg`}
-                  >
-                    {/* Image container */}
-                    <div className="absolute inset-0 w-full h-full">
-                      <Image 
-                        loading="lazy"
-                        src={work.image || work.thumbnail || "/placeholder.jpg"}
-                        alt={work.title || "Project image"}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
-                        onError={() => console.error(`Failed to load image for: ${work.title}`)}
-                      />
-                      
-                      {/* Overlay that appears on hover */}
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-                        aria-hidden="true"
-                      ></div>
-                    </div>
-                    
-                    {/* Content that appears on hover */}
-                    <div 
-                      className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out delay-75 pointer-events-none"
-                      aria-hidden="true"
-                    >
-                      <div>
-                        <span className="inline-block px-2 py-1 text-xs font-medium bg-pineGreen text-white rounded-md">
-                          {work.category || selectedCategory}
-                        </span>
-                      
-                        <div className="mt-4">
-                          {(work.tags?.length ? work.tags : ["Creative", "Design"]).map((tag, i) => (
-                            <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm mr-2 mb-2 inline-block">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {filteredWorks.slice(0, visibleItems).map(renderWorkItem)}
           </motion.div>
         </AnimatePresence>
+        
+        {/* Infinite Scroll Trigger with Smooth Loading */}
+        {visibleItems < filteredWorks.length && (
+          <motion.div 
+            ref={loadMoreTriggerRef}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isLoading ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="h-10 w-full text-center mt-4"
+          >
+            {isLoading && <p className="text-gray-500">Loading more...</p>}
+          </motion.div>
+        )}
         
         {/* Show message if no works found */}
         {filteredWorks.length === 0 && (
@@ -271,7 +360,6 @@ function WorkPageClient() {
         )}
       </div>
       
-      {/* Video Modal */}
       {videoModalOpen && selectedVideo && selectedVideo.video && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
@@ -351,6 +439,7 @@ function WorkPageClient() {
           </div>
         </div>
       )}
+
     </main>
   );
 }
