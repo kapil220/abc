@@ -13,7 +13,6 @@ import {
   commercialsWork, 
   postWork 
 } from "@/lib/constant";
-import VideoAutoplay from "@/components/media/VideoAutoplay";
 import { WorkItem } from "@/types";
 
 interface CategoryMap {
@@ -63,7 +62,7 @@ const precomputedShuffledWorks = Object.keys(workCategories).reduce((acc, catego
   return acc;
 }, {} as CategoryMap);
 
-// Memoized work item renderer
+// Memoized work item renderer with video thumbnail extraction
 const MemoizedWorkItem: React.FC<{ 
   work: WorkItem, 
   index: number, 
@@ -81,14 +80,103 @@ const MemoizedWorkItem: React.FC<{
   const heightClasses = ["h-80", "h-96", "h-72", "h-64", "h-84", "h-64", "h-80", "h-96", "h-72", "h-84"];
   const heightClass = heightClasses[index % heightClasses.length];
 
+  // Video thumbnail extraction
+  const [videoThumbnail, setVideoThumbnail] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isVideo && work.video) {
+      const video = document.createElement('video');
+      video.src = work.video;
+
+      const handleLoadedMetadata = () => {
+        video.currentTime = 1; // Seek to 1 second to get a representative frame
+      };
+
+      const handleTimeUpdate = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d')?.drawImage(video, 0, 0, canvas.width, canvas.height);
+        setVideoThumbnail(canvas.toDataURL());
+        
+        // Remove event listeners
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        video.removeEventListener('timeupdate', handleTimeUpdate);
+      };
+
+      video.addEventListener('loadedmetadata', handleLoadedMetadata);
+      video.addEventListener('timeupdate', handleTimeUpdate);
+
+      // Cleanup function
+      return () => {
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        video.removeEventListener('timeupdate', handleTimeUpdate);
+      };
+    }
+  }, [work.video, isVideo]);
+
   if (isVideo) {
     return (
-      <VideoAutoplay 
+      <motion.div 
         key={`${selectedCategory}-${index}-${work.title}`}
-        work={work}
-        index={index}
-        openModal={openVideoModal}
-      />
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ 
+          duration: 0.4, 
+          delay: index * 0.05,
+          ease: "easeOut"
+        }}
+        className="group cursor-pointer break-inside-avoid mb-6 will-change-transform"
+        onClick={() => openVideoModal(work)}
+      >
+        <div 
+          className={`relative overflow-hidden rounded-xl shadow-md ${heightClass} min-h-[16rem] transform transition-all duration-500 ease-in-out hover:shadow-lg`}
+        >
+          <div className="absolute inset-0 w-full h-full">
+            <Image 
+              loading="lazy"
+              src={videoThumbnail || "/placeholder.jpg"}
+              alt={`${work.title} Thumbnail`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-125 will-change-transform" 
+              onError={() => console.error(`Failed to load video thumbnail for: ${work.title}`)}
+            />
+            
+            {/* Video Play Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-black/50 rounded-full p-3">
+                <Play className="text-white w-8 h-8" />
+              </div>
+            </div>
+            
+            <div 
+              className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+              aria-hidden="true"
+            ></div>
+            
+            <div 
+              className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out delay-75 pointer-events-none"
+              aria-hidden="true"
+            >
+              <div>
+                <span className="inline-block px-2 py-1 text-xs font-medium bg-pineGreen text-white rounded-md">
+                  {work.category || selectedCategory}
+                </span>
+              
+                <div className="mt-4">
+                  {(work.tags?.length ? work.tags : ["Creative", "Design"]).map((tag, i) => (
+                    <span key={i} className="text-xs bg-white/20 text-white px-2 py-1 rounded backdrop-blur-sm mr-2 mb-2 inline-block">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     );
   }
 
@@ -112,7 +200,7 @@ const MemoizedWorkItem: React.FC<{
         <div className="absolute inset-0 w-full h-full">
           <Image 
             loading="lazy"
-            src={work.image || work.thumbnail || "/placeholder.jpg"}
+            src={work.image || "/placeholder.jpg"}
             alt={work.title || "Project image"}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -360,6 +448,7 @@ function WorkPageClient() {
         )}
       </div>
       
+      {/* Video Modal */}
       {videoModalOpen && selectedVideo && selectedVideo.video && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
@@ -367,7 +456,7 @@ function WorkPageClient() {
         >
           <div 
             ref={modalContentRef}
-            className="relative  rounded-xl overflow-hidden max-w-4xl w-full h-[80vh]"
+            className="relative rounded-xl overflow-hidden max-w-4xl w-full h-[80vh]"
           >
             <div className="relative w-full h-full flex items-center justify-center p-4">
               <div className="w-full h-full flex items-center justify-center relative">
@@ -405,7 +494,7 @@ function WorkPageClient() {
         </div>
       )}
 
-      {/* Image Modal - Optimized for full image visibility */}
+      {/* Image Modal */}
       {imageModalOpen && selectedImage && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
@@ -439,7 +528,6 @@ function WorkPageClient() {
           </div>
         </div>
       )}
-
     </main>
   );
 }
@@ -452,3 +540,5 @@ export default function WorkPage() {
     </Suspense>
   );
 }
+
+export { WorkPageClient };
