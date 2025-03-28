@@ -387,6 +387,8 @@ export const realEstateWork = [
     description: "Produced photorealistic 3D walkthroughs of pre-construction properties to help clients visualize finished spaces.",
     video: "/video/realvideo2.mp4", 
     type: "video",
+
+    thumbnail: "/images/thumb2.webp",
     tags: ["3D Rendering", "Architectural", "Pre-visualization"]
   },
   {
@@ -401,6 +403,7 @@ export const realEstateWork = [
     description: "Produced a cinematic video showcase highlighting architectural features, interior design, and surrounding landscape of a luxury property.",
     video: "/video/realvideo1.mp4",
     type: "video",
+    thumbnail: "/images/thumb5.webp",
     tags: ["Cinematic", "Storytelling", "Luxury Property"]
   },
   {
@@ -422,6 +425,7 @@ export const realEstateWork = [
     description: "Created an interactive 3D visualization allowing potential tenants to explore and customize commercial office spaces.",
     video: "/video/realvideo3.mp4", 
     type: "video",
+    thumbnail: "/images/thumb4.webp",
     tags: ["Commercial Real Estate", "Interactive", "Space Planning"]
   },
   {
@@ -564,6 +568,7 @@ export const foodRestaurantWork = [
     title: "Culinary Techniques Masterclass",
     description: "Produced an educational video series featuring a renowned chef demonstrating signature techniques and recipes.",
     video: "/video/res.mp4",
+    thumbnail: "/images/thumb6.webp",
     type: "video",
     tags: ["Educational", "Techniques", "Masterclass"]
   },
@@ -586,6 +591,7 @@ export const foodRestaurantWork = [
     description: "Created an immersive short film showcasing a restaurant's unique atmosphere, service style, and guest experience.",
     video: "/video/res2.mp4",
     type: "video",
+    thumbnail: "/images/thumb7.webp",
     tags: ["Documentary", "Service", "Guest Experience"]
   },
   {
@@ -593,6 +599,7 @@ export const foodRestaurantWork = [
     description: "Produced a video story following ingredients from local farms to final dishes, highlighting sustainability practices.",
     video: "/video/res3.mp4",
     type: "video",
+    thumbnail: "/images/thumb3.webp",
     tags: ["Sustainability", "Local Sourcing", "Farm Relationships"]
   },
   {
@@ -805,6 +812,7 @@ export const commercialsWork = [
     description: "Directed a high-end commercial showcasing craftsmanship, materials, and design philosophy of luxury shoes.",
     video: "/video/shoes.mp4",
     type: "video",
+    thumbnail: "/images/thumb1.webp",
     tags: ["Footwear", "Craftsmanship", "Luxury"]
   },
   {
@@ -812,6 +820,7 @@ export const commercialsWork = [
     description: "Created performance-focused visual content for athletic footwear highlighting technical features and athlete testimonials.",
     image: "/images/shoe.webp",
     type: "image",
+    thumbnail: "/images/thumb1.webp",
     tags: ["Athletic", "Performance", "Technical"]
   },
   {

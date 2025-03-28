@@ -25,7 +25,7 @@ export default function RootLayout({ children, loading }: RootLayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
-        <link rel="icon" type="image/webp" href={metadata.icons.icon} />
+        <link rel="icon" type="images/webp" href={metadata.icons.icon} />
         <link rel="stylesheet" href="https://use.typekit.net/YOUR-KIT-ID.css" />
         <link
           rel="stylesheet"
