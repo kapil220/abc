@@ -1,14 +1,16 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import Loading from "./loading";// Import your Loading component
+import Loading from "./loading"; // Import your Loading component
 import "@/styles/globals.css";
 
 export const metadata = {
   title: "The Ink Pot Group",
   description: "Delivering exceptional visual content for your brand",
   icons: {
-    icon: "/images/logo.webp", // Ensure this path is correct
+    icon: "/favicon.ico", // Recommended for browsers
+    shortcut: "/favicon.png", // Alternative shortcut icon
+    apple: "/apple-touch-icon.png", // Apple devices
   },
 };
 
@@ -25,7 +27,6 @@ export default function RootLayout({ children, loading }: RootLayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
-        <link rel="icon" type="images/webp" href={metadata.icons.icon} />
         <link rel="stylesheet" href="https://use.typekit.net/YOUR-KIT-ID.css" />
         <link
           rel="stylesheet"
@@ -36,7 +37,7 @@ export default function RootLayout({ children, loading }: RootLayoutProps) {
         <SpeedInsights />
         <div className="min-h-screen flex flex-col">
           {loading ? (
-            <Loading /> // Render the Loading component conditionally based on loading prop
+            <Loading /> // Render the Loading component conditionally
           ) : (
             <>
               <Header />
