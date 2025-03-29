@@ -100,7 +100,7 @@ const Header: React.FC = () => {
               toggleDropdown={toggleServicesDropdown}
             />
             <NavLink href="/work">Our Work</NavLink>
-            <NavLink href="/" onClick={() => {
+            <NavLink href="/#contact" onClick={() => {
       localStorage.setItem('scrollToContact', 'true');
     }}>Contact Us</NavLink>
           </nav>
@@ -121,7 +121,7 @@ const Header: React.FC = () => {
             onLinkClick={closeMenu}
           />
           <NavLink href="/work" onClick={closeMenu}>Our Work</NavLink>
-          <NavLink href="/"  onClick={() => {
+          <NavLink href="/#contact"  onClick={() => {
     closeMenu();
     localStorage.setItem('scrollToContact', 'true');
   }} >Contact Us</NavLink>
