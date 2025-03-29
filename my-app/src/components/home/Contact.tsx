@@ -367,7 +367,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   const selectedCountry = countryCodes.find(c => c.code === formData.countryCode);
   
   return (
-    <div className="h-full flex flex-col py-12 md:py-16 lg:py-20 lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] font-body">
+    <div id='contact' className="h-full flex flex-col py-12 md:py-16 lg:py-20 lg:flex-row bg-gradient-to-b from-gray-100 via-[#F8F4EF] to-[#E6DED7] font-body">
       {/* Left Section - Schedule Meeting */}
       <motion.div 
           className="order-2 lg:order-1 lg:w-1/2 p-6 lg:p-6 lg:pl-44 md:pl-24 flex flex-col justify-center items-center"

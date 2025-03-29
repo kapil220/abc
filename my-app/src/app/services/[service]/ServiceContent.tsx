@@ -209,15 +209,18 @@ export default function ServiceContent({ service }: ServiceContentProps) {
                 {service.fullContent.conclusion}
               </p>
               <div className="flex justify-center">
-      <Link href="/#contact">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-10 py-4 bg-pineGreen font-subheading font-bold text-white rounded-full shadow-xl hover:bg-pineGreen/90 transition-colors"
-        >
-          Get Started Today
-        </motion.button>
-      </Link>
+              <Link href="/">
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="px-10 py-4 bg-pineGreen font-subheading font-bold text-white rounded-full shadow-xl hover:bg-pineGreen/90 transition-colors"
+    onClick={() => {
+      localStorage.setItem('scrollToContact', 'true');
+    }}
+  >
+    Get Started Today
+  </motion.button>
+</Link>
     </div>
             </div>
           </div>

@@ -17,6 +17,26 @@ const Home: React.FC = () => {
     setTimeout(() => setIsLoading(false), 1500); // Simulate loading delay
   }, []);
 
+  useEffect(() => {
+    // Only run this effect after loading is complete
+    if (!isLoading) {
+      const shouldScrollToContact = localStorage.getItem('scrollToContact');
+      
+      if (shouldScrollToContact === 'true') {
+        // Clear the flag immediately
+        localStorage.removeItem('scrollToContact');
+        
+        // Give the page time to fully render
+        setTimeout(() => {
+          const contactSection = document.getElementById('contact');
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    }
+  }, [isLoading]); // This effect runs when isLoading changes to false
+
   if (isLoading) return <Loading />; // Show loading screen while loading
 
   return (
