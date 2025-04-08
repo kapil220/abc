@@ -32,6 +32,18 @@ export default function RootLayout({ children, loading }: RootLayoutProps) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@400;500;700&display=swap"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "The Ink Pot Group",
+              "url": "https://www.theinkpotgroup.com", // Replace with your actual domain
+              "logo": "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106859/landing/images/owafv6v5yvra8dsnoqmy.webp" // Your Cloudinary logo URL
+            })
+          }}
+        />
       </head>
       <body className="font-body">
         <SpeedInsights />

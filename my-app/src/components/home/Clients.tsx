@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 const clientLogos = [
   'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106771/landing/images/mdxmgryzg4iotixvdr5l.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744131525/landing/images/oexll9rjqd46zyotxs6a.jpg',
   'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106772/landing/images/pguddll7yak6tplld2q2.webp',
  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106778/landing/images/vkevdygiqjblo7mkdapo.webp',
   'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106773/landing/images/rhyrqca4vstx4taq0zcl.webp',
@@ -12,6 +13,8 @@ const clientLogos = [
   'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106775/landing/images/x8acrpcmphjxo8m6kvki.webp',
   'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106776/landing/images/pkfw7zrjjdfou8q8bq7f.webp',
   'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106777/landing/images/dhbeqapyfkyicgkhnguo.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744131525/landing/images/oexll9rjqd46zyotxs6a.jpg',
+
   
   
 ];
@@ -28,8 +31,7 @@ const Clients = () => {
           Our Clients
         </h2>
         
-        {/* Mobile View - Grid Layout */}
-       {/* Mobile View - Grid Layout */}
+      
 <div className="block sm:hidden">
   <div className="grid grid-cols-2 gap-3 items-center">
     {clientLogos.map((logo, index) => {

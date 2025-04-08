@@ -83,45 +83,22 @@ const TestimonialsPage: React.FC = () => {
 
   // Auto-rotation effect
   useEffect(() => {
-    const startAutoPlay = () => {
-      autoPlayRef.current = setInterval(() => {
-        if (autoPlay && !userInteractedRef.current) {
-          moveCarousel('next', false);
-        }
-        userInteractedRef.current = false;
-      }, 3000);
-    };
-
-    startAutoPlay();
-
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-      }
-    };
-  }, [autoPlay]);
-
-  // Reset auto-rotation when activeIndex changes
-  useEffect(() => {
-    if (autoPlayRef.current) {
-      clearInterval(autoPlayRef.current);
-    }
-    
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+  
     if (autoPlay) {
       autoPlayRef.current = setInterval(() => {
-        if (autoPlay && !userInteractedRef.current) {
+        if (!userInteractedRef.current) {
           moveCarousel('next', false);
         }
         userInteractedRef.current = false;
-      }, 3000);
+      }, 2000);
     }
-
+  
     return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-      }
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
-  }, [activeIndex, autoPlay]);
+  }, [autoPlay]);
+  
 
   const moveCarousel = (direction: 'prev' | 'next', userInitiated: boolean = true) => {
     if (isAnimating) return;
