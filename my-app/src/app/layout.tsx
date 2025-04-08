@@ -33,17 +33,17 @@ export default function RootLayout({ children, loading }: RootLayoutProps) {
           href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@400;500;700&display=swap"
         />
         <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: `{
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "The Ink Pot Group",
-              "url": "https://www.theinkpotgroup.com",
-              "logo": "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106859/landing/images/owafv6v5yvra8dsnoqmy.webp",
-            }`
-          }}
-        />
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: `{
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "The Ink Pot Group",
+      "url": "https://www.theinkpotgroup.com",
+      "logo": "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106859/landing/images/owafv6v5yvra8dsnoqmy.webp"
+    }`
+  }}
+/>
       </head>
       <body className="font-body">
         <SpeedInsights />
