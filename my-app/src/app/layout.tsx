@@ -35,13 +35,13 @@ export default function RootLayout({ children, loading }: RootLayoutProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: `{
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "The Ink Pot Group",
-              "url": "https://www.theinkpotgroup.com", // Replace with your actual domain
-              "logo": "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106859/landing/images/owafv6v5yvra8dsnoqmy.webp" // Your Cloudinary logo URL
-            })
+              "url": "https://www.theinkpotgroup.com",
+              "logo": "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106859/landing/images/owafv6v5yvra8dsnoqmy.webp",
+            }`
           }}
         />
       </head>
