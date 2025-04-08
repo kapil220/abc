@@ -27,9 +27,18 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  // Optional: Configure allowed image domains if needed
+  // ✅ Image configuration
   images: {
-    domains: ['www.theinkpotgroup.com'] // Ensure correct domain format
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.theinkpotgroup.com',
+      }
+    ]
   },
 };
 

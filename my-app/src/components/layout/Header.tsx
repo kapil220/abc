@@ -56,7 +56,7 @@ const Header: React.FC = () => {
               <div className="flex items-center cursor-pointer">
                 <Image 
                   className="h-16 md:h-28 w-auto max-w-full object-contain"  
-                  src="/images/logo.webp" 
+                  src="https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106859/landing/images/owafv6v5yvra8dsnoqmy.webp" 
                   alt="Logo" 
                   width={120}  
                   height={50}  

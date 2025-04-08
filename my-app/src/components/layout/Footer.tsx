@@ -16,7 +16,7 @@ const Footer = () => {
           <div className="flex flex-col items-center filter brightness-51 cursor-pointer">
             <Image 
               className="h-40 w-auto" 
-              src="/images/logowhite.png" 
+              src="https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106860/landing/images/r3sh2cqsvrjvae3fh6av.png" 
               alt="Logo" 
               width={120}  
               height={50}  

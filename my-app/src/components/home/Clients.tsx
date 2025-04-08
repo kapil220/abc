@@ -3,15 +3,15 @@ import React from 'react';
 import Image from 'next/image';
 
 const clientLogos = [
-  '/images/client1.webp',
-  '/images/client2.webp',
- '/images/client9.webp',
-  '/images/client3.webp',
-  '/images/client4.webp',
-  '/images/client5.webp',
-  '/images/client6.webp',
-  '/images/client7.webp',
-  '/images/client8.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106771/landing/images/mdxmgryzg4iotixvdr5l.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106772/landing/images/pguddll7yak6tplld2q2.webp',
+ 'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106778/landing/images/vkevdygiqjblo7mkdapo.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106773/landing/images/rhyrqca4vstx4taq0zcl.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106773/landing/images/mgvxfeno8ppyzccdbxwe.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106774/landing/images/kvgmoosjcjqy7syiml3p.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106775/landing/images/x8acrpcmphjxo8m6kvki.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106776/landing/images/pkfw7zrjjdfou8q8bq7f.webp',
+  'https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106777/landing/images/dhbeqapyfkyicgkhnguo.webp',
   
   
 ];

@@ -6,7 +6,7 @@ const Loading = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-isabelline text-taupe">
       <motion.img
-        src="/images/logo.webp"
+        src="https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106859/landing/images/owafv6v5yvra8dsnoqmy.webp"
         alt="Company Logo"
         className="w-32 h-auto mb-4"
         initial={{ opacity: 0, scale: 0.8 }}

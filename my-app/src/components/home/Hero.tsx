@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
         loop
         playsInline
       >
-        <source src="/video/Home.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dmqkf89ib/video/upload/v1744107070/landing/videos/ccixh0oxilyzn0fftnfd.mp4" type="video/mp4" />
         Writing your Success Stories
       </video>
       <div className="absolute inset-0 " />
