@@ -391,13 +391,7 @@ export const realEstateWork = [
     thumbnail: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744107026/landing/images/cjbwguwmtijxsytxnb4t.webp",
     tags: ["3D Rendering", "Architectural", "Pre-visualization"]
   },
-  {
-    title: "Real Estate Lead Generation Campaign",
-    description: "Designed and implemented a multi-platform social media strategy resulting in 45% increase in qualified property inquiries.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106973/landing/images/yk1i9gnfmltwamkwrua4.webp",
-    type: "image",
-    tags: ["Lead Generation", "Digital Strategy", "Conversion"]
-  },
+  
   {
     title: "Premium Estate Cinematic Tour",
     description: "Produced a cinematic video showcase highlighting architectural features, interior design, and surrounding landscape of a luxury property.",
@@ -744,13 +738,7 @@ export const foodRestaurantWork = [
 ];
 
 export const commercialsWork = [
-  {
-    title: "National Brand Campaign",
-    description: "Directed and produced a multi-platform commercial campaign for national television and digital streaming services.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106767/landing/images/rlkxzmmd3vipncihgt3b.webp",
-    type: "image",
-    tags: ["National", "Multi-Platform", "Campaign"]
-  },
+ 
   {
     title: "Emotional Storytelling Commercial",
     description: "Created a narrative-driven commercial focusing on emotional connection and brand values rather than product features.",
@@ -765,13 +753,7 @@ export const commercialsWork = [
     type: "image",
     tags: ["Product Launch", "Technical", "Demonstration"]
   },
-  {
-    title: "Corporate Documentary",
-    description: "Produced a mini-documentary showcasing company history, mission, and impact for investor relations and recruitment.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106764/landing/images/chhpygbmt6rkscfg01kg.webp",
-    type: "image",
-    tags: ["Documentary", "Corporate History", "Investor Relations"]
-  },
+ 
   {
     title: "Executive Interview Series",
     description: "Created a professional interview series featuring leadership perspectives on industry trends and company vision.",
@@ -793,28 +775,9 @@ export const commercialsWork = [
     type: "image",
     tags: ["Annual Report", "Financial", "Stakeholder Communication"]
   },
-  {
-    title: "Product Demonstration Video",
-    description: "Created a detailed walkthrough of product functionality, features, and benefits with professional demonstration.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106766/landing/images/iw6txfprps7xinnimb39.webp",
-    type: "image",
-    tags: ["Product Demo", "Walkthrough", "Features"]
-  },
-  {
-    title: "Lifestyle Brand Campaign",
-    description: "Produced authentic lifestyle content featuring real users engaging with products in natural environments.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106768/landing/images/xoodje65i9atrzkayvpk.webp",
-    type: "image",
-    tags: ["Lifestyle", "Authentic", "User-Generated"]
-  },
-  {
-    title: "Premium Footwear Commercial",
-    description: "Directed a high-end commercial showcasing craftsmanship, materials, and design philosophy of luxury shoes.",
-    video: "https://res.cloudinary.com/dmqkf89ib/video/upload/v1744107136/landing/videos/u0pcbtmjyjq58hq0ifh8.mp4",
-    type: "video",
-    thumbnail: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744107025/landing/images/hoqlfopinefgvaqbphij.webp",
-    tags: ["Footwear", "Craftsmanship", "Luxury"]
-  },
+ 
+
+
   {
     title: "Athletic Shoe Campaign",
     description: "Created performance-focused visual content for athletic footwear highlighting technical features and athlete testimonials.",
@@ -823,13 +786,7 @@ export const commercialsWork = [
     thumbnail: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744107025/landing/images/hoqlfopinefgvaqbphij.webp",
     tags: ["Athletic", "Performance", "Technical"]
   },
-  {
-    title: "Influencer Collaboration Campaign",
-    description: "Managed production of authentic content through strategic partnerships with niche influencers aligned with brand values.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106769/landing/images/eyattgd70shrxdu3chdi.webp",
-    type: "image",
-    tags: ["Influencer", "Collaboration", "Authentic"]
-  },
+ 
 ];
 
 export const postWork = [
