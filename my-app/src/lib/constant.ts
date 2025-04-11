@@ -916,13 +916,7 @@ export const postWork = [
     type: "image",
     tags: ["Platform-Specific", "Algorithm Optimization", "Audience Targeting"]
   },
-  {
-    title: "Brand Story Carousel Series3",
-    description: "Created a multi-slide carousel series that progressively reveals brand history, values, and differentiators.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106876/landing/images/zb5eoo70tmrrvbfkfzvy.webp",
-    type: "image",
-    tags: ["Carousel", "Progressive Narrative", "Brand History"]
-  },
+
   {
     title: "Visual Identity System for Social3",
     description: "Developed a comprehensive visual system with templates, color palettes, and graphic elements for consistent brand presence.",
@@ -945,20 +939,8 @@ export const postWork = [
     type: "image",
     tags: ["Seasonal", "Promotional", "Adaptable"]
   },
-  {
-    title: "Engagement-Driven Content Series3",
-    description: "Created a cohesive set of interactive and shareable posts designed to maximize audience engagement and participation.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106883/landing/images/vv6rhzqqpn5f9dycqxxk.webp",
-    type: "image",
-    tags: ["Interactive", "Engagement", "Series"]
-  },
-  {
-    title: "Conversion-Optimized Ad Campaign3",
-    description: "Designed and tested multiple ad variations with strategic messaging and CTAs resulting in 37% conversion improvement.",
-    image: "https://res.cloudinary.com/dmqkf89ib/image/upload/v1744106884/landing/images/xngqqhjenq85xwgwd1ap.webp",
-    type: "image",
-    tags: ["Conversion", "A/B Testing", "Call-to-Action"]
-  },
+ 
+
   {
     title: "Platform-Specific Visual Strategy3",
     description: "Developed tailored visual content optimized for each platform's unique audience, algorithm, and content preferences.",

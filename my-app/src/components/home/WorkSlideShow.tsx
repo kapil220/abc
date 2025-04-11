@@ -143,7 +143,7 @@ const WorkSection: React.FC = () => {
       return "Food & Restaurant";
     } else if (commercialsWork.some(item => 
       item.title === work.title || 
-      (item.video && item.video === work.video) || 
+      
       (item.image && item.image === work.image)
     )) {
       return "Commercials";
